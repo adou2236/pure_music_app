@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b5968517-a06e-439a-b186-648914423d8e" name="Default Changelist" comment="" />
+    <list default="true" id="b5968517-a06e-439a-b186-648914423d8e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allRouter/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/allRouter/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Manifest.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Manifest.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/yangrui.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/yangrui.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests-acknowledgements.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests-acknowledgements.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests-acknowledgements.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests-acknowledgements.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests-resources.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests-resources.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests.debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-pure_music_appTests/Pods-pure_music_app-pure_music_appTests.release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOS/Pods-pure_music_app-tvOS.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOS/Pods-pure_music_app-tvOS.debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOS/Pods-pure_music_app-tvOS.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOS/Pods-pure_music_app-tvOS.release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOSTests/Pods-pure_music_app-tvOSTests.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOSTests/Pods-pure_music_app-tvOSTests.debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOSTests/Pods-pure_music_app-tvOSTests.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app-tvOSTests/Pods-pure_music_app-tvOSTests.release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app-acknowledgements.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app-acknowledgements.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app-acknowledgements.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app-acknowledgements.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app-resources.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app-resources.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app.debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-pure_music_app/Pods-pure_music_app.release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/pure_music_app.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/pure_music_app.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/pure_music_app/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/pure_music_app/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Hot/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Hot/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +37,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -24,7 +52,7 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1jrYn4vTHjskjSaRngtTHtSAT85" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -39,9 +67,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/views/ArtistList" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
@@ -96,6 +128,9 @@
       <option name="presentableId" value="Default" />
       <updated>1604563840353</updated>
       <workItem from="1604563841755" duration="26519000" />
+      <workItem from="1604827273203" duration="16569000" />
+      <workItem from="1604884475312" duration="450000" />
+      <workItem from="1604933137685" duration="4785000" />
     </task>
     <servers />
   </component>
@@ -103,6 +138,10 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="581" y="349" key="#ESLint" timestamp="1604846593310">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="581" y="349" key="#ESLint/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604846593310" />
     <state x="507" y="235" key="#Web_Browsers" timestamp="1604633788892">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -111,22 +150,38 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1604634347141" />
-    <state width="1419" height="245" key="GridCell.Tab.0.bottom" timestamp="1604675005650">
+    <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604837835108">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604837835108" />
+    <state width="1419" height="245" key="GridCell.Tab.0.bottom" timestamp="1604933995268">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1419" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604933995268" />
     <state width="1419" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1604675005650" />
-    <state width="1419" height="245" key="GridCell.Tab.0.center" timestamp="1604675005640">
+    <state width="1419" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337897" />
+    <state width="1419" height="245" key="GridCell.Tab.0.center" timestamp="1604933995267">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state width="1419" height="245" key="GridCell.Tab.0.center/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604933995267" />
     <state width="1419" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1604675005640" />
-    <state width="1419" height="245" key="GridCell.Tab.0.left" timestamp="1604675005617">
+    <state width="1419" height="245" key="GridCell.Tab.0.center/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337886" />
+    <state width="1419" height="245" key="GridCell.Tab.0.left" timestamp="1604933995266">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state width="1419" height="245" key="GridCell.Tab.0.left/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604933995266" />
     <state width="1419" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1604675005617" />
-    <state width="1419" height="245" key="GridCell.Tab.0.right" timestamp="1604675005649">
+    <state width="1419" height="245" key="GridCell.Tab.0.left/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337880" />
+    <state width="1419" height="245" key="GridCell.Tab.0.right" timestamp="1604933995267">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state width="1419" height="245" key="GridCell.Tab.0.right/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604933995267" />
     <state width="1419" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1604675005649" />
+    <state width="1419" height="245" key="GridCell.Tab.0.right/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337895" />
+    <state x="385" y="196" key="search.everywhere.popup" timestamp="1604830217541">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" key="search.everywhere.popup/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604830217541" />
     <state x="450" y="294" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1604635331351">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

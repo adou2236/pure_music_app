@@ -20,6 +20,12 @@ import {
 } from 'react-native';
 import APPNavigator from './allRouter';
 const {StatusBarManager} = NativeModules;
+import {
+  Colors,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from 'react-native-paper';
+import PlayerView from './views/playerView';
 
 let statusBarHeight;
 if (Platform.OS === 'ios') {
@@ -30,11 +36,24 @@ if (Platform.OS === 'ios') {
   statusBarHeight = StatusBar.currentHeight;
 }
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.blue200,
+    accent: '#f1c40f',
+  },
+};
+
 const App: () => React$Node = () => {
   return (
     <>
-      <SafeAreaView style={[styles.container, {marginTop: statusBarHeight}]}>
-        <APPNavigator />
+      <SafeAreaView style={[styles.container]}>
+        <PaperProvider theme={theme}>
+          <APPNavigator />
+          <PlayerView />
+        </PaperProvider>
       </SafeAreaView>
     </>
   );
