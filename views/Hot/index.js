@@ -13,7 +13,7 @@ export default class Hot extends Component {
     const {navigation} = this.props;
     return (
       <View style={{backgroundColor:'red',height:200}}>
-        <Button onPress={() => navigation.navigate('Setting')}>跳转</Button>
+        <Button onPress={() => navigation.navigate('MusicList')}>跳转</Button>
       </View>
     );
   }

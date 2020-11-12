@@ -26,6 +26,7 @@ import {
   Provider as PaperProvider,
 } from 'react-native-paper';
 import PlayerView from './views/playerView';
+import {block} from 'react-native-reanimated';
 
 let statusBarHeight;
 if (Platform.OS === 'ios') {
@@ -50,8 +51,9 @@ const App: () => React$Node = () => {
   return (
     <>
       <SafeAreaView style={[styles.container]}>
-        <PaperProvider theme={theme}>
-          <APPNavigator />
+        <PaperProvider style={styles.Main} theme={theme}>
+          <APPNavigator style={{flex: 1}} />
+          {/*此处为绝对定位*/}
           <PlayerView />
         </PaperProvider>
       </SafeAreaView>
@@ -63,6 +65,13 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
+    flex: 1,
+  },
+  Main: {
+    display: 'flex',
+  },
+  fakeBox: {
+    height: 53,
   },
 });
 

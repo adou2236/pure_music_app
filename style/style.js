@@ -1,14 +1,15 @@
 import {StyleSheet} from 'react-native';
 var globalStyle = StyleSheet.create({
   miniPlayer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    // position: 'absolute',
+    // bottom: 0,
+    // left: 0,
+    // right: 0,
     height: 53,
     fontSize: 20,
     borderTopWidth: 1,
     borderColor: 'red',
+    // backgroundColor: 'white',
   },
   miniCover: {
     zIndex: 5,

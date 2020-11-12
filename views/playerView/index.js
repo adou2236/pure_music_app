@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
-  Slider,
   Platform,
 } from 'react-native';
+import Slider from '@react-native-community/slider';
 import globalStyle from '../../style/style';
 import {Button, ProgressBar, Colors, IconButton} from 'react-native-paper';
 import {VibrancyView, BlurView} from 'react-native-blur';
@@ -40,6 +40,7 @@ export default class playerView extends Component {
     this.spinAnimated = Animated.timing(this.state.spinValue, {
       toValue: 1,
       duration: 20000,
+      useNativeDriver: true,
       easing: Easing.inOut(Easing.linear),
     });
   }
@@ -63,6 +64,7 @@ export default class playerView extends Component {
         this.spinAnimated = Animated.timing(this.state.spinValue, {
           toValue: 1,
           duration: 20000,
+          useNativeDriver: true,
           easing: Easing.inOut(Easing.linear),
         });
         this.spining();
@@ -73,6 +75,7 @@ export default class playerView extends Component {
         this.spinAnimated = Animated.timing(this.state.spinValue, {
           toValue: 1,
           duration: 20000,
+          useNativeDriver: true,
           easing: Easing.inOut(Easing.linear),
         });
       });
@@ -242,6 +245,7 @@ export default class playerView extends Component {
                 velocity: 2, //初始速度
                 friction: 8, //摩擦力值
                 duration: 1500, //
+                useNativeDriver: true,
               }).start(() => {
                 this.setState({
                   isClose: false,
@@ -333,6 +337,7 @@ export default class playerView extends Component {
                     velocity: 2, //初始速度
                     friction: 8, //摩擦力值
                     duration: 1500, //
+                    useNativeDriver: true,
                   }).start(() => {
                     this.setState({
                       isOpen: false,

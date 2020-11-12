@@ -8,7 +8,7 @@ import PlayerView from '../views/playerView';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {Button, Drawer} from 'react-native-paper';
+import {Button, Drawer, Provider as PaperProvider} from 'react-native-paper';
 import {Text, View} from 'react-native';
 import SideMenu from 'react-native-side-menu';
 
@@ -55,38 +55,40 @@ export default class APPNavigator extends Component {
   }
   render() {
     return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            options={{
-              headerTitle: null,
-              headerLeft: () => (
-                <Button
-                  onPress={() => {
-                    this.setState({
-                      isOpen: !this.state.isOpen,
-                    });
-                  }}>
-                  打开
-                </Button>
-              ),
-              headerRight: (e) => (
-                <Button
-                  onPress={(a) => console.log(this)}
-                  title="Info"
-                  color="#00cc00">
-                  搜索
-                </Button>
-              ),
-            }}
-            name="Home"
-            component={this.HomePage.bind(this)}
-          />
-          <Stack.Screen name="MusicList" component={MusicList} />
-          <Stack.Screen name="Search" component={Search} />
-          <Stack.Screen name="Setting" component={Setting} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              options={{
+                headerTitle: null,
+                headerLeft: () => (
+                  <Button
+                    onPress={() => {
+                      this.setState({
+                        isOpen: !this.state.isOpen,
+                      });
+                    }}>
+                    打开
+                  </Button>
+                ),
+                headerRight: (e) => (
+                  <Button
+                    onPress={(a) => console.log(this)}
+                    title="Info"
+                    color="#00cc00">
+                    搜索
+                  </Button>
+                ),
+              }}
+              name="Home"
+              component={this.HomePage.bind(this)}
+            />
+            <Stack.Screen name="MusicList" component={MusicList} />
+            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Setting" component={Setting} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </>
     );
   }
 }
