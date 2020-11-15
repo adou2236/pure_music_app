@@ -18,18 +18,14 @@ import Video from 'react-native-video';
 export default class playerView extends Component {
   constructor(props) {
     super(props);
+    console.log('播放列表为', props);
     this.rotation = false;
     this.state = {
+      currentPlaying: 0,
       isOpen: false,
       isClose: true,
-      cover:
-        'https://p2.music.126.net/MAPezKykfIK5PGhpJS1t0w==/109951163959563220.jpg',
-      defaultMusic: {
-        uri:
-          'https://hifini.com/get_music.php?key=/EMMQfO3LHC4myJ7kfRf4IAPJU48bsE3wijdlAGRY2Ue/L++NDQxYQvz37o',
-        artist: '林俊杰',
-        name: '心墙',
-      },
+      playMode: 'repeat',
+      playModeList: ['repeat', 'repeat-once', 'repeat-off'],
       player: null,
       currentTime: 0,
       duration: 1,
@@ -110,8 +106,41 @@ export default class playerView extends Component {
   videoError = () => {};
   onTimedMetadata = () => {};
   onBuffer = () => {};
-  onEnd = () => {};
+  onEnd = () => {
+    console.log('播放结束');
+    const {playMode, currentPlaying} = this.state;
+    switch (playMode) {
+      case 'repeat':
+        this.nextSong(currentPlaying + 1);
+        break;
+      case 'repeat-off':
+        if (currentPlaying + 1 === this.props.playList.length) {
+          this.pauseControl();
+        } else {
+          this.nextSong(currentPlaying + 1);
+        }
+        break;
+    }
+  };
   LoadStart() {}
+  preSong = (v) => {
+    this.setState({
+      currentPlaying:
+        (this.props.playList.length + v) % this.props.playList.length,
+    });
+  };
+  nextSong = (v) => {
+    this.setState({
+      currentPlaying: v % this.props.playList.length,
+    });
+  };
+  playMode = (v) => {
+    let index = this.state.playModeList.indexOf(v);
+    index = (index + 1) % 3;
+    this.setState({
+      playMode: this.state.playModeList[index],
+    });
+  };
   render() {
     const styles = StyleSheet.create({
       container: {
@@ -135,7 +164,7 @@ export default class playerView extends Component {
         width: '100%',
         height: 64,
         borderBottomWidth: 1,
-        borderColor: 'white'
+        borderColor: 'white',
       },
       navBarContent: {
         display: 'flex',
@@ -205,12 +234,14 @@ export default class playerView extends Component {
     let {
       isOpen,
       isClose,
-      cover,
       defaultMusic,
       duration,
       currentTime,
       isPause,
+      playMode,
+      currentPlaying,
     } = this.state;
+    let {playList} = this.props;
     const miniPlayer = (
       <View style={globalStyle.miniPlayer}>
         <View
@@ -223,7 +254,7 @@ export default class playerView extends Component {
           }}>
           <View style={globalStyle.miniCover}>
             <Image
-              source={{uri: this.state.cover}}
+              source={{uri: playList[currentPlaying].cover}}
               style={{position: 'absolute', height: '100%', width: '100%'}}
             />
             <IconButton
@@ -256,8 +287,12 @@ export default class playerView extends Component {
               });
             }}>
             <View>
-              <Text style={{fontSize: 15}}>{defaultMusic.name}</Text>
-              <Text style={{fontSize: 10}}>{defaultMusic.artist}</Text>
+              <Text style={{fontSize: 15}}>
+                {playList[currentPlaying].name}
+              </Text>
+              <Text style={{fontSize: 10}}>
+                {playList[currentPlaying].artist}
+              </Text>
             </View>
           </TouchableOpacity>
 
@@ -306,7 +341,7 @@ export default class playerView extends Component {
             this.backgroundImage = img;
           }}
           style={styles.bgContainer}
-          source={{uri: cover}}
+          source={{uri: playList[currentPlaying].cover}}
           resizeMode="cover"
         />
         <View style={styles.bgContainer}>
@@ -330,6 +365,7 @@ export default class playerView extends Component {
             <View style={styles.navBarContent}>
               <IconButton
                 icon="chevron-down"
+                color={'white'}
                 size={20}
                 onPress={() => {
                   Animated.spring(this.state.scaleAnimate, {
@@ -349,8 +385,12 @@ export default class playerView extends Component {
                 }}
               />
               <View style={{alignItems: 'center'}}>
-                <Text style={styles.title}>{defaultMusic.name}</Text>
-                <Text style={styles.subTitle}>{defaultMusic.artist}</Text>
+                <Text style={styles.title}>
+                  {playList[currentPlaying].name}
+                </Text>
+                <Text style={styles.subTitle}>
+                  {playList[currentPlaying].artist}
+                </Text>
               </View>
               <IconButton
                 style={{marginTop: 5}}
@@ -389,7 +429,7 @@ export default class playerView extends Component {
                 },
               ],
             }}
-            source={{uri: cover}}
+            source={{uri: playList[currentPlaying].cover}}
           />
           <View style={{flex: 1}}>
             <View
@@ -400,12 +440,13 @@ export default class playerView extends Component {
                 justifyContent: 'space-around',
                 bottom: -60,
               }}>
-              <IconButton icon="play" size={20} />
-              <IconButton icon="play" size={20} />
+              {/*功能按钮区*/}
+              {/*<IconButton icon="play" size={20} />*/}
+              {/*<IconButton icon="play" size={20} />*/}
 
-              <IconButton icon="play" size={20} />
+              {/*<IconButton icon="play" size={20} />*/}
 
-              <IconButton icon="play" size={20} />
+              {/*<IconButton icon="play" size={20} />*/}
             </View>
             <View style={styles.progressStyle}>
               <Text
@@ -423,7 +464,7 @@ export default class playerView extends Component {
                 maximumValue={this.state.duration}
                 step={1}
                 onValueChange={(value) => this.setState({currentTime: value})}
-                onSlidingComplete={(value) => this.player.seek(value)}
+                onSlidingComplete={(value) => this.state.player.seek(value)}
               />
               <View style={{width: 35, alignItems: 'flex-end', marginRight: 5}}>
                 <Text style={{fontSize: 11, color: 'white'}}>
@@ -434,13 +475,14 @@ export default class playerView extends Component {
             <View style={styles.toolBar}>
               <TouchableOpacity
                 style={{width: 50, marginLeft: 5}}
-                onPress={() => this.playMode(this.state.playMode)}>
-                <IconButton icon="play" size={20} />
+                onPress={() => this.playMode(playMode)}>
+                <IconButton icon={playMode} color={'white'} size={20} />
               </TouchableOpacity>
+              {/*repeat repeat-off repeat-once*/}
               <View style={styles.cdStyle}>
                 <TouchableOpacity
-                  onPress={() => this.preSong(this.state.currentIndex - 1)}>
-                  <IconButton icon="play" size={35} />
+                  onPress={() => this.preSong(currentPlaying - 1)}>
+                  <IconButton icon="rewind" color={'white'} size={35} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{
@@ -460,13 +502,17 @@ export default class playerView extends Component {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => this.nextSong(this.state.currentIndex + 1)}>
-                  <IconButton icon="play" size={35} />
+                  onPress={() => this.nextSong(currentPlaying + 1)}>
+                  <IconButton icon="fast-forward" color={'white'} size={35} />
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
                 style={{width: 50, alignItems: 'flex-end', marginRight: 5}}>
-                <IconButton icon="play" size={35} />
+                <IconButton
+                  icon="playlist-music-outline"
+                  color={'white'}
+                  size={20}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -478,7 +524,7 @@ export default class playerView extends Component {
         {isClose ? miniPlayer : null}
         {isOpen ? wholePlayer : null}
         <Video
-          source={{uri: defaultMusic.uri}} // Can be a URL or a local file.
+          source={{uri: playList[currentPlaying].uri}} // Can be a URL or a local file.
           ref={(ref) => {
             this.state.player = ref;
           }}
