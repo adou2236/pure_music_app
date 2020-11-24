@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  AsyncStorage,
+  findNodeHandle,
   Easing,
   Image,
   TouchableOpacity,
@@ -12,26 +12,39 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import globalStyle from '../../style/style';
-import {Button, ProgressBar, Colors, IconButton} from 'react-native-paper';
+import {
+  Button,
+  ProgressBar,
+  Colors,
+  IconButton,
+  Portal,
+  Modal,
+} from 'react-native-paper';
 import {VibrancyView, BlurView} from 'react-native-blur';
 import Video from 'react-native-video';
+import SideMenu from 'react-native-side-menu';
+import MusicList from '../MusicList';
+import {getRealUrl} from '../../unit/fn';
 export default class playerView extends Component {
   constructor(props) {
     super(props);
     console.log('播放列表为', props);
     this.rotation = false;
+    this.player = null;
     this.state = {
+      viewRef: null,
       currentPlaying: 0,
       isOpen: false,
       isClose: true,
       playMode: 'repeat',
       playModeList: ['repeat', 'repeat-once', 'repeat-off'],
-      player: null,
       currentTime: 0,
       duration: 1,
       isPause: true,
       spinValue: new Animated.Value(0),
       scaleAnimate: new Animated.Value(0),
+      musicSide: false,
+      currentUrl: '',
     };
     this.spinAnimated = Animated.timing(this.state.spinValue, {
       toValue: 1,
@@ -42,6 +55,38 @@ export default class playerView extends Component {
   }
   componentDidMount() {
     // this.spin();
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<P>,
+    prevState: Readonly<S>,
+    snapshot: SS,
+  ) {
+    if (
+      this.props.playList[prevState.currentPlaying].music_id !==
+      this.props.playList[this.state.currentPlaying].music_id
+    ) {
+      this.setState(
+        {
+          currentTime: 0,
+          currentUrl: '',
+        },
+        () => {
+          getRealUrl(this.props.playList[this.state.currentPlaying].music_id)
+            .then((res) => {
+              this.setState({
+                currentUrl: res ,
+              });
+            })
+            .catch((err) => {
+              this.setState({
+                currentUrl: '',
+              });
+              console.log('解析失败', err);
+            });
+        },
+      );
+    }
   }
 
   spining() {
@@ -86,11 +131,53 @@ export default class playerView extends Component {
     return min + ':' + second;
   }
 
+  getUrl = (music_id) => {
+    console.log('开始过去', music_id);
+    getRealUrl(music_id)
+      .then((res) => {
+        console.log('获取成功', '"' + res + '"');
+        this.setState({
+          isPause: false,
+        });
+        return res;
+      })
+      .catch((err) => {
+        console.log('解析失败');
+      });
+  };
+
   pauseControl = () => {
     // this.spin();
-    this.setState({
-      isPause: !this.state.isPause,
-    });
+    // console.log(this.props.playList[0].music_id)
+    this.setState(
+      {
+        isPause: !this.state.isPause,
+      },
+      () => {
+        if (!this.state.isPause) {
+          console.log(
+            '开始解析',
+            this.props.playList[this.state.currentPlaying].music_id,
+          );
+          getRealUrl(this.props.playList[this.state.currentPlaying].music_id)
+            .then((res) => {
+              console.log('"' + res + '"');
+              this.setState({
+                currentUrl: res,
+              });
+            })
+            .catch((err) => {
+              this.setState({
+                currentUrl: '',
+              });
+              console.log('解析失败', err);
+            });
+        }
+      },
+    );
+  };
+  imageLoaded = () => {
+    this.setState({viewRef: findNodeHandle(this.backgroundImage)});
   };
 
   setDuration = (v) => {
@@ -103,7 +190,9 @@ export default class playerView extends Component {
       currentTime: parseInt(v.currentTime),
     });
   };
-  videoError = () => {};
+  videoError = () => {
+    alert('资源错误');
+  };
   onTimedMetadata = () => {};
   onBuffer = () => {};
   onEnd = () => {
@@ -122,7 +211,9 @@ export default class playerView extends Component {
         break;
     }
   };
-  LoadStart() {}
+  LoadStart() {
+    console.log('开始加载+++++++++++++++');
+  }
   preSong = (v) => {
     this.setState({
       currentPlaying:
@@ -140,6 +231,9 @@ export default class playerView extends Component {
     this.setState({
       playMode: this.state.playModeList[index],
     });
+  };
+  hideSide = () => {
+    this.setState({musicSide: false});
   };
   render() {
     const styles = StyleSheet.create({
@@ -234,12 +328,13 @@ export default class playerView extends Component {
     let {
       isOpen,
       isClose,
-      defaultMusic,
       duration,
       currentTime,
       isPause,
       playMode,
       currentPlaying,
+      musicSide,
+      currentUrl,
     } = this.state;
     let {playList} = this.props;
     const miniPlayer = (
@@ -261,11 +356,7 @@ export default class playerView extends Component {
               style={globalStyle.button}
               color={'white'}
               icon={isPause ? 'play-circle-outline' : 'pause-circle-outline'}
-              onPress={() => {
-                this.setState({
-                  isPause: !isPause,
-                });
-              }}
+              onPress={() => this.pauseControl()}
             />
           </View>
           <TouchableOpacity
@@ -316,234 +407,268 @@ export default class playerView extends Component {
       </View>
     );
     const wholePlayer = (
-      <Animated.View
-        style={{
-          ...globalStyle.wholePlayer,
-          transform: [
-            {
-              //缩放效果
-              scale: this.state.scaleAnimate.interpolate({
-                inputRange: [0, 0.5, 1],
-                outputRange: [0.8, 1.2, 1],
-              }),
-            },
-            {
-              //偏移效果
-              translateY: this.state.scaleAnimate.interpolate({
-                inputRange: [0, 1],
-                outputRange: [1000, 0],
-              }),
-            },
-          ],
-        }}>
-        <Image
-          ref={(img) => {
-            this.backgroundImage = img;
-          }}
-          style={styles.bgContainer}
-          source={{uri: playList[currentPlaying].cover}}
-          resizeMode="cover"
-        />
-        <View style={styles.bgContainer}>
-          {Platform.OS === 'ios' ? (
-            <VibrancyView
-              blurType={'light'}
-              blurAmount={20}
-              style={styles.container}
-            />
-          ) : (
-            <BlurView
-              style={styles.absolute}
-              viewRef={this.state.viewRef}
-              blurType="light"
-              blurAmount={10}
-            />
-          )}
-        </View>
-        <View style={styles.bgContainer}>
-          <View style={styles.navBarStyle}>
-            <View style={styles.navBarContent}>
-              <IconButton
-                icon="chevron-down"
-                color={'white'}
-                size={20}
-                onPress={() => {
-                  Animated.spring(this.state.scaleAnimate, {
-                    toValue: 0,
-                    velocity: 2, //初始速度
-                    friction: 8, //摩擦力值
-                    duration: 1500, //
-                    useNativeDriver: true,
-                  }).start(() => {
-                    this.setState({
-                      isOpen: false,
-                    });
-                  });
-                  this.setState({
-                    isClose: true,
-                  });
-                }}
-              />
-              <View style={{alignItems: 'center'}}>
-                <Text style={styles.title}>
-                  {playList[currentPlaying].name}
-                </Text>
-                <Text style={styles.subTitle}>
-                  {playList[currentPlaying].artist}
-                </Text>
-              </View>
-              <IconButton
-                style={{marginTop: 5}}
-                onPress={() => alert('分享')}
-                icon="play"
-                size={20}
-              />
-            </View>
-          </View>
-          <View style={styles.djCard} />
-          <View
-            style={{
-              width: 260,
-              height: 260,
-              alignSelf: 'center',
-              position: 'absolute',
-              borderRadius: 130,
-              top: 190,
-              backgroundColor: 'black',
+      <>
+        <Animated.View
+          style={{
+            ...globalStyle.wholePlayer,
+            transform: [
+              {
+                //缩放效果
+                scale: this.state.scaleAnimate.interpolate({
+                  inputRange: [0, 0.5, 1],
+                  outputRange: [0.8, 1.2, 1],
+                }),
+              },
+              {
+                //偏移效果
+                translateY: this.state.scaleAnimate.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [1000, 0],
+                }),
+              },
+            ],
+          }}>
+          <Image
+            ref={(img) => {
+              this.backgroundImage = img;
             }}
-          />
-          <Animated.Image
-            style={{
-              width: 170,
-              height: 170,
-              borderRadius: 100,
-              alignSelf: 'center',
-              position: 'absolute',
-              top: 235,
-              transform: [
-                {
-                  rotate: this.state.spinValue.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ['0deg', '360deg'],
-                  }),
-                },
-              ],
-            }}
+            style={styles.bgContainer}
             source={{uri: playList[currentPlaying].cover}}
+            resizeMode="cover"
+            onLoadEnd={() => this.imageLoaded()}
           />
-          <View style={{flex: 1}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginHorizontal: 50,
-                justifyContent: 'space-around',
-                bottom: -60,
-              }}>
-              {/*功能按钮区*/}
-              {/*<IconButton icon="play" size={20} />*/}
-              {/*<IconButton icon="play" size={20} />*/}
-
-              {/*<IconButton icon="play" size={20} />*/}
-
-              {/*<IconButton icon="play" size={20} />*/}
-            </View>
-            <View style={styles.progressStyle}>
-              <Text
-                style={{
-                  width: 35,
-                  fontSize: 11,
-                  color: 'white',
-                  marginLeft: 5,
-                }}>
-                {this.formatMediaTime(Math.floor(this.state.currentTime))}
-              </Text>
-              <Slider
-                style={styles.slider}
-                value={this.state.currentTime}
-                maximumValue={this.state.duration}
-                step={1}
-                onValueChange={(value) => this.setState({currentTime: value})}
-                onSlidingComplete={(value) => this.state.player.seek(value)}
+          <View style={styles.bgContainer}>
+            {Platform.OS === 'ios' ? (
+              <VibrancyView
+                blurType={'light'}
+                blurAmount={20}
+                style={styles.container}
               />
-              <View style={{width: 35, alignItems: 'flex-end', marginRight: 5}}>
-                <Text style={{fontSize: 11, color: 'white'}}>
-                  {this.formatMediaTime(Math.floor(this.state.duration))}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.toolBar}>
-              <TouchableOpacity
-                style={{width: 50, marginLeft: 5}}
-                onPress={() => this.playMode(playMode)}>
-                <IconButton icon={playMode} color={'white'} size={20} />
-              </TouchableOpacity>
-              {/*repeat repeat-off repeat-once*/}
-              <View style={styles.cdStyle}>
-                <TouchableOpacity
-                  onPress={() => this.preSong(currentPlaying - 1)}>
-                  <IconButton icon="rewind" color={'white'} size={35} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    width: 35,
-                    height: 35,
-                    borderRadius: 20,
-                    borderWidth: 1,
-                    borderColor: 'white',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  onPress={() => this.pauseControl()}>
-                  <IconButton
-                    color="white"
-                    icon={isPause ? 'play' : 'pause'}
-                    size={35}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => this.nextSong(currentPlaying + 1)}>
-                  <IconButton icon="fast-forward" color={'white'} size={35} />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity
-                style={{width: 50, alignItems: 'flex-end', marginRight: 5}}>
+            ) : (
+              <BlurView
+                style={styles.absolute}
+                viewRef={this.state.viewRef}
+                blurType="light"
+                blurAmount={10}
+              />
+            )}
+          </View>
+          <View style={styles.bgContainer}>
+            <View style={styles.navBarStyle}>
+              <View style={styles.navBarContent}>
                 <IconButton
-                  icon="playlist-music-outline"
+                  icon="chevron-down"
                   color={'white'}
                   size={20}
+                  onPress={() => {
+                    Animated.spring(this.state.scaleAnimate, {
+                      toValue: 0,
+                      velocity: 2, //初始速度
+                      friction: 8, //摩擦力值
+                      duration: 1500, //
+                      useNativeDriver: true,
+                    }).start(() => {
+                      this.setState({
+                        isOpen: false,
+                      });
+                    });
+                    this.setState({
+                      isClose: true,
+                    });
+                  }}
                 />
-              </TouchableOpacity>
+                <View style={{alignItems: 'center'}}>
+                  <Text style={styles.title}>
+                    {playList[currentPlaying].name}
+                  </Text>
+                  <Text style={styles.subTitle}>
+                    {playList[currentPlaying].artist}
+                  </Text>
+                </View>
+                <IconButton
+                  style={{marginTop: 5}}
+                  onPress={() => alert('分享')}
+                  icon="play"
+                  size={20}
+                />
+              </View>
+            </View>
+            <View style={styles.djCard} />
+            <View
+              style={{
+                width: 260,
+                height: 260,
+                alignSelf: 'center',
+                position: 'absolute',
+                borderRadius: 130,
+                top: 190,
+                backgroundColor: 'black',
+              }}
+            />
+            <Animated.Image
+              style={{
+                width: 170,
+                height: 170,
+                borderRadius: 100,
+                alignSelf: 'center',
+                position: 'absolute',
+                top: 235,
+                transform: [
+                  {
+                    rotate: this.state.spinValue.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ['0deg', '360deg'],
+                    }),
+                  },
+                ],
+              }}
+              source={{uri: playList[currentPlaying].cover}}
+            />
+            <View style={{flex: 1}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginHorizontal: 50,
+                  justifyContent: 'space-around',
+                  bottom: -60,
+                }}>
+                {/*功能按钮区*/}
+                {/*<IconButton icon="play" size={20} />*/}
+                {/*<IconButton icon="play" size={20} />*/}
+
+                {/*<IconButton icon="play" size={20} />*/}
+
+                {/*<IconButton icon="play" size={20} />*/}
+              </View>
+              <View style={styles.progressStyle}>
+                <Text
+                  style={{
+                    width: 35,
+                    fontSize: 11,
+                    color: 'white',
+                    marginLeft: 5,
+                  }}>
+                  {this.formatMediaTime(Math.floor(this.state.currentTime))}
+                </Text>
+                <Slider
+                  style={styles.slider}
+                  value={this.state.currentTime}
+                  maximumValue={this.state.duration}
+                  step={1}
+                  onValueChange={(value) => this.setState({currentTime: value})}
+                  onSlidingComplete={(value) => this.state.player.seek(value)}
+                />
+                <View
+                  style={{width: 35, alignItems: 'flex-end', marginRight: 5}}>
+                  <Text style={{fontSize: 11, color: 'white'}}>
+                    {this.formatMediaTime(Math.floor(this.state.duration))}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.toolBar}>
+                <TouchableOpacity
+                  style={{width: 50, marginLeft: 5}}
+                  onPress={() => this.playMode(playMode)}>
+                  <IconButton icon={playMode} color={'white'} size={20} />
+                </TouchableOpacity>
+                {/*repeat repeat-off repeat-once*/}
+                <View style={styles.cdStyle}>
+                  <TouchableOpacity
+                    onPress={() => this.preSong(currentPlaying - 1)}>
+                    <IconButton icon="rewind" color={'white'} size={35} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      width: 35,
+                      height: 35,
+                      borderRadius: 20,
+                      borderWidth: 1,
+                      borderColor: 'white',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onPress={() => this.pauseControl()}>
+                    <IconButton
+                      color="white"
+                      icon={isPause ? 'play' : 'pause'}
+                      size={35}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => this.nextSong(currentPlaying + 1)}>
+                    <IconButton icon="fast-forward" color={'white'} size={35} />
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity
+                  onPress={() => this.setState({musicSide: true})}
+                  style={{width: 50, alignItems: 'flex-end', marginRight: 5}}>
+                  <IconButton
+                    icon="playlist-music-outline"
+                    color={'white'}
+                    size={20}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </Animated.View>
+        </Animated.View>
+        <Portal>
+          <Modal
+            animationType={'slider'}
+            visible={musicSide}
+            onDismiss={this.hideSide}
+            contentContainerStyle={{
+              backgroundColor: 'white',
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '50%',
+              padding: 20,
+              borderRadius: 12,
+            }}>
+            <Text>共{this.props.playList.length}首</Text>
+            <MusicList
+              mode={'local'}
+              musicList={this.props.playList}
+              listAction={this.props.listAction}
+            />
+          </Modal>
+        </Portal>
+      </>
     );
     return (
       <>
         {isClose ? miniPlayer : null}
         {isOpen ? wholePlayer : null}
-        <Video
-          source={{uri: playList[currentPlaying].uri}} // Can be a URL or a local file.
-          ref={(ref) => {
-            this.state.player = ref;
-          }}
-          rate={1.0}
-          volume={1.0}
-          muted={false}
-          paused={isPause}
-          repeat={true}
-          playInBackground={false}
-          playWhenInactive={false}
-          progressUpdateInterval={250.0}
-          onLoadStart={this.LoadStart}
-          onLoad={this.setDuration}
-          onProgress={this.setTime}
-          onEnd={this.onEnd}
-          onError={this.videoError}
-          onBuffer={this.onBuffer}
-          onTimedMetadata={this.onTimedMetadata}
-        />
+        {currentUrl !== '' ? (
+          <Video
+            source={{
+              uri: currentUrl,
+            }}
+            ref={(ref) => {
+              this.player = ref;
+            }}
+            rate={1.0}
+            volume={1.0}
+            muted={false}
+            paused={currentUrl !== '' && isPause}
+            repeat={true}
+            playInBackground={false}
+            playWhenInactive={false}
+            progressUpdateInterval={250.0}
+            onLoadStart={this.LoadStart}
+            onLoad={this.setDuration}
+            onProgress={this.setTime}
+            onEnd={this.onEnd}
+            onError={this.videoError}
+            onBuffer={this.onBuffer}
+            onTimedMetadata={this.onTimedMetadata}
+          />
+        ) : (
+          <Text style={{color: 'red'}}>加载中。。。。。。。</Text>
+        )}
       </>
     );
   }

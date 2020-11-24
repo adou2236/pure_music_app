@@ -27,7 +27,6 @@ import {
 } from 'react-native-paper';
 import PlayerView from './views/playerView';
 import {AsyncStorage} from 'react-native'; //本地存储模块
-import {block} from 'react-native-reanimated';
 
 let statusBarHeight;
 if (Platform.OS === 'ios') {
@@ -102,13 +101,32 @@ class App extends Component {
         const res = JSON.parse(result);
         console.log('AsyncStorage******************', res);
         this.setState({
-          playList: res,
+          playList: [],
         });
       }
     });
   }
+
+  listAction = (op, data) => {
+    switch (op) {
+      case 'remove':
+        let temp = this.state.playList.filter((item) => data.uuid !== item.uuid);
+        this.setState({
+          playList: temp,
+        });
+        return;
+      case 'select':
+        let playList = this.state.playList;
+        playList.unshift(data);
+        this.setState({
+          playList,
+        });
+        return;
+      default:
+        return;
+    }
+  };
   render() {
-    console.log('测试一下', AsyncStorage.getItem('playList'));
     const {playList} = this.state;
     const styles = StyleSheet.create({
       container: {
@@ -136,9 +154,17 @@ class App extends Component {
     return (
       <SafeAreaView style={[styles.container]}>
         <PaperProvider style={styles.Main} theme={theme}>
-          <APPNavigator style={{flex: 1}} />
+          <APPNavigator
+            style={{flex: 1}}
+            listAction={(op, data) => this.listAction(op, data)}
+          />
           {/*此处为绝对定位*/}
-          {playList.length > 0 ? <PlayerView playList={playList} /> : null}
+          {playList.length > 0 ? (
+            <PlayerView
+              playList={playList}
+              listAction={(op, data) => this.listAction(op, data)}
+            />
+          ) : null}
         </PaperProvider>
       </SafeAreaView>
     );

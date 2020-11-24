@@ -4,7 +4,17 @@
     <list default="true" id="b5968517-a06e-439a-b186-648914423d8e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allRouter/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/allRouter/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/http/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/yangrui.xcuserdatad/xcschemes/React-Core-AccessibilityResources.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/yangrui.xcuserdatad/xcschemes/React-Core-AccessibilityResources.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit/fn.js" beforeDir="false" afterPath="$PROJECT_DIR$/unit/fn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Hot/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Hot/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/MusicList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/MusicList/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Search/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Search/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/playerView/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/playerView/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +53,7 @@
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/views/ArtistList" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -57,10 +67,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/node_modules" />
+      <recent name="$PROJECT_DIR$/public/image" />
       <recent name="$PROJECT_DIR$/views/ArtistList" />
       <recent name="$PROJECT_DIR$/views/Hot" />
       <recent name="$PROJECT_DIR$/views/MusicList" />
-      <recent name="$PROJECT_DIR$/views/Search" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -111,7 +122,18 @@
       <workItem from="1604970952296" duration="38000" />
       <workItem from="1605004921588" duration="6730000" />
       <workItem from="1605278981795" duration="543000" />
-      <workItem from="1605416981648" duration="5215000" />
+      <workItem from="1605416981648" duration="5472000" />
+      <workItem from="1605489647395" duration="14000" />
+      <workItem from="1605697482968" duration="7461000" />
+      <workItem from="1605748993717" duration="790000" />
+      <workItem from="1605836270597" duration="598000" />
+      <workItem from="1605885997727" duration="538000" />
+      <workItem from="1605926298269" duration="343000" />
+      <workItem from="1606096039231" duration="18253000" />
+      <workItem from="1606124572046" duration="1770000" />
+      <workItem from="1606143494321" duration="3065000" />
+      <workItem from="1606182114530" duration="18093000" />
+      <workItem from="1606227751242" duration="1335000" />
     </task>
     <servers />
   </component>
@@ -119,55 +141,65 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="581" y="349" key="#ESLint" timestamp="1604846593310">
+    <state x="581" y="349" key="#ESLint" timestamp="1606200736718">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="581" y="349" key="#ESLint/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604846593310" />
+    <state x="581" y="349" key="#ESLint/0.0.1440.900@0.0.1440.900" timestamp="1606200736718" />
     <state x="507" y="235" key="#Web_Browsers" timestamp="1604633788892">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="507" y="235" key="#Web_Browsers/0.0.1440.900@0.0.1440.900" timestamp="1604633788892" />
-    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604634347141">
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606207231926">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1604634347141" />
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1606207231926" />
     <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604837835108">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604837835108" />
-    <state width="1419" height="245" key="GridCell.Tab.0.bottom" timestamp="1605417461709">
+    <state width="1419" height="210" key="GridCell.Tab.0.bottom" timestamp="1606216727973">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1419" height="210" key="GridCell.Tab.0.bottom/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606146728069" />
+    <state width="1419" height="210" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1606215583439" />
+    <state width="1419" height="210" key="GridCell.Tab.0.bottom/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606146788422" />
+    <state width="1419" height="210" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1606216727973" />
+    <state width="1419" height="210" key="GridCell.Tab.0.center" timestamp="1606216727972">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1419" height="210" key="GridCell.Tab.0.center/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606146728067" />
+    <state width="1419" height="210" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1606215583438" />
+    <state width="1419" height="210" key="GridCell.Tab.0.center/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606146788421" />
+    <state width="1419" height="210" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1606216727972" />
+    <state width="1419" height="210" key="GridCell.Tab.0.left" timestamp="1606216727971">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1419" height="210" key="GridCell.Tab.0.left/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606146728066" />
+    <state width="1419" height="210" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1606215583437" />
+    <state width="1419" height="210" key="GridCell.Tab.0.left/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606146788420" />
+    <state width="1419" height="210" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1606216727971" />
+    <state width="1419" height="210" key="GridCell.Tab.0.right" timestamp="1606216727972">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1419" height="210" key="GridCell.Tab.0.right/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606146728068" />
+    <state width="1419" height="210" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1606215583439" />
+    <state width="1419" height="210" key="GridCell.Tab.0.right/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606146788422" />
+    <state width="1419" height="210" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1606216727972" />
+    <state x="334" y="67" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1606201982910">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1605417461709" />
-    <state width="1419" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1605058842814" />
-    <state width="1419" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337897" />
-    <state width="1419" height="245" key="GridCell.Tab.0.center" timestamp="1605417461707">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1419" height="245" key="GridCell.Tab.0.center/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1605417461707" />
-    <state width="1419" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1605058842813" />
-    <state width="1419" height="245" key="GridCell.Tab.0.center/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337886" />
-    <state width="1419" height="245" key="GridCell.Tab.0.left" timestamp="1605417461705">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1419" height="245" key="GridCell.Tab.0.left/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1605417461705" />
-    <state width="1419" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1605058842812" />
-    <state width="1419" height="245" key="GridCell.Tab.0.left/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337880" />
-    <state width="1419" height="245" key="GridCell.Tab.0.right" timestamp="1605417461708">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1419" height="245" key="GridCell.Tab.0.right/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1605417461708" />
-    <state width="1419" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1605058842813" />
-    <state width="1419" height="245" key="GridCell.Tab.0.right/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1604853337895" />
-    <state x="482" y="204" width="811" height="490" key="find.popup" timestamp="1605012411908">
+    <state x="334" y="67" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1440.900@0.0.1440.900" timestamp="1606201982910" />
+    <state x="482" y="204" width="811" height="518" key="find.popup" timestamp="1606124876740">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="482" y="204" width="811" height="490" key="find.popup/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604939455024" />
-    <state x="482" y="204" width="811" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1605012411908" />
-    <state x="385" y="196" key="search.everywhere.popup" timestamp="1604830217541">
+    <state x="482" y="204" width="811" height="518" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1606124876740" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1606210785076">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="196" key="search.everywhere.popup/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604830217541" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1606210785076" />
     <state x="450" y="294" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1604635331351">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

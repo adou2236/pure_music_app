@@ -1,44 +1,48 @@
 import React, {Component} from 'react';
-import {View, FlatList} from 'react-native';
-import {List} from 'react-native-paper';
+import {View, FlatList, Text} from 'react-native';
+import {Button, IconButton, List} from 'react-native-paper';
 
 export default class MusicList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      musicList: [
-        {id: '1', name: '音乐1', url: 'www.baidu.com'},
-        {id: '2', name: '音乐2', url: 'www.baidu.com'},
-        {id: '3', name: '音乐3', url: 'www.baidu.com'},
-        {id: '4', name: '音乐4', url: 'www.baidu.com'},
-        {id: '5', name: '音乐5', url: 'www.baidu.com'},
-        {id: '6', name: '音乐6', url: 'www.baidu.com'},
-        {id: '7', name: '音乐7', url: 'www.baidu.com'},
-        {id: '8', name: '音乐8', url: 'www.baidu.com'},
-        {id: '9', name: '音乐9', url: 'www.baidu.com'},
-        {id: '10', name: '音乐10', url: 'www.baidu.com'},
-        {id: '11', name: '音乐11', url: 'www.baidu.com'},
-        {id: '12', name: '音乐12', url: 'www.baidu.com'},
-        {id: '13', name: '音乐13', url: 'www.baidu.com'},
-        {id: '14', name: '音乐14', url: 'www.baidu.com'},
-        {id: '15', name: '音乐15', url: 'www.baidu.com'},
-        {id: '16', name: '音乐16', url: 'www.baidu.com'},
-        {id: '17', name: '音乐17', url: 'www.baidu.com'},
-        {id: '18', name: '音乐18', url: 'www.baidu.com'},
-        {id: '19', name: '音乐19', url: 'www.baidu.com'},
-      ],
-    };
+    this.state = {};
   }
+  componentDidMount() {}
+
+  removeMusic = (v) => {
+    this.props.listAction('remove', v);
+  };
+
+  selectMusic = (v) => {
+    this.props.listAction('select', v);
+  };
   render() {
-    const {musicList} = this.state;
+    const {musicList} = this.props;
     return (
       <View style={{flex: 1}}>
         <FlatList
           data={musicList}
+          keyExtractor={(item) => item.uuid}
           renderItem={({item}) => (
             <List.Item
               title={item.name}
-              right={(props) => <List.Icon {...props} icon="folder" />}
+              description={item.artist}
+              onPress={() => this.selectMusic(item)}
+              right={(props) =>
+                this.props.mode === 'local' ? (
+                  <IconButton
+                    {...props}
+                    onPress={() => this.removeMusic(item)}
+                    icon="delete-outline"
+                  />
+                ) : (
+                  <IconButton
+                    {...props}
+                    onPress={() => console.log('Pressed')}
+                    icon="dots-vertical"
+                  />
+                )
+              }
             />
           )}
         />
