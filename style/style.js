@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
-var globalStyle = StyleSheet.create({
+import {Colors} from 'react-native-paper';
+
+const playerStyle = StyleSheet.create({
   miniPlayer: {
     // position: 'absolute',
     // bottom: 0,
@@ -44,4 +46,6 @@ var globalStyle = StyleSheet.create({
     width: '100%',
   },
 });
-export default globalStyle;
+
+
+export {playerStyle};

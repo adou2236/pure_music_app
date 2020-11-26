@@ -26,15 +26,15 @@ export default class APPNavigator extends Component {
   render() {
     return (
       <>
-        <NavigationContainer>
+        <NavigationContainer theme={this.props.theme}>
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
               options={{
                 headerShown: false,
               }}
-              name="Home"
-              component={Home}
-            />
+              name="Home">
+              {(props) => <Home {...props} theme={this.props.theme} />}
+            </Stack.Screen>
             <Stack.Screen
               options={{
                 headerShown: false,
@@ -43,6 +43,7 @@ export default class APPNavigator extends Component {
               {(props) => (
                 <Search
                   {...props}
+                  theme={this.props.theme}
                   listAction={this.props.listAction}
                 />
               )}

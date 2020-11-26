@@ -7,6 +7,7 @@ import {getAllMusic} from '../../http/api';
 export default class Search extends Component {
   constructor(props) {
     super(props);
+    console.log('AAAAAAA', props);
     this.state = {
       searchQuery: '',
       musicList: [],
@@ -35,7 +36,7 @@ export default class Search extends Component {
 
   render() {
     const {searchQuery, musicList} = this.state;
-    const {navigation} = this.props
+    const {navigation} = this.props;
     return (
       <View style={{height: '100%'}}>
         <View
@@ -44,7 +45,7 @@ export default class Search extends Component {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            backgroundColor: '#FFF',
+            backgroundColor: this.props.theme.colors.surface,
           }}>
           <IconButton icon="arrow-left" onPress={() => navigation.pop()} />
           <Searchbar
@@ -52,7 +53,7 @@ export default class Search extends Component {
             style={{
               width: '60%',
               borderRadius: 25,
-              shadowColor: '#fff',
+              shadowOpacity: 0,
             }}
             placeholder="请输入"
             onChangeText={(v) => this.onChangeSearch(v)}

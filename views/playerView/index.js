@@ -11,9 +11,8 @@ import {
   Platform,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
-import globalStyle from '../../style/style';
+import {playerStyle} from '../../style/style';
 import {
-  Button,
   ProgressBar,
   Colors,
   IconButton,
@@ -22,18 +21,15 @@ import {
 } from 'react-native-paper';
 import {VibrancyView, BlurView} from 'react-native-blur';
 import Video from 'react-native-video';
-import SideMenu from 'react-native-side-menu';
 import MusicList from '../MusicList';
 import {getRealUrl} from '../../unit/fn';
 export default class playerView extends Component {
   constructor(props) {
     super(props);
-    console.log('播放列表为', props);
     this.rotation = false;
     this.player = null;
     this.state = {
       viewRef: null,
-      currentPlaying: 0,
       isOpen: false,
       isClose: true,
       playMode: 'repeat',
@@ -62,20 +58,18 @@ export default class playerView extends Component {
     prevState: Readonly<S>,
     snapshot: SS,
   ) {
-    if (
-      this.props.playList[prevState.currentPlaying].music_id !==
-      this.props.playList[this.state.currentPlaying].music_id
-    ) {
+    //切歌
+    if (prevProps.currentPlaying !== this.props.currentPlaying) {
       this.setState(
         {
           currentTime: 0,
           currentUrl: '',
         },
         () => {
-          getRealUrl(this.props.playList[this.state.currentPlaying].music_id)
+          getRealUrl(this.props.currentPlaying.element.music_id)
             .then((res) => {
               this.setState({
-                currentUrl: res ,
+                currentUrl: res,
               });
             })
             .catch((err) => {
@@ -155,13 +149,8 @@ export default class playerView extends Component {
       },
       () => {
         if (!this.state.isPause) {
-          console.log(
-            '开始解析',
-            this.props.playList[this.state.currentPlaying].music_id,
-          );
-          getRealUrl(this.props.playList[this.state.currentPlaying].music_id)
+          getRealUrl(this.props.currentPlaying.element.music_id)
             .then((res) => {
-              console.log('"' + res + '"');
               this.setState({
                 currentUrl: res,
               });
@@ -195,18 +184,20 @@ export default class playerView extends Component {
   };
   onTimedMetadata = () => {};
   onBuffer = () => {};
+  //播放结束后的循环操作
   onEnd = () => {
     console.log('播放结束');
-    const {playMode, currentPlaying} = this.state;
+    const {playMode} = this.state;
+    const {currentPlaying} = this.props;
     switch (playMode) {
       case 'repeat':
-        this.nextSong(currentPlaying + 1);
+        this.nextSong();
         break;
       case 'repeat-off':
-        if (currentPlaying + 1 === this.props.playList.length) {
+        if (currentPlaying === this.props.playList.getTail()) {
           this.pauseControl();
         } else {
-          this.nextSong(currentPlaying + 1);
+          this.nextSong();
         }
         break;
     }
@@ -216,13 +207,12 @@ export default class playerView extends Component {
   }
   preSong = (v) => {
     this.setState({
-      currentPlaying:
-        (this.props.playList.length + v) % this.props.playList.length,
+      currentPlaying: this.props.currentPlaying.prev,
     });
   };
   nextSong = (v) => {
     this.setState({
-      currentPlaying: v % this.props.playList.length,
+      currentPlaying: this.props.currentPlaying.next,
     });
   };
   playMode = (v) => {
@@ -332,13 +322,12 @@ export default class playerView extends Component {
       currentTime,
       isPause,
       playMode,
-      currentPlaying,
       musicSide,
       currentUrl,
     } = this.state;
-    let {playList} = this.props;
+    let {playList, currentPlaying} = this.props;
     const miniPlayer = (
-      <View style={globalStyle.miniPlayer}>
+      <View style={playerStyle.miniPlayer}>
         <View
           style={{
             width: '100%',
@@ -347,20 +336,20 @@ export default class playerView extends Component {
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <View style={globalStyle.miniCover}>
+          <View style={playerStyle.miniCover}>
             <Image
-              source={{uri: playList[currentPlaying].cover}}
+              source={{uri: currentPlaying.element.cover}}
               style={{position: 'absolute', height: '100%', width: '100%'}}
             />
             <IconButton
-              style={globalStyle.button}
+              style={playerStyle.button}
               color={'white'}
               icon={isPause ? 'play-circle-outline' : 'pause-circle-outline'}
               onPress={() => this.pauseControl()}
             />
           </View>
           <TouchableOpacity
-            style={globalStyle.musicMessage}
+            style={playerStyle.musicMessage}
             onPress={() => {
               Animated.spring(this.state.scaleAnimate, {
                 toValue: 1,
@@ -378,11 +367,9 @@ export default class playerView extends Component {
               });
             }}>
             <View>
-              <Text style={{fontSize: 15}}>
-                {playList[currentPlaying].name}
-              </Text>
+              <Text style={{fontSize: 15}}>{currentPlaying.element.name}</Text>
               <Text style={{fontSize: 10}}>
-                {playList[currentPlaying].artist}
+                {currentPlaying.element.artist}
               </Text>
             </View>
           </TouchableOpacity>
@@ -396,7 +383,7 @@ export default class playerView extends Component {
         <ProgressBar
           progress={currentTime / duration}
           color={Colors.blue200}
-          style={globalStyle.miniProgress}
+          style={playerStyle.miniProgress}
         />
         {/*<Button*/}
         {/*  onPress={() => {*/}
@@ -410,7 +397,7 @@ export default class playerView extends Component {
       <>
         <Animated.View
           style={{
-            ...globalStyle.wholePlayer,
+            ...playerStyle.wholePlayer,
             transform: [
               {
                 //缩放效果
@@ -433,7 +420,7 @@ export default class playerView extends Component {
               this.backgroundImage = img;
             }}
             style={styles.bgContainer}
-            source={{uri: playList[currentPlaying].cover}}
+            source={{uri: currentPlaying.element.cover}}
             resizeMode="cover"
             onLoadEnd={() => this.imageLoaded()}
           />
@@ -479,10 +466,10 @@ export default class playerView extends Component {
                 />
                 <View style={{alignItems: 'center'}}>
                   <Text style={styles.title}>
-                    {playList[currentPlaying].name}
+                    {currentPlaying.element.name}
                   </Text>
                   <Text style={styles.subTitle}>
-                    {playList[currentPlaying].artist}
+                    {currentPlaying.element.artist}
                   </Text>
                 </View>
                 <IconButton
@@ -522,7 +509,7 @@ export default class playerView extends Component {
                   },
                 ],
               }}
-              source={{uri: playList[currentPlaying].cover}}
+              source={{uri: currentPlaying.element.cover}}
             />
             <View style={{flex: 1}}>
               <View
@@ -574,8 +561,7 @@ export default class playerView extends Component {
                 </TouchableOpacity>
                 {/*repeat repeat-off repeat-once*/}
                 <View style={styles.cdStyle}>
-                  <TouchableOpacity
-                    onPress={() => this.preSong(currentPlaying - 1)}>
+                  <TouchableOpacity onPress={() => this.preSong()}>
                     <IconButton icon="rewind" color={'white'} size={35} />
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -595,8 +581,7 @@ export default class playerView extends Component {
                       size={35}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.nextSong(currentPlaying + 1)}>
+                  <TouchableOpacity onPress={() => this.nextSong()}>
                     <IconButton icon="fast-forward" color={'white'} size={35} />
                   </TouchableOpacity>
                 </View>
@@ -628,10 +613,10 @@ export default class playerView extends Component {
               padding: 20,
               borderRadius: 12,
             }}>
-            <Text>共{this.props.playList.length}首</Text>
+            <Text>共{playList.size()}首</Text>
             <MusicList
               mode={'local'}
-              musicList={this.props.playList}
+              musicList={playList.transArr()}
               listAction={this.props.listAction}
             />
           </Modal>
