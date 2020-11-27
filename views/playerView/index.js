@@ -22,12 +22,13 @@ import {
 import {VibrancyView, BlurView} from 'react-native-blur';
 import Video from 'react-native-video';
 import MusicList from '../MusicList';
-import {getRealUrl} from '../../unit/fn';
+import {getRealUrl, throttle, debounce} from '../../unit/fn';
 export default class playerView extends Component {
   constructor(props) {
     super(props);
     this.rotation = false;
     this.player = null;
+    // this.valueChange = debounce(this.valueChange);
     this.state = {
       viewRef: null,
       isOpen: false,
@@ -179,6 +180,33 @@ export default class playerView extends Component {
       currentTime: parseInt(v.currentTime),
     });
   };
+
+  //充满疑问？？？？？？？？？？
+  valueChange = (v) => {
+    console.log('跳跃改变');
+    if (this.player) {
+      this.setTime = () => {
+        this.setState({
+          currentTime: parseInt(v),
+        });
+      };
+      this.setState({currentTime: v});
+    }
+  };
+
+  slidingComplete = (value) => {
+    console.log('跳跃赋值', value);
+    if (this.player) {
+      this.player.seek(value);
+    }
+  };
+  seekDone = () => {
+    this.setTime = (v) => {
+      this.setState({
+        currentTime: parseInt(v.currentTime),
+      });
+    };
+  };
   videoError = () => {
     alert('资源错误');
   };
@@ -205,15 +233,11 @@ export default class playerView extends Component {
   LoadStart() {
     console.log('开始加载+++++++++++++++');
   }
-  preSong = (v) => {
-    this.setState({
-      currentPlaying: this.props.currentPlaying.prev,
-    });
+  preSong = () => {
+    this.props.preSong();
   };
-  nextSong = (v) => {
-    this.setState({
-      currentPlaying: this.props.currentPlaying.next,
-    });
+  nextSong = () => {
+    this.props.nextSong();
   };
   playMode = (v) => {
     let index = this.state.playModeList.indexOf(v);
@@ -286,7 +310,7 @@ export default class playerView extends Component {
         marginHorizontal: 10,
         alignItems: 'center',
         position: 'absolute',
-        bottom: 80,
+        bottom: 100,
       },
       slider: {
         flex: 1,
@@ -540,11 +564,12 @@ export default class playerView extends Component {
                 </Text>
                 <Slider
                   style={styles.slider}
+                  tapToSeek={true}
                   value={this.state.currentTime}
                   maximumValue={this.state.duration}
                   step={1}
-                  onValueChange={(value) => this.setState({currentTime: value})}
-                  onSlidingComplete={(value) => this.state.player.seek(value)}
+                  onValueChange={(value) => this.valueChange(value)}
+                  onSlidingComplete={(value) => this.slidingComplete(value)}
                 />
                 <View
                   style={{width: 35, alignItems: 'flex-end', marginRight: 5}}>
@@ -613,10 +638,20 @@ export default class playerView extends Component {
               padding: 20,
               borderRadius: 12,
             }}>
-            <Text>共{playList.size()}首</Text>
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <Text>{playList.size()}/50</Text>
+              <IconButton size={25} icon={'delete-sweep-outline'} />
+            </View>
             <MusicList
               mode={'local'}
               musicList={playList.transArr()}
+              currentPlaying={currentPlaying}
               listAction={this.props.listAction}
             />
           </Modal>
@@ -642,11 +677,12 @@ export default class playerView extends Component {
             repeat={true}
             playInBackground={false}
             playWhenInactive={false}
-            progressUpdateInterval={250.0}
+            progressUpdateInterval={1000.0}
             onLoadStart={this.LoadStart}
             onLoad={this.setDuration}
             onProgress={this.setTime}
             onEnd={this.onEnd}
+            onSeek={this.seekDone}
             onError={this.videoError}
             onBuffer={this.onBuffer}
             onTimedMetadata={this.onTimedMetadata}

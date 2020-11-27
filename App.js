@@ -110,11 +110,9 @@ class App extends Component {
         return;
       //选择
       case 'select':
-        let playList = this.state.playList;
-        playList.unshift(data);
-        this.setState({
-          playList,
-        });
+        this.state.currentPlaying = this.state.playList.reLocate(data);
+        this.setState({currentPlaying: this.state.currentPlaying});
+
         return;
       //加入（下一曲）
       case 'addNext':
@@ -175,6 +173,7 @@ class App extends Component {
           <APPNavigator
             theme={theme}
             style={{flex: 1}}
+            currentPlaying={currentPlaying}
             listAction={(op, data) => this.listAction(op, data)}
           />
           <Button
@@ -188,6 +187,16 @@ class App extends Component {
             <PlayerView
               playList={playList}
               currentPlaying={currentPlaying}
+              preSong={() =>
+                this.setState({
+                  currentPlaying: this.state.currentPlaying.prev,
+                })
+              }
+              nextSong={() =>
+                this.setState({
+                  currentPlaying: this.state.currentPlaying.next,
+                })
+              }
               listAction={(op, data) => this.listAction(op, data)}
             />
           ) : null}

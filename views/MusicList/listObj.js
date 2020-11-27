@@ -22,12 +22,20 @@ export default class listObj extends Component {
 
   render() {
     const {visible} = this.state;
-    const {item, mode} = this.props;
+    const {item, mode, isPlaying} = this.props;
     return (
       <List.Item
         title={item.name}
         description={item.artist}
         onPress={() => this.props.selectMusic(item)}
+        left={() =>
+          isPlaying ? (
+            <List.Icon
+              style={{margin: 0, marginVertical: 'auto'}}
+              icon="play-outline"
+            />
+          ) : null
+        }
         right={(props) =>
           mode === 'local' ? (
             <IconButton

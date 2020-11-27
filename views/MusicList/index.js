@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {View, FlatList, Text} from 'react-native';
 import ListObj from './listObj';
-import {Button, IconButton, List, Menu} from 'react-native-paper';
 
 export default class MusicList extends Component {
   constructor(props) {
     super(props);
-    this.state = {visible: false};
+    this.state = {
+      visible: false,
+    };
   }
   componentDidMount() {}
 
@@ -26,7 +27,8 @@ export default class MusicList extends Component {
     this.props.listAction(m, v);
   };
   render() {
-    const {musicList} = this.props;
+    const {musicList, currentPlaying} = this.props;
+    console.log('正在播放', currentPlaying);
     return (
       <View style={{flex: 1}}>
         <FlatList
@@ -34,6 +36,11 @@ export default class MusicList extends Component {
           keyExtractor={(item) => item.uuid}
           renderItem={({item}) => (
             <ListObj
+              isPlaying={
+                currentPlaying
+                  ? item.uuid === currentPlaying.element.uuid
+                  : false
+              }
               addToList={this.addToList}
               selectMusic={this.selectMusic}
               removeMusic={this.removeMusic}

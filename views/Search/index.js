@@ -36,7 +36,7 @@ export default class Search extends Component {
 
   render() {
     const {searchQuery, musicList} = this.state;
-    const {navigation} = this.props;
+    const {navigation, currentPlaying} = this.props;
     return (
       <View style={{height: '100%'}}>
         <View
@@ -66,7 +66,11 @@ export default class Search extends Component {
             搜索
           </Button>
         </View>
-        <MusicList listAction={this.props.listAction} musicList={musicList} />
+        <MusicList
+          listAction={this.props.listAction}
+          musicList={musicList}
+          currentPlaying={currentPlaying}
+        />
       </View>
     );
   }

@@ -28,6 +28,35 @@ function getParenthesesStr(text) {
   return arr[2].split(':')[1].replace(/'/g, '');
 }
 
+//函数防抖
+export function debounce(fn, delay = 500) {
+  var timer;
+  return function () {
+    var args = arguments;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, args); // this 指向vue
+    }, delay);
+  };
+}
+
+//函数节流
+export function throttle(fn, interval = 200) {
+  var timer = null;
+  return function () {
+    var context = this;
+    var args = arguments;
+    if (!timer) {
+      timer = window.setTimeout(function () {
+        fn.apply(context, args);
+        timer = null;
+      }, interval);
+    }
+  };
+}
+
 //双向循环链表
 export function DoublyCircularLinkedList() {
   let Node = function (element) {
@@ -175,8 +204,21 @@ export function DoublyCircularLinkedList() {
   this.size = function () {
     return length;
   };
+  //根据链内元素重新定位current
+  this.reLocate = function (element) {
+    var current = head,
+      index = 0;
+    while (current && index + 1 <= length) {
+      if (element === current.element) {
+        return current;
+      }
+      index++;
+      current = current.next;
+    }
+    return;
+  };
   //转成数组
-  this.transArr = function () {
+  this.transArr = function (currentPlaying) {
     if (!head) {
       return [];
     }
@@ -188,6 +230,8 @@ export function DoublyCircularLinkedList() {
     } while (p !== head);
     return result;
   };
+
+  //测试用
   this.transArr2 = function () {
     if (!head) {
       return [];
