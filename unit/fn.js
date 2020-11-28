@@ -193,6 +193,17 @@ export function DoublyCircularLinkedList() {
     return length === 0;
   };
 
+  this.destroy = function () {
+    if (head === null) {
+      return true;
+    } else {
+      do {
+        this.remove(head.element);
+      } while (head !== null);
+      return true;
+    }
+  };
+
   this.getHead = function () {
     return head;
   };
@@ -209,13 +220,13 @@ export function DoublyCircularLinkedList() {
     var current = head,
       index = 0;
     while (current && index + 1 <= length) {
-      if (element === current.element) {
+      if (element.uuid === current.element.uuid) {
         return current;
       }
       index++;
       current = current.next;
     }
-    return;
+    return -1;
   };
   //转成数组
   this.transArr = function (currentPlaying) {

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   findNodeHandle,
   Easing,
   Image,
@@ -18,11 +17,13 @@ import {
   IconButton,
   Portal,
   Modal,
+  Text,
 } from 'react-native-paper';
 import {VibrancyView, BlurView} from 'react-native-blur';
 import Video from 'react-native-video';
 import MusicList from '../MusicList';
 import {getRealUrl, throttle, debounce} from '../../unit/fn';
+import noCover from '../../public/image/noCover.jpg'
 export default class playerView extends Component {
   constructor(props) {
     super(props);
@@ -451,7 +452,7 @@ export default class playerView extends Component {
           <View style={styles.bgContainer}>
             {Platform.OS === 'ios' ? (
               <VibrancyView
-                blurType={'light'}
+                blurType={'dark'}
                 blurAmount={20}
                 style={styles.container}
               />
@@ -459,7 +460,7 @@ export default class playerView extends Component {
               <BlurView
                 style={styles.absolute}
                 viewRef={this.state.viewRef}
-                blurType="light"
+                blurType="dark"
                 blurAmount={10}
               />
             )}
@@ -646,7 +647,11 @@ export default class playerView extends Component {
                 flexDirection: 'row',
               }}>
               <Text>{playList.size()}/50</Text>
-              <IconButton size={25} icon={'delete-sweep-outline'} />
+              <IconButton
+                size={25}
+                icon={'delete-sweep-outline'}
+                onPress={() => this.props.destroyLinklist()}
+              />
             </View>
             <MusicList
               mode={'local'}
@@ -675,8 +680,9 @@ export default class playerView extends Component {
             muted={false}
             paused={currentUrl !== '' && isPause}
             repeat={true}
-            playInBackground={false}
-            playWhenInactive={false}
+            playInBackground={true}
+            ignoreSilentSwitch={'ignore'}
+            playWhenInactive={true}
             progressUpdateInterval={1000.0}
             onLoadStart={this.LoadStart}
             onLoad={this.setDuration}
@@ -687,8 +693,8 @@ export default class playerView extends Component {
             onBuffer={this.onBuffer}
             onTimedMetadata={this.onTimedMetadata}
           />
-        ) : (
-          <Text style={{color: 'red'}}>加载中。。。。。。。</Text>
+        ) : (null
+        // <Text style={{color: 'red'}}>加载中。。。。。。。</Text>
         )}
       </>
     );

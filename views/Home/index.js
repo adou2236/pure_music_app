@@ -5,7 +5,7 @@ import Hot from '../Hot';
 import ArtistList from '../ArtistList';
 import SideMenu from 'react-native-side-menu';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {Colors} from 'react-native-paper';
+import {Colors, Drawer, Switch} from 'react-native-paper';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -65,8 +65,6 @@ function MyTabBar(props) {
               borderRadius: 0,
               fontSize: 18,
               color: props.theme.colors.text,
-              borderBottomWidth: 2,
-              borderColor: props.theme.colors.primary,
             },
           });
 
@@ -74,7 +72,14 @@ function MyTabBar(props) {
             <TouchableOpacity
               key={index}
               accessibilityRole="button"
-              style={isFocused ? homeStyle.activeTab : homeStyle.Tab}
+              style={
+                isFocused
+                  ? {
+                      borderBottomWidth: 2,
+                      borderColor: props.theme.colors.primary,
+                    }
+                  : ''
+              }
               accessibilityState={isFocused ? {selected: true} : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarTestID}
@@ -102,6 +107,8 @@ export default class Home extends Component {
     super(props);
     this.state = {
       isOpen: false,
+      nightMode: false,
+      active: '',
     };
   }
   openSide = () => {
@@ -109,8 +116,15 @@ export default class Home extends Component {
       isOpen: !this.state.isOpen,
     });
   };
+  changeNightMode = (v) => {
+    console.log(v);
+    this.setState({
+      nightMode: v,
+    });
+  };
   componentDidMount() {}
   render() {
+    const {nightMode, active} = this.state;
     return (
       <SideMenu
         onChange={(v) => {
@@ -120,11 +134,23 @@ export default class Home extends Component {
         }}
         isOpen={this.state.isOpen}
         menu={
-          <Text
-            style={{marginTop: 0}}
-            onPress={() => window.open('/MusicList')}>
-            aaa
-          </Text>
+          <>
+            <Drawer.Section>
+              <Drawer.Item label="首页" active={active === 'Home'} />
+              <Drawer.Item label="搜索" active={active === 'Search'} />
+            </Drawer.Section>
+            <Drawer.Section>
+              <Drawer.Item label="设置" active={active === 'Setting'} />
+            </Drawer.Section>
+            {/*<Drawer.Section>*/}
+            {/*    <Drawer.Item*/}
+            {/*        label="设置"*/}
+            {/*        active={active === 'Setting'}*/}
+            {/*    />*/}
+            {/*    <Switch value={nightMode} onValueChange={this.changeNightMode} />*/}
+
+            {/*</Drawer.Section>*/}
+          </>
         }>
         <Tab.Navigator
           tabBar={(props) => (

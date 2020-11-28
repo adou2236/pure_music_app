@@ -46,29 +46,28 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    //歌曲列表，结构比较特殊，下标为0为临时播放音乐，不参与队列循环，选择单曲改变此值
-    // AsyncStorage.getItem('playList', (error, result) => {
-    //   if (!error) {
-    //     const res = JSON.parse(result);
-    //     this.setState({
-    //       playList: [],
-    //     });
-    //   }
-    // });
+    //歌曲列表，循环双链表结构，存在本地只能以字符串形式，存与去需要进行格式化
+    this._retrieveData();
   }
   //从存储中读取
   _retrieveData = async () => {
     try {
       const playList = await AsyncStorage.getItem('playList');
-
-      // const currentPlaying = await AsyncStorage.getItem('currentPlaying');
+      const currentPlaying = await AsyncStorage.getItem('currentPlaying');
       if (playList !== null) {
-        console.log('we have data', JSON.parse(playList));
+        JSON.parse(playList).forEach((item) => {
+          this.state.playList.append(item);
+        });
+        this.setState({
+          playList: this.state.playList,
+        });
       }
-      // if (currentPlaying !== null) {
-      //   // We have data!!
-      //   console.log(currentPlaying);
-      // }
+      if (currentPlaying !== null) {
+        var temp = this.state.playList.reLocate(JSON.parse(currentPlaying));
+        this.setState({
+          currentPlaying: temp === -1 ? this.state.playList.getHead() : temp,
+        });
+      }
     } catch (error) {
       // Error retrieving data
     }
@@ -78,7 +77,10 @@ class App extends Component {
   _storeData = async () => {
     try {
       await AsyncStorage.setItem('playList', this.state.playList.toString());
-      // await AsyncStorage.setItem('currentPlaying', this.state.currentPlaying);
+      await AsyncStorage.setItem(
+        'currentPlaying',
+        JSON.stringify(this.state.currentPlaying.element),
+      );
     } catch (error) {
       // Error saving data
     }
@@ -86,6 +88,19 @@ class App extends Component {
 
   text = () => {
     this._retrieveData();
+  };
+
+  destroyLinklist = () => {
+    this.state.playList.destroy();
+    this.setState(
+      {
+        playList: this.state.playList,
+        currentPlaying: null,
+      },
+      () => {
+        this._storeData();
+      },
+    );
   };
 
   listAction = (op, data) => {
@@ -110,8 +125,22 @@ class App extends Component {
         return;
       //选择
       case 'select':
-        this.state.currentPlaying = this.state.playList.reLocate(data);
-        this.setState({currentPlaying: this.state.currentPlaying});
+        var result = this.state.playList.reLocate(data);
+        if (result === -1) {
+          this.state.playList.append(data);
+          this.state.currentPlaying = this.state.playList.reLocate(data);
+          this.setState(
+            {
+              playList: this.state.playList,
+              currentPlaying: this.state.currentPlaying,
+            },
+            () => this._storeData(),
+          );
+        } else {
+          this.setState({currentPlaying: result}, () => {
+            this._storeData();
+          });
+        }
 
         return;
       //加入（下一曲）
@@ -149,6 +178,7 @@ class App extends Component {
   };
   render() {
     const {playList, currentPlaying} = this.state;
+    console.log('播放对象', playList, currentPlaying, playList.size());
     const styles = StyleSheet.create({
       container: {
         width: '100%',
@@ -165,38 +195,59 @@ class App extends Component {
     const theme = {
       ...DefaultTheme,
       roundness: 2,
+      colors: {
+        ...DefaultTheme.colors,
+        primary: '#ff00a1',
+      },
     };
 
     return (
-      <SafeAreaView style={[styles.container]}>
+      <SafeAreaView
+        style={[styles.container]}
+        backgroundColor={theme.colors.surface}>
         <PaperProvider style={styles.Main} theme={theme}>
+          <StatusBar
+            animated={true}
+            barStyle={theme.dark?'light-content':'dark-content'} // enum('default', 'light-content', 'dark-content')
+          />
           <APPNavigator
             theme={theme}
             style={{flex: 1}}
             currentPlaying={currentPlaying}
             listAction={(op, data) => this.listAction(op, data)}
           />
-          <Button
-            onPress={() => {
-              this.text();
-            }}>
-            缓存测试
-          </Button>
+          {/*<Button*/}
+          {/*  onPress={() => {*/}
+          {/*    this.text();*/}
+          {/*  }}>*/}
+          {/*  缓存测试*/}
+          {/*</Button>*/}
           {/*此处为绝对定位*/}
-          {playList.size() > 0 ? (
+          {playList.size() > 0 && currentPlaying ? (
             <PlayerView
               playList={playList}
               currentPlaying={currentPlaying}
               preSong={() =>
-                this.setState({
-                  currentPlaying: this.state.currentPlaying.prev,
-                })
+                this.setState(
+                  {
+                    currentPlaying: this.state.currentPlaying.prev,
+                  },
+                  () => {
+                    this._storeData();
+                  },
+                )
               }
               nextSong={() =>
-                this.setState({
-                  currentPlaying: this.state.currentPlaying.next,
-                })
+                this.setState(
+                  {
+                    currentPlaying: this.state.currentPlaying.next,
+                  },
+                  () => {
+                    this._storeData();
+                  },
+                )
               }
+              destroyLinklist={() => this.destroyLinklist()}
               listAction={(op, data) => this.listAction(op, data)}
             />
           ) : null}

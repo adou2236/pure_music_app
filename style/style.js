@@ -9,8 +9,8 @@ const playerStyle = StyleSheet.create({
     // right: 0,
     height: 53,
     fontSize: 20,
-    borderTopWidth: 1,
-    borderColor: 'red',
+    // borderTopWidth: 1,
+    // borderColor: 'red',
     // backgroundColor: 'white',
   },
   miniCover: {

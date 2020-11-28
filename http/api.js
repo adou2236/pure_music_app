@@ -18,7 +18,7 @@ let BASE_URL = '';
 let baseURLArr = [
   {
     type: 'development',
-    url: 'http://192.168.1.37:3000',
+    url: 'http://localhost:3000',
   },
   {
     type: 'test',
@@ -41,5 +41,5 @@ baseURLArr.forEach((item) => {
  */
 export function getAllMusic(data) {
   let url = BASE_URL + '/search';
-  return xhr('GET', `${url}?keywords=${data.keywords}`);
+  return xhr('POST', url, data);
 }

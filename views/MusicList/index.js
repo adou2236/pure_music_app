@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {View, FlatList, Text} from 'react-native';
+import {View, FlatList, Text, RefreshControl} from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
+
 import ListObj from './listObj';
 
 export default class MusicList extends Component {
@@ -27,13 +29,20 @@ export default class MusicList extends Component {
     this.props.listAction(m, v);
   };
   render() {
-    const {musicList, currentPlaying} = this.props;
-    console.log('正在播放', currentPlaying);
+    const {musicList, currentPlaying, refreshing, mode} = this.props;
     return (
       <View style={{flex: 1}}>
         <FlatList
           data={musicList}
           keyExtractor={(item) => item.uuid}
+          onRefresh={() => {
+            mode === 'net' && musicList.length > 0 ? this.props.refresh() : '';
+          }}
+          onEndReachedThreshold={0}
+          onEndReached={() => {
+            mode === 'net' ? this.props.endReach() : '';
+          }}
+          refreshing={refreshing === 'up'}
           renderItem={({item}) => (
             <ListObj
               isPlaying={
@@ -45,10 +54,13 @@ export default class MusicList extends Component {
               selectMusic={this.selectMusic}
               removeMusic={this.removeMusic}
               item={item}
-              mode={this.props.mode}
+              mode={mode}
             />
           )}
         />
+        {mode === 'net' ? (
+          <ActivityIndicator animating={refreshing === 'bottom'} />
+        ) : null}
       </View>
     );
   }

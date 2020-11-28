@@ -134,7 +134,6 @@
 				E691D5E0E745E505F5B5C199 /* Pods-pure_music_app-tvOSTests.debug.xcconfig */,
 				CD1BAFB4FA4683CE405A1E78 /* Pods-pure_music_app-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -157,7 +156,6 @@
 			children = (
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
