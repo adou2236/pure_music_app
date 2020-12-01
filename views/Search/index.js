@@ -25,7 +25,12 @@ export default class Search extends Component {
     });
   };
 
-  getData = (params) => {
+  getData = (currentPage) => {
+    let params = {
+      pageSize: this.state.pageSize,
+      currentPage: currentPage,
+      keywords: this.state.searchQuery,
+    };
     getAllMusic(params).then((res) => {
       console.log('搜索结果为', res);
       if (res.length !== 0) {
@@ -40,12 +45,16 @@ export default class Search extends Component {
   };
 
   search = (currentPage = 1) => {
-    let params = {
-      pageSize: this.state.pageSize,
-      currentPage: currentPage,
-      keywords: this.state.searchQuery,
-    };
-    this.getData(params);
+    this.setState(
+      {
+        refreshing: 'up',
+        musicList: [],
+        currentPage: 1,
+      },
+      () => {
+        this.getData(1);
+      },
+    );
   };
 
   refesh = () => {
@@ -57,7 +66,7 @@ export default class Search extends Component {
         currentPage: 1,
       },
       () => {
-        this.search(1);
+        this.getData(1);
       },
     );
   };
@@ -70,7 +79,7 @@ export default class Search extends Component {
         currentPage: this.state.currentPage + 1,
       },
       () => {
-        this.search(this.state.currentPage);
+        this.getData(this.state.currentPage);
       },
     );
   };

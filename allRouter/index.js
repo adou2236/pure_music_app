@@ -5,6 +5,7 @@ import Setting from '../views/Setting';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import PlayerView from '../views/playerView';
+import {BackHandler} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -26,7 +27,12 @@ export default class APPNavigator extends Component {
                 headerShown: false,
               }}
               name="Home">
-              {(props) => <Home {...props} theme={this.props.theme} />}
+              {(props) => (
+                <Home
+                  {...props}
+                  {...this.props}
+                />
+              )}
             </Stack.Screen>
             <Stack.Screen
               options={{
@@ -42,7 +48,13 @@ export default class APPNavigator extends Component {
                 />
               )}
             </Stack.Screen>
-            <Stack.Screen name="Setting" component={Setting} />
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="Setting">
+              {(props) => <Setting {...props} theme={this.props.theme} />}
+            </Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>
       </>

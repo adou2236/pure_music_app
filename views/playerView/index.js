@@ -9,7 +9,7 @@ import {
   Animated,
   Platform,
 } from 'react-native';
-import Slider from '@react-native-community/slider';
+import Slider from 'react-native-slider-t';
 import {playerStyle} from '../../style/style';
 import {
   ProgressBar,
@@ -23,24 +23,22 @@ import {VibrancyView, BlurView} from 'react-native-blur';
 import Video from 'react-native-video';
 import MusicList from '../MusicList';
 import {getRealUrl, throttle, debounce} from '../../unit/fn';
-import noCover from '../../public/image/noCover.jpg'
+import noCover from '../../public/image/noCover.jpg';
 export default class playerView extends Component {
   constructor(props) {
     super(props);
     this.rotation = false;
     this.player = null;
+    this.backgroundImage = noCover;
     // this.valueChange = debounce(this.valueChange);
     this.state = {
       viewRef: null,
-      isOpen: false,
-      isClose: true,
       playMode: 'repeat',
-      playModeList: ['repeat', 'repeat-once', 'repeat-off'],
+      playModeList: ['repeat', 'repeat-once', 'repeat-off', 'shuffle'],
       currentTime: 0,
       duration: 1,
       isPause: true,
       spinValue: new Animated.Value(0),
-      scaleAnimate: new Animated.Value(0),
       musicSide: false,
       currentUrl: '',
     };
@@ -64,6 +62,7 @@ export default class playerView extends Component {
     if (prevProps.currentPlaying !== this.props.currentPlaying) {
       this.setState(
         {
+          viewRef: null,
           currentTime: 0,
           currentUrl: '',
         },
@@ -71,6 +70,7 @@ export default class playerView extends Component {
           getRealUrl(this.props.currentPlaying.element.music_id)
             .then((res) => {
               this.setState({
+                viewRef: findNodeHandle(this.backgroundImage),
                 currentUrl: res,
               });
             })
@@ -184,7 +184,6 @@ export default class playerView extends Component {
 
   //充满疑问？？？？？？？？？？
   valueChange = (v) => {
-    console.log('跳跃改变');
     if (this.player) {
       this.setTime = () => {
         this.setState({
@@ -229,6 +228,11 @@ export default class playerView extends Component {
           this.nextSong();
         }
         break;
+      case 'shuffle':
+        this.nextSong(Math.floor(Math.random() * this.props.playList.size()));
+        break;
+      case 'repeat-once':
+        this.nextSong(0);
     }
   };
   LoadStart() {
@@ -237,12 +241,13 @@ export default class playerView extends Component {
   preSong = () => {
     this.props.preSong();
   };
-  nextSong = () => {
-    this.props.nextSong();
+  nextSong = (number = 1) => {
+    console.log('播放模式', number);
+    this.props.nextSong(number);
   };
   playMode = (v) => {
     let index = this.state.playModeList.indexOf(v);
-    index = (index + 1) % 3;
+    index = (index + 1) % 4;
     this.setState({
       playMode: this.state.playModeList[index],
     });
@@ -341,8 +346,6 @@ export default class playerView extends Component {
     });
 
     let {
-      isOpen,
-      isClose,
       duration,
       currentTime,
       isPause,
@@ -350,7 +353,7 @@ export default class playerView extends Component {
       musicSide,
       currentUrl,
     } = this.state;
-    let {playList, currentPlaying} = this.props;
+    let {playList, currentPlaying, isOpen, isClose, withBlur} = this.props;
     const miniPlayer = (
       <View style={playerStyle.miniPlayer}>
         <View
@@ -363,7 +366,7 @@ export default class playerView extends Component {
           }}>
           <View style={playerStyle.miniCover}>
             <Image
-              source={{uri: currentPlaying.element.cover}}
+              source={{uri: currentPlaying.element.pic_url}}
               style={{position: 'absolute', height: '100%', width: '100%'}}
             />
             <IconButton
@@ -376,33 +379,21 @@ export default class playerView extends Component {
           <TouchableOpacity
             style={playerStyle.musicMessage}
             onPress={() => {
-              Animated.spring(this.state.scaleAnimate, {
-                toValue: 1,
-                velocity: 2, //初始速度
-                friction: 8, //摩擦力值
-                duration: 1500, //
-                useNativeDriver: true,
-              }).start(() => {
-                this.setState({
-                  isClose: false,
-                });
-              });
-              this.setState({
-                isOpen: true,
-              });
+              this.props.showModal();
             }}>
             <View>
-              <Text style={{fontSize: 15}}>{currentPlaying.element.name}</Text>
+              <Text style={{fontSize: 15}}>
+                {currentPlaying.element.song_name}
+              </Text>
               <Text style={{fontSize: 10}}>
-                {currentPlaying.element.artist}
+                {currentPlaying.element.author}
               </Text>
             </View>
           </TouchableOpacity>
-
           <IconButton
             style={{justifySelf: 'center'}}
-            icon="step-forward"
-            onPress={() => console.log('Pressed')}
+            icon="skip-next"
+            onPress={() => this.nextSong()}
           />
         </View>
         <ProgressBar
@@ -410,12 +401,6 @@ export default class playerView extends Component {
           color={Colors.blue200}
           style={playerStyle.miniProgress}
         />
-        {/*<Button*/}
-        {/*  onPress={() => {*/}
-        {/*    this.setState({isOpen: true});*/}
-        {/*  }}>*/}
-        {/*  打开*/}
-        {/*</Button>*/}
       </View>
     );
     const wholePlayer = (
@@ -426,14 +411,14 @@ export default class playerView extends Component {
             transform: [
               {
                 //缩放效果
-                scale: this.state.scaleAnimate.interpolate({
+                scale: this.props.scaleAnimate.interpolate({
                   inputRange: [0, 0.5, 1],
                   outputRange: [0.8, 1.2, 1],
                 }),
               },
               {
                 //偏移效果
-                translateY: this.state.scaleAnimate.interpolate({
+                translateY: this.props.scaleAnimate.interpolate({
                   inputRange: [0, 1],
                   outputRange: [1000, 0],
                 }),
@@ -445,9 +430,9 @@ export default class playerView extends Component {
               this.backgroundImage = img;
             }}
             style={styles.bgContainer}
-            source={{uri: currentPlaying.element.cover}}
+            source={{uri: currentPlaying.element.pic_url}}
             resizeMode="cover"
-            onLoadEnd={() => this.imageLoaded()}
+            onLoadEnd={this.imageLoaded.bind(this)}
           />
           <View style={styles.bgContainer}>
             {Platform.OS === 'ios' ? (
@@ -456,14 +441,14 @@ export default class playerView extends Component {
                 blurAmount={20}
                 style={styles.container}
               />
-            ) : (
+            ) : withBlur ? (
               <BlurView
                 style={styles.absolute}
                 viewRef={this.state.viewRef}
                 blurType="dark"
                 blurAmount={10}
               />
-            )}
+            ) : null}
           </View>
           <View style={styles.bgContainer}>
             <View style={styles.navBarStyle}>
@@ -473,33 +458,21 @@ export default class playerView extends Component {
                   color={'white'}
                   size={20}
                   onPress={() => {
-                    Animated.spring(this.state.scaleAnimate, {
-                      toValue: 0,
-                      velocity: 2, //初始速度
-                      friction: 8, //摩擦力值
-                      duration: 1500, //
-                      useNativeDriver: true,
-                    }).start(() => {
-                      this.setState({
-                        isOpen: false,
-                      });
-                    });
-                    this.setState({
-                      isClose: true,
-                    });
+                    this.props.hideModal();
                   }}
                 />
                 <View style={{alignItems: 'center'}}>
                   <Text style={styles.title}>
-                    {currentPlaying.element.name}
+                    {currentPlaying.element.song_name}
                   </Text>
                   <Text style={styles.subTitle}>
-                    {currentPlaying.element.artist}
+                    {currentPlaying.element.author}
                   </Text>
                 </View>
                 <IconButton
+                  color={'white'}
                   style={{marginTop: 5}}
-                  onPress={() => alert('分享')}
+                  onPress={() => alert('开发中。。。')}
                   icon="play"
                   size={20}
                 />
@@ -534,7 +507,7 @@ export default class playerView extends Component {
                   },
                 ],
               }}
-              source={{uri: currentPlaying.element.cover}}
+              source={{uri: currentPlaying.element.pic_url}}
             />
             <View style={{flex: 1}}>
               <View
@@ -565,10 +538,10 @@ export default class playerView extends Component {
                 </Text>
                 <Slider
                   style={styles.slider}
-                  tapToSeek={true}
                   value={this.state.currentTime}
                   maximumValue={this.state.duration}
                   step={1}
+                  trackPressable={true}
                   onValueChange={(value) => this.valueChange(value)}
                   onSlidingComplete={(value) => this.slidingComplete(value)}
                 />
@@ -667,35 +640,36 @@ export default class playerView extends Component {
       <>
         {isClose ? miniPlayer : null}
         {isOpen ? wholePlayer : null}
-        {currentUrl !== '' ? (
-          <Video
-            source={{
-              uri: currentUrl,
-            }}
-            ref={(ref) => {
-              this.player = ref;
-            }}
-            rate={1.0}
-            volume={1.0}
-            muted={false}
-            paused={currentUrl !== '' && isPause}
-            repeat={true}
-            playInBackground={true}
-            ignoreSilentSwitch={'ignore'}
-            playWhenInactive={true}
-            progressUpdateInterval={1000.0}
-            onLoadStart={this.LoadStart}
-            onLoad={this.setDuration}
-            onProgress={this.setTime}
-            onEnd={this.onEnd}
-            onSeek={this.seekDone}
-            onError={this.videoError}
-            onBuffer={this.onBuffer}
-            onTimedMetadata={this.onTimedMetadata}
-          />
-        ) : (null
-        // <Text style={{color: 'red'}}>加载中。。。。。。。</Text>
-        )}
+        {
+          currentUrl !== '' ? (
+            <Video
+              source={{
+                uri: currentUrl,
+              }}
+              ref={(ref) => {
+                this.player = ref;
+              }}
+              rate={1.0}
+              volume={1.0}
+              muted={false}
+              paused={currentUrl !== '' && isPause}
+              repeat={true}
+              playInBackground={true}
+              ignoreSilentSwitch={'ignore'}
+              playWhenInactive={true}
+              progressUpdateInterval={1000.0}
+              onLoadStart={this.LoadStart}
+              onLoad={this.setDuration}
+              onProgress={this.setTime}
+              onEnd={this.onEnd}
+              onSeek={this.seekDone}
+              onError={this.videoError}
+              onBuffer={this.onBuffer}
+              onTimedMetadata={this.onTimedMetadata}
+            />
+          ) : null
+          // <Text style={{color: 'red'}}>加载中。。。。。。。</Text>
+        }
       </>
     );
   }

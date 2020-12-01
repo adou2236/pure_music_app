@@ -25,8 +25,8 @@ export default class listObj extends Component {
     const {item, mode, isPlaying} = this.props;
     return (
       <List.Item
-        title={item.name}
-        description={item.artist}
+        title={item.song_name}
+        description={item.author}
         onPress={() => this.props.selectMusic(item)}
         left={() =>
           isPlaying ? (

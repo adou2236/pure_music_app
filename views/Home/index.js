@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  BackHandler,
+} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import Hot from '../Hot';
 import ArtistList from '../ArtistList';
 import SideMenu from 'react-native-side-menu';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Colors, Drawer, Switch} from 'react-native-paper';
+import Toast from 'react-native-easy-toast';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -95,7 +102,7 @@ function MyTabBar(props) {
         icon="magnify"
         color={props.theme.colors.text}
         size={25}
-        onPress={() => navigation.navigate('Search')}>
+        onPress={() => props.navigation.navigate('Search')}>
         搜索
       </IconButton>
     </View>
@@ -109,6 +116,7 @@ export default class Home extends Component {
       isOpen: false,
       nightMode: false,
       active: '',
+      position: 'bottom',
     };
   }
   openSide = () => {
@@ -122,11 +130,54 @@ export default class Home extends Component {
       nightMode: v,
     });
   };
-  componentDidMount() {}
+  componentDidMount() {
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.onBackButtonPressAndroid,
+    );
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onBackButtonPressAndroid,
+    );
+  }
+
+  onBackButtonPressAndroid = () => {
+    const nav = this.props.route;
+    if (
+      nav === 'Home' &&
+      this.lastBackPressed &&
+      this.lastBackPressed + 2000 >= Date.now()
+    ) {
+      //最近2秒内按过back键，可以退出应用。
+      BackHandler.exitApp();
+      return;
+    }
+    if (!this.state.isOpen && !this.props.withBlur) {
+      this.lastBackPressed = Date.now();
+      this.refs.toast.show('再按一次退出应用', 300);
+      return true;
+    } else {
+      this.props.backButton();
+      this.setState({
+        isOpen: false,
+      });
+      return true;
+    }
+  };
+
+  sideMenuPush = (router) => {
+    this.setState({isOpen: false});
+    this.props.navigation.navigate(router);
+  };
+
   render() {
-    const {nightMode, active} = this.state;
+    const {active} = this.state;
+    console.log('AAAAAAAAAa', this.props);
     return (
       <SideMenu
+        useNativeDriver={true}
         onChange={(v) => {
           this.setState({
             isOpen: v,
@@ -137,10 +188,18 @@ export default class Home extends Component {
           <>
             <Drawer.Section>
               <Drawer.Item label="首页" active={active === 'Home'} />
-              <Drawer.Item label="搜索" active={active === 'Search'} />
+              <Drawer.Item
+                label="搜索"
+                active={active === 'Search'}
+                onPress={() => this.sideMenuPush('Search')}
+              />
             </Drawer.Section>
             <Drawer.Section>
-              <Drawer.Item label="设置" active={active === 'Setting'} />
+              <Drawer.Item
+                label="设置"
+                active={active === 'Setting'}
+                onPress={() => this.sideMenuPush('Setting')}
+              />
             </Drawer.Section>
             {/*<Drawer.Section>*/}
             {/*    <Drawer.Item*/}
@@ -163,6 +222,7 @@ export default class Home extends Component {
           <Tab.Screen name="热门" component={Hot} />
           <Tab.Screen name="最新" component={ArtistList} />
         </Tab.Navigator>
+        <Toast ref="toast" position={this.state.position} />
       </SideMenu>
     );
   }

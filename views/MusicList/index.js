@@ -34,7 +34,7 @@ export default class MusicList extends Component {
       <View style={{flex: 1}}>
         <FlatList
           data={musicList}
-          keyExtractor={(item) => item.uuid}
+          keyExtractor={(item) => item.id + ''}
           onRefresh={() => {
             mode === 'net' && musicList.length > 0 ? this.props.refresh() : '';
           }}
@@ -47,7 +47,7 @@ export default class MusicList extends Component {
             <ListObj
               isPlaying={
                 currentPlaying
-                  ? item.uuid === currentPlaying.element.uuid
+                  ? item.music_id === currentPlaying.element.music_id
                   : false
               }
               addToList={this.addToList}

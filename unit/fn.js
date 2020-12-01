@@ -65,10 +65,12 @@ export function DoublyCircularLinkedList() {
     this.prev = null;
   };
   let length = 0,
+    total = 50,
     head = null,
     tail = null;
 
   this.append = function (element) {
+    console.log('执行追加');
     var node = new Node(element),
       current;
     if (!head) {
@@ -77,6 +79,9 @@ export function DoublyCircularLinkedList() {
       head.prev = tail;
       tail.next = head;
     } else if (this.indexOf(element) === -1) {
+      if (this.size() === total) {
+        this.removeAt(0);
+      }
       current = head;
       while (current.next !== head) {
         current = current.next;
@@ -133,6 +138,7 @@ export function DoublyCircularLinkedList() {
 
   // 在链表任意位置插入一个元素
   this.insert = function (position, element) {
+    console.log('插入位置是---------', position, length);
     if (position < length) {
       // 检查越界值
       let node = new Node(element),
@@ -156,6 +162,10 @@ export function DoublyCircularLinkedList() {
         current.next = node;
       }
       length++;
+      if (length === total + 1) {
+        console.log('oooooooooooooo');
+        this.removeAt(length - 1);
+      }
       return true;
     } else {
       return false;
@@ -174,7 +184,7 @@ export function DoublyCircularLinkedList() {
     var current = head,
       index = 0;
     while (current && index + 1 <= length) {
-      if (element === current.element) {
+      if (element.id === current.element.id) {
         return index;
       }
       index++;
@@ -220,7 +230,7 @@ export function DoublyCircularLinkedList() {
     var current = head,
       index = 0;
     while (current && index + 1 <= length) {
-      if (element.uuid === current.element.uuid) {
+      if (element.music_id === current.element.music_id) {
         return current;
       }
       index++;

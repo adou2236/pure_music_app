@@ -17,7 +17,7 @@ export default class Hot extends Component {
     const {navigation} = this.props;
     return (
       <View style={{height: 200}}>
-        <Button onPress={() => navigation.navigate('Search')}>跳转</Button>
+        <Button onPress={() => navigation.navigate('Setting')}>跳转</Button>
         <Button onPress={() => this.getUrl()}>测试</Button>
       </View>
     );
