@@ -19,6 +19,8 @@ import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+// react-native-music-control
+import com.tanguyantoine.react.MusicControl;
 // react-native-reanimated
 import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-safe-area-context
@@ -29,6 +31,8 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 // react-native-video
 import com.brentvatne.react.ReactVideoPackage;
+// @react-native-community/async-storage
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 public class PackageList {
   private Application application;
@@ -78,11 +82,13 @@ public class PackageList {
       new ReactSliderPackage(),
       new BlurViewPackage(),
       new RNGestureHandlerPackage(),
+      new MusicControl(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage(),
       new VectorIconsPackage(),
-      new ReactVideoPackage()
+      new ReactVideoPackage(),
+      new AsyncStoragePackage()
     ));
   }
 }

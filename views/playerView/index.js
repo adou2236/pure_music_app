@@ -24,6 +24,8 @@ import Video from 'react-native-video';
 import MusicList from '../MusicList';
 import {getRealUrl, throttle, debounce} from '../../unit/fn';
 import noCover from '../../public/image/noCover.jpg';
+import MusicControl, {Command} from 'react-native-music-control';
+
 export default class playerView extends Component {
   constructor(props) {
     super(props);
@@ -50,7 +52,38 @@ export default class playerView extends Component {
     });
   }
   componentDidMount() {
+    // console.log(
+    //   'CCCCCCCCCCc',
+    //   parseInt('0x' + this.props.theme.colors.primary.split('#')[1]),
+    // );
     // this.spin();
+    MusicControl.resetNowPlaying();
+    MusicControl.setNowPlaying({
+      title: this.props.currentPlaying.element.song_name,
+      artwork: this.props.currentPlaying.element.pic_url, // URL or RN's image require()
+      artist: this.props.currentPlaying.element.author,
+      color: 0xffffff, // Android Only - Notification Color
+      colorized: true, // Android 8+ Only - Notification Color extracted from the artwork. Set to false to use the color property instead
+      isLiveStream: true, // iOS Only (Boolean), Show or hide Live Indicator instead of seekbar on lock screen for live streams. Default value is false.
+    });
+    MusicControl.enableBackgroundMode(true);
+    MusicControl.enableControl('closeNotification', true, {when: 'paused'});
+    MusicControl.enableControl('play', true);
+    MusicControl.enableControl('pause', true);
+    MusicControl.enableControl('nextTrack', true);
+    MusicControl.enableControl('previousTrack', true);
+    MusicControl.on('play', () => {
+      this.pauseControl();
+    });
+    MusicControl.on(Command.pause, () => {
+      this.pauseControl();
+    });
+    MusicControl.on(Command.nextTrack, () => {
+      this.nextSong();
+    });
+    MusicControl.on(Command.previousTrack, () => {
+      this.preSong();
+    });
   }
 
   componentDidUpdate(
@@ -60,6 +93,11 @@ export default class playerView extends Component {
   ) {
     //切歌
     if (prevProps.currentPlaying !== this.props.currentPlaying) {
+      MusicControl.setNowPlaying({
+        title: this.props.currentPlaying.element.song_name,
+        artwork: this.props.currentPlaying.element.pic_url, // URL or RN's image require()
+        artist: this.props.currentPlaying.element.author,
+      });
       this.setState(
         {
           viewRef: null,
@@ -151,6 +189,9 @@ export default class playerView extends Component {
       },
       () => {
         if (!this.state.isPause) {
+          MusicControl.updatePlayback({
+            state: MusicControl.STATE_PLAYING, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
+          });
           getRealUrl(this.props.currentPlaying.element.music_id)
             .then((res) => {
               this.setState({
@@ -163,6 +204,10 @@ export default class playerView extends Component {
               });
               console.log('解析失败', err);
             });
+        } else {
+          MusicControl.updatePlayback({
+            state: MusicControl.STATE_PAUSED, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
+          });
         }
       },
     );

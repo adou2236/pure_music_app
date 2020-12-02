@@ -43,3 +43,8 @@ export function getAllMusic(data) {
   let url = BASE_URL + '/search';
   return xhr('POST', url, data);
 }
+
+export function addPlayTimes(music_id) {
+  let url = BASE_URL + `/play/${music_id}`;
+  return xhr('GET', url);
+}

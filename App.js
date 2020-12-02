@@ -69,7 +69,7 @@ class App extends Component {
       });
     });
     this.setState({
-      withBlur:true,
+      withBlur: true,
       isOpen: true,
     });
   };
@@ -253,7 +253,6 @@ class App extends Component {
       },
     };
 
-
     return (
       <SafeAreaView
         style={[styles.container]}
@@ -274,6 +273,7 @@ class App extends Component {
           {/*此处为绝对定位*/}
           {playList.size() > 0 && currentPlaying ? (
             <PlayerView
+              theme={theme}
               scaleAnimate={this.state.scaleAnimate}
               withBlur={withBlur}
               isOpen={isOpen}

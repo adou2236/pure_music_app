@@ -6,7 +6,11 @@ import {Alert} from 'react-native';
  *  params 请求参数
  */
 const xhr = (method, url, data = {}) => {
-  console.log('执行请求', data, JSON.stringify(data));
+  console.log('执行请求', method, data);
+  var query = {};
+  if (method === 'POST') {
+    query = {body: JSON.stringify(data)};
+  }
   // params.method = method;
   //基本参数version，还可以放些其他的基本参数
   // params.version = '1.0';
@@ -18,16 +22,15 @@ const xhr = (method, url, data = {}) => {
         Accept: 'application/json', // 提交参数的数据方式,这里以json的形式
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      ...query,
     })
-      .then((response) => response.json()) //数据解析的方式，json解析
       .then((responseJson) => {
         var code = responseJson.status; //返回直接映射完的数据，可以直接使用
         switch (
           code //做一些简单的处理
         ) {
           case 0: {
-            resolve(responseJson);
+            resolve(responseJson.json());
             break;
           }
           case 10001: {
@@ -38,16 +41,13 @@ const xhr = (method, url, data = {}) => {
             break;
           }
           default: {
-            resolve(responseJson);
+            resolve(responseJson.json());
             break;
-            // Alert.alert('提示', responseJson.msg, [
-            //   {text: '确定', onPress: () => console.log('OK Pressed!')},
-            // ]);
           }
         }
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         Alert.alert('请检查网络');
       });
   });
