@@ -3,15 +3,8 @@ import {Colors} from 'react-native-paper';
 
 const playerStyle = StyleSheet.create({
   miniPlayer: {
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
     height: 53,
     fontSize: 20,
-    // borderTopWidth: 1,
-    // borderColor: 'red',
-    // backgroundColor: 'white',
   },
   miniCover: {
     zIndex: 5,
@@ -45,7 +38,23 @@ const playerStyle = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  typeList: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+    paddingVertical: 10,
+  },
+  typeBox: {
+    backgroundColor: '#FFF',
+    width: '30%',
+    height: 80,
+    elevation: 4,
+    marginBottom: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
-
 
 export {playerStyle};

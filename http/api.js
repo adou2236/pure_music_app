@@ -26,7 +26,7 @@ let baseURLArr = [
   },
   {
     type: 'production',
-    url: 'http://生产环境',
+    url: 'http://8.131.54.184:3000',
   },
 ];
 baseURLArr.forEach((item) => {
@@ -44,7 +44,18 @@ export function getAllMusic(data) {
   return xhr('POST', url, data);
 }
 
+/*
+ *@Description:播放次数加1
+ */
 export function addPlayTimes(music_id) {
   let url = BASE_URL + `/play/${music_id}`;
   return xhr('GET', url);
+}
+
+/*
+ *@Description:热门
+ */
+export function getHotList(data) {
+  let url = BASE_URL + `/search/topList`;
+  return xhr('POST', url, data);
 }

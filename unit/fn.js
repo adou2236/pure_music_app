@@ -1,14 +1,11 @@
 import cheerio from 'cheerio';
 import pureStatic from '../public/static';
-import {addPlayTimes} from '../http/api';
 
 export async function getRealUrl(music_id) {
   const response = await fetch(`https://www.hifini.com/thread-${music_id}.htm`);
   const $ = cheerio.load(await response.text());
   var real_url = analysisPage($);
   if (real_url !== '') {
-    addPlayTimes(music_id);
-    console.log('真实连接是', pureStatic.baseUrl + real_url);
     return pureStatic.baseUrl + real_url;
   } else {
     return false;

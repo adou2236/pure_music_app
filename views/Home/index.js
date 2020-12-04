@@ -111,7 +111,7 @@ function MyTabBar(props) {
 
 export default class Home extends Component {
   constructor(props) {
-    super(props);
+      super(props);
     this.state = {
       isOpen: false,
       nightMode: false,
@@ -201,14 +201,6 @@ export default class Home extends Component {
                 onPress={() => this.sideMenuPush('Setting')}
               />
             </Drawer.Section>
-            {/*<Drawer.Section>*/}
-            {/*    <Drawer.Item*/}
-            {/*        label="设置"*/}
-            {/*        active={active === 'Setting'}*/}
-            {/*    />*/}
-            {/*    <Switch value={nightMode} onValueChange={this.changeNightMode} />*/}
-
-            {/*</Drawer.Section>*/}
           </>
         }>
         <Tab.Navigator
@@ -219,7 +211,14 @@ export default class Home extends Component {
               {...props}
             />
           )}>
-          <Tab.Screen name="热门" component={Hot} />
+          <Tab.Screen name="排行">
+            {(props) => (
+              <Hot
+                {...props}
+                {...this.props}
+              />
+            )}
+          </Tab.Screen>
           <Tab.Screen name="最新" component={ArtistList} />
         </Tab.Navigator>
         <Toast ref="toast" position={this.state.position} />

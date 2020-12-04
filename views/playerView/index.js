@@ -25,6 +25,9 @@ import MusicList from '../MusicList';
 import {getRealUrl, throttle, debounce} from '../../unit/fn';
 import noCover from '../../public/image/noCover.jpg';
 import MusicControl, {Command} from 'react-native-music-control';
+import {addPlayTimes} from '../../http/api';
+import Toast from 'react-native-easy-toast';
+import SideMenu from 'react-native-side-menu';
 
 export default class playerView extends Component {
   constructor(props) {
@@ -36,13 +39,19 @@ export default class playerView extends Component {
     this.state = {
       viewRef: null,
       playMode: 'repeat',
-      playModeList: ['repeat', 'repeat-once', 'repeat-off', 'shuffle'],
+      playModeList: [
+        {id: 'repeat', name: '循环播放'},
+        {id: 'repeat-once', name: '单曲循环'},
+        {id: 'repeat-off', name: '关闭循环'},
+        {id: 'shuffle', name: '随机播放'},
+      ],
       currentTime: 0,
       duration: 1,
       isPause: true,
       spinValue: new Animated.Value(0),
       musicSide: false,
       currentUrl: '',
+      position: 'bottom',
     };
     this.spinAnimated = Animated.timing(this.state.spinValue, {
       toValue: 1,
@@ -52,12 +61,8 @@ export default class playerView extends Component {
     });
   }
   componentDidMount() {
-    // console.log(
-    //   'CCCCCCCCCCc',
-    //   parseInt('0x' + this.props.theme.colors.primary.split('#')[1]),
-    // );
     // this.spin();
-    MusicControl.resetNowPlaying();
+    // MusicControl.resetNowPlaying();
     MusicControl.setNowPlaying({
       title: this.props.currentPlaying.element.song_name,
       artwork: this.props.currentPlaying.element.pic_url, // URL or RN's image require()
@@ -113,10 +118,11 @@ export default class playerView extends Component {
               });
             })
             .catch((err) => {
-              this.setState({
-                currentUrl: '',
-              });
-              console.log('解析失败', err);
+              this.nextSong();
+              // this.setState({
+              //   currentUrl: '',
+              // });
+              this.refs.toast.show('解析失败', 300);
             });
         },
       );
@@ -166,7 +172,6 @@ export default class playerView extends Component {
   }
 
   getUrl = (music_id) => {
-    console.log('开始过去', music_id);
     getRealUrl(music_id)
       .then((res) => {
         console.log('获取成功', '"' + res + '"');
@@ -220,8 +225,10 @@ export default class playerView extends Component {
     this.setState({
       duration: parseInt(v.duration),
     });
+    addPlayTimes(this.props.currentPlaying.element.music_id);
   };
   setTime = (v) => {
+    console.log("持续播放中",v)
     this.setState({
       currentTime: parseInt(v.currentTime),
     });
@@ -240,7 +247,7 @@ export default class playerView extends Component {
   };
 
   slidingComplete = (value) => {
-    console.log('跳跃赋值', value);
+    console.log('进度条改变完成');
     if (this.player) {
       this.player.seek(value);
     }
@@ -259,7 +266,7 @@ export default class playerView extends Component {
   onBuffer = () => {};
   //播放结束后的循环操作
   onEnd = () => {
-    console.log('播放结束');
+    console.log('执行onEnd');
     const {playMode} = this.state;
     const {currentPlaying} = this.props;
     switch (playMode) {
@@ -277,25 +284,24 @@ export default class playerView extends Component {
         this.nextSong(Math.floor(Math.random() * this.props.playList.size()));
         break;
       case 'repeat-once':
-        this.nextSong(0);
+        this.player.seek(0);
+        break;
     }
   };
-  LoadStart() {
-    console.log('开始加载+++++++++++++++');
-  }
+  LoadStart() {}
   preSong = () => {
     this.props.preSong();
   };
   nextSong = (number = 1) => {
-    console.log('播放模式', number);
     this.props.nextSong(number);
   };
   playMode = (v) => {
-    let index = this.state.playModeList.indexOf(v);
+    let index = this.state.playModeList.map((item) => item.id).indexOf(v);
     index = (index + 1) % 4;
     this.setState({
-      playMode: this.state.playModeList[index],
+      playMode: this.state.playModeList[index].id,
     });
+    this.refs.toast.show(this.state.playModeList[index].name, 300);
   };
   hideSide = () => {
     this.setState({musicSide: false});
@@ -698,7 +704,6 @@ export default class playerView extends Component {
               volume={1.0}
               muted={false}
               paused={currentUrl !== '' && isPause}
-              repeat={true}
               playInBackground={true}
               ignoreSilentSwitch={'ignore'}
               playWhenInactive={true}
@@ -715,6 +720,7 @@ export default class playerView extends Component {
           ) : null
           // <Text style={{color: 'red'}}>加载中。。。。。。。</Text>
         }
+        <Toast ref="toast" position={this.state.position} />
       </>
     );
   }

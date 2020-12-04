@@ -8,14 +8,14 @@ import {debounce, throttle} from '../../unit/fn';
 export default class Search extends Component {
   constructor(props) {
     super(props);
-    console.log('AAAAAAA', props);
     this.endReach = throttle(this.endReach, 300);
     this.state = {
       searchQuery: '',
       musicList: [],
-      pageSize: 15,
+      pageSize: 50,
       currentPage: 1,
       refreshing: false,
+      carryOnLoading: true,
     };
   }
 
@@ -34,12 +34,15 @@ export default class Search extends Component {
     getAllMusic(params).then((res) => {
       console.log('搜索结果为', res);
       if (res.length !== 0) {
-        setTimeout(() => {
+        this.setState({
+          refreshing: false,
+          musicList: this.state.musicList.concat(res.data.content),
+        });
+        if (currentPage * this.state.pageSize >= res.data.pageInfo.total) {
           this.setState({
-            refreshing: false,
-            musicList: this.state.musicList.concat(res.data.content),
+            carryOnLoading: false,
           });
-        }, 1000);
+        }
       }
     });
   };
@@ -49,6 +52,7 @@ export default class Search extends Component {
       {
         refreshing: 'up',
         musicList: [],
+        carryOnLoading: true,
         currentPage: 1,
       },
       () => {
@@ -58,11 +62,11 @@ export default class Search extends Component {
   };
 
   refesh = () => {
-    console.log('下拉刷新');
     this.setState(
       {
         refreshing: 'up',
         musicList: [],
+        carryOnLoading: true,
         currentPage: 1,
       },
       () => {
@@ -72,7 +76,6 @@ export default class Search extends Component {
   };
 
   endReach = () => {
-    console.log('上拉加载');
     this.setState(
       {
         refreshing: 'bottom',
@@ -85,7 +88,7 @@ export default class Search extends Component {
   };
 
   render() {
-    const {searchQuery, musicList} = this.state;
+    const {searchQuery, musicList, carryOnLoading} = this.state;
     const {navigation, currentPlaying} = this.props;
     return (
       <View style={{height: '100%'}}>
@@ -128,6 +131,7 @@ export default class Search extends Component {
           musicList={musicList}
           currentPlaying={currentPlaying}
           mode={'net'}
+          loadAction={carryOnLoading}
         />
       </View>
     );

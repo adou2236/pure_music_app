@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {View, FlatList, Text, RefreshControl} from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
+import {ActivityIndicator, Button} from 'react-native-paper';
 
 import ListObj from './listObj';
 
 export default class MusicList extends Component {
   constructor(props) {
     super(props);
+    console.log('歌曲列表', props.musicList);
     this.state = {
       visible: false,
     };
@@ -29,21 +30,28 @@ export default class MusicList extends Component {
     this.props.listAction(m, v);
   };
   render() {
-    const {musicList, currentPlaying, refreshing, mode} = this.props;
+    const {
+      loadAction = false,
+      musicList,
+      currentPlaying,
+      refreshing,
+      mode,
+      withAnimation,
+    } = this.props;
     return (
       <View style={{flex: 1}}>
         <FlatList
           data={musicList}
           keyExtractor={(item) => item.id + ''}
           onRefresh={() => {
-            mode === 'net' && musicList.length > 0 ? this.props.refresh() : '';
+            loadAction && musicList.length > 0 ? this.props.refresh() : '';
           }}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={1}
           onEndReached={() => {
-            mode === 'net' ? this.props.endReach() : '';
+            loadAction ? this.props.endReach() : '';
           }}
           refreshing={refreshing === 'up'}
-          renderItem={({item}) => (
+          renderItem={({item, index}) => (
             <ListObj
               isPlaying={
                 currentPlaying
@@ -53,14 +61,18 @@ export default class MusicList extends Component {
               addToList={this.addToList}
               selectMusic={this.selectMusic}
               removeMusic={this.removeMusic}
+              index={index}
               item={item}
               mode={mode}
+              withAnimation={withAnimation}
             />
           )}
         />
-        {mode === 'net' ? (
+        {loadAction ? (
           <ActivityIndicator animating={refreshing === 'bottom'} />
-        ) : null}
+        ) : (
+          null
+        )}
       </View>
     );
   }
