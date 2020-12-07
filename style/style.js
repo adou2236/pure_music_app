@@ -55,6 +55,13 @@ const playerStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  headLine:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
 });
 
 export {playerStyle};

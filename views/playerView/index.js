@@ -31,6 +31,7 @@ import noCover from '../../public/image/noCover.png';
 export default class playerView extends Component {
   constructor(props) {
     super(props);
+    console.log('传入的参数', props);
     this.rotation = false;
     this.player = null;
     this.backgroundImage = noCover;
@@ -170,10 +171,17 @@ export default class playerView extends Component {
     return min + ':' + second;
   }
 
+  toTopPage = () => {
+    this.props.hideModal();
+    this.props.navigation.navigate('TopPage', {
+      name: this.props.currentPlaying.element.author,
+      author: this.props.currentPlaying.element.author,
+    });
+  };
+
   getUrl = (music_id) => {
     getRealUrl(music_id)
       .then((res) => {
-        console.log('获取成功', '"' + res + '"');
         this.setState({
           isPause: false,
         });
@@ -184,12 +192,12 @@ export default class playerView extends Component {
       });
   };
 
-  pauseControl = () => {
+  pauseControl = (play = false) => {
     // this.spin();
     // console.log(this.props.playList[0].music_id)
     this.setState(
       {
-        isPause: !this.state.isPause,
+        isPause: !play && !this.state.isPause,
       },
       () => {
         if (!this.state.isPause) {
@@ -227,7 +235,6 @@ export default class playerView extends Component {
     addPlayTimes(this.props.currentPlaying.element.music_id);
   };
   setTime = (v) => {
-    console.log('持续播放中', v);
     this.setState({
       currentTime: parseInt(v.currentTime),
     });
@@ -246,7 +253,6 @@ export default class playerView extends Component {
   };
 
   slidingComplete = (value) => {
-    console.log('进度条改变完成');
     if (this.player) {
       this.player.seek(value);
     }
@@ -320,8 +326,19 @@ export default class playerView extends Component {
         height: '100%',
         width: '100%',
       },
-      navBarStyle: {
+      bgContainer2: {
         position: 'absolute',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        height: '100%',
+        width: '100%',
+      },
+      navBarStyle: {
         display: 'flex',
         justifyContent: 'flex-end',
         backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -350,10 +367,10 @@ export default class playerView extends Component {
       djCard: {
         width: 270,
         height: 270,
-        marginTop: 185,
+        position: 'absolute',
         borderColor: 'gray',
         borderWidth: 10,
-        borderRadius: 190,
+        // borderRadius: 190,
         alignSelf: 'center',
         opacity: 0.2,
       },
@@ -364,9 +381,8 @@ export default class playerView extends Component {
       progressStyle: {
         flexDirection: 'row',
         marginHorizontal: 10,
+        marginTop: 15,
         alignItems: 'center',
-        position: 'absolute',
-        bottom: 100,
       },
       slider: {
         flex: 1,
@@ -376,8 +392,6 @@ export default class playerView extends Component {
         flexDirection: 'row',
         alignItems: 'center',
         marginHorizontal: 10,
-        position: 'absolute',
-        bottom: 0,
         marginVertical: 30,
       },
       cdStyle: {
@@ -444,11 +458,18 @@ export default class playerView extends Component {
               </Text>
             </View>
           </TouchableOpacity>
-          <IconButton
-            style={{justifySelf: 'center'}}
-            icon="skip-next"
-            onPress={() => this.nextSong()}
-          />
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifySelf: 'center',
+            }}>
+            <IconButton
+              onPress={() => this.setState({musicSide: true})}
+              icon="playlist-music-outline"
+            />
+            <IconButton icon="skip-next" onPress={() => this.nextSong()} />
+          </View>
         </View>
         <ProgressBar
           progress={currentTime / duration}
@@ -508,7 +529,7 @@ export default class playerView extends Component {
               />
             ) : null}
           </View>
-          <View style={styles.bgContainer}>
+          <View style={styles.bgContainer2}>
             <View style={styles.navBarStyle}>
               <View style={styles.navBarContent}>
                 <IconButton
@@ -523,7 +544,9 @@ export default class playerView extends Component {
                   <Text style={styles.title}>
                     {currentPlaying.element.song_name}
                   </Text>
-                  <Text style={styles.subTitle}>
+                  <Text
+                    onPress={() => this.toTopPage()}
+                    style={styles.subTitle}>
                     {currentPlaying.element.author}
                   </Text>
                 </View>
@@ -536,58 +559,62 @@ export default class playerView extends Component {
                 />
               </View>
             </View>
-            <View style={styles.djCard} />
             <View
               style={{
                 width: 260,
                 height: 260,
                 alignSelf: 'center',
-                position: 'absolute',
                 borderRadius: 130,
-                top: 190,
                 backgroundColor: 'black',
-              }}
-            />
-            <Animated.Image
-              style={{
-                width: 170,
-                height: 170,
-                borderRadius: 100,
-                alignSelf: 'center',
-                position: 'absolute',
-                top: 235,
-                transform: [
-                  {
-                    rotate: this.state.spinValue.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: ['0deg', '360deg'],
-                    }),
-                  },
-                ],
-              }}
-              source={
-                currentPlaying.element.pic_url.indexOf('http') > -1
-                  ? {uri: currentPlaying.element.pic_url}
-                  : noCover
-              }
-            />
-            <View style={{flex: 1}}>
-              <View
+                borderColor: 'rgba(215,215,215,0.2)',
+                borderWidth: 10,
+              }}>
+              {/*<View style={styles.djCard} />*/}
+              <Animated.Image
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginHorizontal: 50,
-                  justifyContent: 'space-around',
-                  bottom: -60,
-                }}>
-                {/*功能按钮区*/}
-                {/*<IconButton icon="play" size={20} />*/}
-                {/*<IconButton icon="play" size={20} />*/}
-
-                {/*<IconButton icon="play" size={20} />*/}
-
-                {/*<IconButton icon="play" size={20} />*/}
-              </View>
+                  width: 170,
+                  height: 170,
+                  borderRadius: 85,
+                  alignSelf: 'center',
+                  position: 'absolute',
+                  top: 35,
+                  transform: [
+                    {
+                      rotate: this.state.spinValue.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ['0deg', '360deg'],
+                      }),
+                    },
+                  ],
+                }}
+                source={
+                  currentPlaying.element.pic_url.indexOf('http') > -1
+                    ? {uri: currentPlaying.element.pic_url}
+                    : noCover
+                }
+              />
+            </View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              {/*<View*/}
+              {/*  style={{*/}
+              {/*    backgroundColor: 'purple',*/}
+              {/*    flexDirection: 'row',*/}
+              {/*    alignItems: 'center',*/}
+              {/*    marginHorizontal: 50,*/}
+              {/*    justifyContent: 'space-between',*/}
+              {/*  }}>*/}
+              {/*  /!*功能按钮区*!/*/}
+              {/*  <IconButton icon="play" size={20} />*/}
+              {/*  <IconButton icon="play" size={20} />*/}
+              {/*  <IconButton icon="play" size={20} />*/}
+              {/*  <IconButton icon="play" size={20} />*/}
+              {/*</View>*/}
               <View style={styles.progressStyle}>
                 <Text
                   style={{
@@ -659,43 +686,6 @@ export default class playerView extends Component {
             </View>
           </View>
         </Animated.View>
-        <Portal>
-          <Modal
-            animationType={'slider'}
-            visible={musicSide}
-            onDismiss={this.hideSide}
-            contentContainerStyle={{
-              backgroundColor: 'white',
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: '50%',
-              padding: 20,
-              borderRadius: 12,
-            }}>
-            <View
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}>
-              <Text>{playList.size()}/50</Text>
-              <IconButton
-                size={25}
-                icon={'delete-sweep-outline'}
-                onPress={() => this.props.destroyLinklist()}
-              />
-            </View>
-            <MusicList
-              mode={'local'}
-              musicList={playList.transArr()}
-              currentPlaying={currentPlaying}
-              listAction={this.props.listAction}
-            />
-          </Modal>
-        </Portal>
       </>
     );
     return (
@@ -731,6 +721,44 @@ export default class playerView extends Component {
           ) : null
           // <Text style={{color: 'red'}}>加载中。。。。。。。</Text>
         }
+        <Portal>
+          <Modal
+            animationType={'slider'}
+            visible={musicSide}
+            onDismiss={this.hideSide}
+            contentContainerStyle={{
+              backgroundColor: 'white',
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '50%',
+              padding: 20,
+              borderTopLeftRadius: 12,
+              borderTopRightRadius: 12,
+            }}>
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <Text>{playList.size()}/50</Text>
+              <IconButton
+                size={25}
+                icon={'delete-sweep-outline'}
+                onPress={() => this.props.destroyLinklist()}
+              />
+            </View>
+            <MusicList
+              mode={'local'}
+              musicList={playList.transArr()}
+              currentPlaying={currentPlaying}
+              listAction={this.props.listAction}
+            />
+          </Modal>
+        </Portal>
         <Toast ref="toast" position={this.state.position} />
       </>
     );

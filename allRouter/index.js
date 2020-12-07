@@ -7,9 +7,8 @@ import About from '../views/About';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import PlayerView from '../views/playerView';
-import {BackHandler} from 'react-native';
-import {Button, IconButton, Searchbar} from 'react-native-paper';
-import HotPage from '../views/TopPage';
+import {Animated, BackHandler} from 'react-native';
+import {Button, IconButton, Searchbar, Text} from 'react-native-paper';
 import ThemeSetting from '../views/Setting/ThemeSetting';
 
 const Stack = createStackNavigator();
@@ -17,15 +16,63 @@ const Stack = createStackNavigator();
 export default class APPNavigator extends Component {
   constructor(props) {
     super(props);
+    this.player = null;
     this.state = {
+      scaleAnimate: new Animated.Value(0),
       isOpen: false,
+      isClose: true,
+      withBlur: false,
     };
   }
 
+  showModal = () => {
+    Animated.spring(this.state.scaleAnimate, {
+      toValue: 1,
+      velocity: 2, //初始速度
+      friction: 8, //摩擦力值
+      duration: 1500, //
+      useNativeDriver: true,
+    }).start(() => {
+      this.setState({
+        isClose: false,
+      });
+    });
+    this.setState({
+      withBlur: true,
+      isOpen: true,
+    });
+  };
+
+  hideModal = () => {
+      console.log("隐藏主播放器")
+    Animated.spring(this.state.scaleAnimate, {
+      toValue: 0,
+      velocity: 2, //初始速度
+      friction: 8, //摩擦力值
+      duration: 1500, //
+      useNativeDriver: true,
+    }).start(() => {
+      this.setState({
+        isOpen: false,
+      });
+      //延迟执行
+    });
+    //立即执行
+    this.setState({
+      withBlur: false,
+      isClose: true,
+    });
+  };
+
   render() {
+    const {playList, currentPlaying, theme} = this.props;
+    const {scaleAnimate, withBlur, isOpen, isClose} = this.state;
     return (
       <>
-        <NavigationContainer theme={this.props.theme}>
+        <NavigationContainer
+          theme={theme}
+          ref={(ref) => (this.navigation = ref)}>
+          {/*  路由页*/}
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
               options={{
@@ -33,7 +80,13 @@ export default class APPNavigator extends Component {
                 headerShown: false,
               }}
               name="首页">
-              {(props) => <Home {...props} {...this.props} />}
+              {(props) => (
+                <Home
+                  {...props}
+                  {...this.props}
+                  backButton={() => this.hideModal()}
+                />
+              )}
             </Stack.Screen>
             <Stack.Screen
               options={{
@@ -57,9 +110,7 @@ export default class APPNavigator extends Component {
                   backgroundColor: this.props.theme.colors.surface,
                 },
                 headerRight: () => (
-                  <Button onPress={() => console.log(navigation.push('About'))}>
-                    关于
-                  </Button>
+                  <Button onPress={() => navigation.push('About')}>关于</Button>
                 ),
               })}
               name="Setting">
@@ -103,6 +154,27 @@ export default class APPNavigator extends Component {
               {(props) => <ThemeSetting {...props} />}
             </Stack.Screen>
           </Stack.Navigator>
+          {/*  底部播放器*/}
+          {/*props中包含theme={theme}playList={playList}currentPlaying={currentPlaying}*/}
+          {playList.size() > 0 && currentPlaying ? (
+            <PlayerView
+              ref={(ref) => {
+                this.player = ref;
+              }}
+              navigation={this.navigation}
+              {...this.props}
+              scaleAnimate={scaleAnimate}
+              withBlur={withBlur}
+              isOpen={isOpen}
+              isClose={isClose}
+              preSong={() => this.props.preSong()}
+              nextSong={(number = 1) => this.props.nextSong(number)}
+              destroyLinklist={() => this.props.destroyLinklist()}
+              listAction={(op, data) => this.props.listAction(op, data)}
+              showModal={this.showModal}
+              hideModal={this.hideModal}
+            />
+          ) : null}
         </NavigationContainer>
       </>
     );

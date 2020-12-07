@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import {Button, Text, Surface} from 'react-native-paper';
 import {debounce} from '../../unit/fn';
 import {playerStyle} from '../../style/style';
 import {getHotList} from '../../http/api';
 import MusicList from '../MusicList';
-import {TouchableItem} from 'react-native-tab-view';
 import huayu from '../../public/image/1.png';
 import rihan from '../../public/image/2.png';
 import omei from '../../public/image/3.png';
@@ -23,12 +22,12 @@ export default class Hot extends Component {
       buttonContent: {0: '总榜', 1: '最新'},
       fsuc: 'absolute',
       typeList: [
-        {id: 0, name: '华语', png: huayu},
-        {id: 1, name: '日韩', png: rihan},
-        {id: 2, name: '欧美', png: omei},
-        {id: 3, name: 'Remix', png: remix},
-        {id: 4, name: '纯音乐', png: chunyingyue},
-        {id: 5, name: '二次元', png: erciyuan},
+        {id: 1, name: '华语', png: huayu},
+        {id: 15, name: '日韩', png: rihan},
+        {id: 10, name: '欧美', png: omei},
+        {id: 11, name: 'Remix', png: remix},
+        {id: 12, name: '纯音乐', png: chunyingyue},
+        {id: 13, name: '二次元', png: erciyuan},
       ],
       listData: [],
     };
@@ -84,27 +83,14 @@ export default class Hot extends Component {
     return (
       <View style={{flex: 1, height: '100%'}}>
         <View style={playerStyle.typeList}>
-          {typeList.map((item) => {
+          {typeList.map((item, index) => {
             return (
-              <TouchableItem
+              <TouchableOpacity
+                key={item.id}
                 style={playerStyle.typeBox}
                 onPress={() => this.toTopPage(item)}>
-                <Surface
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}>
-                  <Image
-                    source={item.png}
-                    style={{
-                      height: '80%',
-                      resizeMode: 'contain',
-                    }}
-                  />
-                  <Text>{item.name}</Text>
-                </Surface>
-              </TouchableItem>
+                <Text>{item.name}</Text>
+              </TouchableOpacity>
             );
           })}
         </View>

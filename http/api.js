@@ -18,7 +18,7 @@ let BASE_URL = '';
 let baseURLArr = [
   {
     type: 'development',
-    url: 'http://192.168.1.37:3000',
+    url: 'http://localhost:3000',
   },
   {
     type: 'test',

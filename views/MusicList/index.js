@@ -70,9 +70,7 @@ export default class MusicList extends Component {
         />
         {loadAction ? (
           <ActivityIndicator animating={refreshing === 'bottom'} />
-        ) : (
-          null
-        )}
+        ) : null}
       </View>
     );
   }

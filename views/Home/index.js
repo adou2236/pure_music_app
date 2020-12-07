@@ -10,6 +10,7 @@ import {IconButton} from 'react-native-paper';
 import Hot from '../Hot';
 import ArtistList from '../ArtistList';
 import SideMenu from 'react-native-side-menu';
+import CDrawer from 'react-native-drawer';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Colors, Drawer, Switch} from 'react-native-paper';
 import Toast from 'react-native-easy-toast';
@@ -175,15 +176,31 @@ export default class Home extends Component {
   render() {
     const {active} = this.state;
     return (
-      <SideMenu
-        useNativeDriver={true}
-        onChange={(v) => {
+      <CDrawer
+        styles={{
+          drawer: {
+            backgroundColor: this.props.theme.colors.surface,
+          },
+        }}
+        type={'overlay'}
+        tapToClose={true}
+        panOpenMask={0.2}
+        openDrawerOffset={0.2} // 20% gap on the right side of drawer
+        panCloseMask={0.2}
+        closedDrawerOffset={0}
+        captureGestures={true}
+        onOpen={() => {
           this.setState({
-            isOpen: v,
+            isOpen: true,
           });
         }}
-        isOpen={this.state.isOpen}
-        menu={
+        onClose={() => {
+          this.setState({
+            isOpen: false,
+          });
+        }}
+        open={this.state.isOpen}
+        content={
           <>
             <Drawer.Section>
               <Drawer.Item label="首页" active={active === 'Home'} />
@@ -216,7 +233,7 @@ export default class Home extends Component {
           <Tab.Screen name="最新" component={ArtistList} />
         </Tab.Navigator>
         <Toast ref="toast" position={this.state.position} />
-      </SideMenu>
+      </CDrawer>
     );
   }
 }

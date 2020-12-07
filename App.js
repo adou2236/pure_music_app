@@ -14,7 +14,6 @@ import {
   StatusBar,
   Platform,
   NativeModules,
-  BackHandler,
   Animated,
 } from 'react-native';
 import APPNavigator from './allRouter';
@@ -42,13 +41,13 @@ if (Platform.OS === 'ios') {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.player = null;
     this.state = {
       playList: new DoublyCircularLinkedList(),
       currentPlaying: null,
       isOpen: false,
       isClose: true,
       withBlur: false,
-      scaleAnimate: new Animated.Value(0),
     };
   }
   componentDidMount() {
@@ -183,10 +182,17 @@ class App extends Component {
               playList: this.state.playList,
               currentPlaying: this.state.currentPlaying,
             },
-            () => this._storeData(),
+            () => {
+              //选择后立刻播放
+              this.player.player.pauseControl(true);
+              this._storeData();
+            },
           );
         } else {
           this.setState({currentPlaying: result}, () => {
+            //选择后立刻播放
+            console.log(this.player);
+            this.player.player.pauseControl(true);
             this._storeData();
           });
         }
@@ -230,7 +236,7 @@ class App extends Component {
     }
   };
   render() {
-    const {playList, currentPlaying, isClose, isOpen, withBlur} = this.state;
+    const {playList, currentPlaying} = this.state;
     const styles = StyleSheet.create({
       container: {
         width: '100%',
@@ -263,52 +269,80 @@ class App extends Component {
             barStyle={theme.dark ? 'light-content' : 'dark-content'} // enum('default', 'light-content', 'dark-content')
           />
           <APPNavigator
+            ref={(ref) => {
+              this.player = ref;
+            }}
             theme={theme}
-            style={{flex: 1}}
+            playList={playList}
             currentPlaying={currentPlaying}
-            withBlur={withBlur}
             listAction={(op, data) => this.listAction(op, data)}
-            backButton={() => this.hideModal()}
+            preSong={() => {
+              this.setState(
+                {
+                  currentPlaying: this.state.currentPlaying.prev,
+                },
+                () => {
+                  this._storeData();
+                },
+              );
+            }}
+            nextSong={(number = 1) => {
+              while (number-- > 0) {
+                this.state.currentPlaying = this.state.currentPlaying.next;
+              }
+              this.setState(
+                {
+                  currentPlaying: this.state.currentPlaying,
+                },
+                () => {
+                  this._storeData();
+                },
+              );
+            }}
+            destroyLinklist={() => this.destroyLinklist()}
           />
           {/*此处为绝对定位*/}
-          {playList.size() > 0 && currentPlaying ? (
-            <PlayerView
-              theme={theme}
-              scaleAnimate={this.state.scaleAnimate}
-              withBlur={withBlur}
-              isOpen={isOpen}
-              isClose={isClose}
-              playList={playList}
-              currentPlaying={currentPlaying}
-              preSong={() =>
-                this.setState(
-                  {
-                    currentPlaying: this.state.currentPlaying.prev,
-                  },
-                  () => {
-                    this._storeData();
-                  },
-                )
-              }
-              nextSong={(number = 1) => {
-                while (number-- > 0) {
-                  this.state.currentPlaying = this.state.currentPlaying.next;
-                }
-                this.setState(
-                  {
-                    currentPlaying: this.state.currentPlaying,
-                  },
-                  () => {
-                    this._storeData();
-                  },
-                );
-              }}
-              destroyLinklist={() => this.destroyLinklist()}
-              listAction={(op, data) => this.listAction(op, data)}
-              showModal={this.showModal}
-              hideModal={this.hideModal}
-            />
-          ) : null}
+          {/*{playList.size() > 0 && currentPlaying ? (*/}
+          {/*  <PlayerView*/}
+          {/*    ref={(ref) => {*/}
+          {/*      this.player = ref;*/}
+          {/*    }}*/}
+          {/*    theme={theme}*/}
+          {/*    scaleAnimate={this.state.scaleAnimate}*/}
+          {/*    withBlur={withBlur}*/}
+          {/*    isOpen={isOpen}*/}
+          {/*    isClose={isClose}*/}
+          {/*    playList={playList}*/}
+          {/*    currentPlaying={currentPlaying}*/}
+          {/*    preSong={() => {*/}
+          {/*      this.setState(*/}
+          {/*        {*/}
+          {/*          currentPlaying: this.state.currentPlaying.prev,*/}
+          {/*        },*/}
+          {/*        () => {*/}
+          {/*          this._storeData();*/}
+          {/*        },*/}
+          {/*      );*/}
+          {/*    }}*/}
+          {/*    nextSong={(number = 1) => {*/}
+          {/*      while (number-- > 0) {*/}
+          {/*        this.state.currentPlaying = this.state.currentPlaying.next;*/}
+          {/*      }*/}
+          {/*      this.setState(*/}
+          {/*        {*/}
+          {/*          currentPlaying: this.state.currentPlaying,*/}
+          {/*        },*/}
+          {/*        () => {*/}
+          {/*          this._storeData();*/}
+          {/*        },*/}
+          {/*      );*/}
+          {/*    }}*/}
+          {/*    destroyLinklist={() => this.destroyLinklist()}*/}
+          {/*    listAction={(op, data) => this.listAction(op, data)}*/}
+          {/*    showModal={this.showModal}*/}
+          {/*    hideModal={this.hideModal}*/}
+          {/*  />*/}
+          {/*) : null}*/}
         </PaperProvider>
       </SafeAreaView>
     );

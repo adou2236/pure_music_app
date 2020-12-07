@@ -6,10 +6,10 @@ export async function getRealUrl(music_id) {
   const $ = cheerio.load(await response.text());
   var real_url = analysisPage($);
   if (real_url !== '') {
-    if (real_url.indexOf('m4a') === -1) {
+    if (real_url.indexOf('http') === -1) {
       return pureStatic.baseUrl + real_url;
     } else {
-      return false;
+      return real_url;
     }
   } else {
     return false;

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
-import {Text, Searchbar, IconButton, Button} from 'react-native-paper';
+import {AsyncStorage, View} from 'react-native';
+import {Text, Searchbar, IconButton, Button, Chip} from 'react-native-paper';
 import MusicList from '../MusicList';
 import {getAllMusic} from '../../http/api';
-import {debounce, throttle} from '../../unit/fn';
+import {throttle} from '../../unit/fn';
+import {playerStyle} from '../../style/style';
 
 export default class Search extends Component {
   constructor(props) {
@@ -11,13 +12,67 @@ export default class Search extends Component {
     this.endReach = throttle(this.endReach, 300);
     this.state = {
       searchQuery: '',
+      searchKey: '',
       musicList: [],
       pageSize: 50,
       currentPage: 1,
       refreshing: false,
       carryOnLoading: true,
+      showHistory: true,
+      searchHistory: [],
     };
   }
+
+  componentDidMount() {
+    this._retrieveData();
+  }
+
+  _retrieveData = async () => {
+    try {
+      const searchHistory = await AsyncStorage.getItem('searchHistory');
+      if (searchHistory !== null) {
+        this.setState({
+          searchHistory: searchHistory.split(','),
+        });
+      }
+    } catch (error) {
+      this.setState({
+        searchHistory: [],
+      });
+      // Error retrieving data
+    }
+  };
+
+  removeAllHistory = () => {
+    this.setState(
+      {
+        searchHistory: [],
+      },
+      () => this._storeData(),
+    );
+  };
+
+  removeHistory = (item) => {
+    this.state.searchHistory.splice(this.state.searchHistory.indexOf(item), 1);
+    this.setState(
+      {
+        searchHistory: this.state.searchHistory,
+      },
+      () => this._storeData(),
+    );
+  };
+
+  //保存数据
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem(
+        'searchHistory',
+        this.state.searchHistory.toString(),
+      );
+    } catch (error) {
+      // Error saving data
+    }
+  };
 
   onChangeSearch = (v) => {
     this.setState({
@@ -29,10 +84,9 @@ export default class Search extends Component {
     let params = {
       pageSize: this.state.pageSize,
       currentPage: currentPage,
-      keywords: this.state.searchQuery,
+      keywords: this.state.searchKey,
     };
     getAllMusic(params).then((res) => {
-      console.log('搜索结果为', res);
       if (res.length !== 0) {
         this.setState({
           refreshing: false,
@@ -48,17 +102,30 @@ export default class Search extends Component {
   };
 
   search = (currentPage = 1) => {
-    this.setState(
-      {
-        refreshing: 'up',
-        musicList: [],
-        carryOnLoading: true,
-        currentPage: 1,
-      },
-      () => {
-        this.getData(1);
-      },
-    );
+    if (this.state.searchQuery) {
+      if (this.state.searchHistory.indexOf(this.state.searchQuery) === -1) {
+        this.state.searchHistory.push(this.state.searchQuery);
+        this.setState(
+          {
+            searchHistory: this.state.searchHistory,
+          },
+          () => this._storeData(),
+        );
+      }
+      this.setState(
+        {
+          searchKey: this.state.searchQuery,
+          refreshing: 'up',
+          musicList: [],
+          carryOnLoading: true,
+          currentPage: 1,
+          showHistory: false,
+        },
+        () => {
+          this.getData(1);
+        },
+      );
+    }
   };
 
   refesh = () => {
@@ -88,8 +155,51 @@ export default class Search extends Component {
   };
 
   render() {
-    const {searchQuery, musicList, carryOnLoading} = this.state;
+    const {
+      searchQuery,
+      musicList,
+      carryOnLoading,
+      showHistory,
+      searchHistory,
+    } = this.state;
     const {navigation, currentPlaying} = this.props;
+    const HistoryComponent = () => (
+      <View>
+        <View style={playerStyle.headLine}>
+          <Text style={{fontSize: 15}}>搜索历史</Text>
+          <IconButton
+            icon="delete-outline"
+            onPress={() => {
+              this.removeAllHistory();
+            }}
+          />
+        </View>
+        <View
+          style={{
+            dispaly: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingHorizontal: 10,
+          }}>
+          {searchHistory.map((item, index) => {
+            return (
+              <Chip
+                key={index}
+                style={{marginRight: 10, marginBottom: 10}}
+                onClose={() => {
+                  this.removeHistory(item);
+                }}
+                onPress={() => {
+                  this.setState({searchQuery: item}, () => this.search());
+                }}>
+                {item}
+              </Chip>
+            );
+          })}
+        </View>
+      </View>
+    );
+
     return (
       <View style={{height: '100%'}}>
         <View
@@ -106,8 +216,10 @@ export default class Search extends Component {
             onIconPress={() => navigation.pop()}
             style={{
               width: '80%',
-              borderRadius: 10,
               elevation: 0,
+              overFlow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
             }}
             onSubmitEditing={() => {
               this.search();
@@ -123,16 +235,20 @@ export default class Search extends Component {
             搜索
           </Button>
         </View>
-        <MusicList
-          refreshing={this.state.refreshing}
-          refresh={this.refesh}
-          endReach={this.endReach}
-          listAction={this.props.listAction}
-          musicList={musicList}
-          currentPlaying={currentPlaying}
-          mode={'net'}
-          loadAction={carryOnLoading}
-        />
+        {showHistory && searchHistory.length !== 0 ? (
+          <HistoryComponent />
+        ) : (
+          <MusicList
+            refreshing={this.state.refreshing}
+            refresh={this.refesh}
+            endReach={this.endReach}
+            listAction={this.props.listAction}
+            musicList={musicList}
+            currentPlaying={currentPlaying}
+            mode={'net'}
+            loadAction={carryOnLoading}
+          />
+        )}
       </View>
     );
   }
