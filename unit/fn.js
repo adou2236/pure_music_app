@@ -6,7 +6,11 @@ export async function getRealUrl(music_id) {
   const $ = cheerio.load(await response.text());
   var real_url = analysisPage($);
   if (real_url !== '') {
-    return pureStatic.baseUrl + real_url;
+    if (real_url.indexOf('m4a') === -1) {
+      return pureStatic.baseUrl + real_url;
+    } else {
+      return false;
+    }
   } else {
     return false;
   }
@@ -30,7 +34,9 @@ function getParenthesesStr(text) {
   let str1 = text.match(regex1)[0];
   let str2 = str1.match(regex2).toString();
   let arr = str2.split(',');
-  return arr[2].split(':')[1].replace(/'/g, '');
+  let i = arr[2].indexOf(':');
+  let splits = [arr[2].slice(0, i), arr[2].slice(i + 1)];
+  return splits[1].replace(/'/g, '');
 }
 
 //函数防抖

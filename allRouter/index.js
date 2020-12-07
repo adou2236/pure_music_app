@@ -3,12 +3,14 @@ import Home from '../views/Home';
 import Search from '../views/Search';
 import Setting from '../views/Setting';
 import TopPage from '../views/TopPage';
+import About from '../views/About';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import PlayerView from '../views/playerView';
 import {BackHandler} from 'react-native';
-import {IconButton, Searchbar} from 'react-native-paper';
+import {Button, IconButton, Searchbar} from 'react-native-paper';
 import HotPage from '../views/TopPage';
+import ThemeSetting from '../views/Setting/ThemeSetting';
 
 const Stack = createStackNavigator();
 
@@ -49,10 +51,17 @@ export default class APPNavigator extends Component {
               )}
             </Stack.Screen>
             <Stack.Screen
-              options={{
+              options={({navigation, route}) => ({
                 title: '设置',
-                headerShown: false,
-              }}
+                headerStyle: {
+                  backgroundColor: this.props.theme.colors.surface,
+                },
+                headerRight: () => (
+                  <Button onPress={() => console.log(navigation.push('About'))}>
+                    关于
+                  </Button>
+                ),
+              })}
               name="Setting">
               {(props) => <Setting {...props} theme={this.props.theme} />}
             </Stack.Screen>
@@ -62,8 +71,6 @@ export default class APPNavigator extends Component {
                 title: route.params.name,
                 headerStyle: {
                   backgroundColor: this.props.theme.colors.surface,
-                  borderBottomWidth: 0,
-                  elevation: 0,
                 },
               })}>
               {(props) => (
@@ -74,6 +81,26 @@ export default class APPNavigator extends Component {
                   listAction={this.props.listAction}
                 />
               )}
+            </Stack.Screen>
+            <Stack.Screen
+              options={() => ({
+                title: '关于',
+                headerStyle: {
+                  backgroundColor: this.props.theme.colors.surface,
+                },
+              })}
+              name="About">
+              {(props) => <About {...props} theme={this.props.theme} />}
+            </Stack.Screen>
+            <Stack.Screen
+              options={() => ({
+                title: '主体',
+                headerStyle: {
+                  backgroundColor: this.props.theme.colors.surface,
+                },
+              })}
+              name="ThemeSetting">
+              {(props) => <ThemeSetting {...props} />}
             </Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>

@@ -11,26 +11,7 @@ export default class Setting extends Component {
     const {navigation} = this.props;
     return (
       <View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 10,
-            backgroundColor: this.props.theme.colors.surface,
-          }}>
-          <IconButton
-            icon={'arrow-left'}
-            onIconPress={() => navigation.pop()}
-          />
-          <Button
-            onPress={() => {
-              this.search();
-            }}>
-            关于
-          </Button>
-        </View>
+        <Text>设置</Text>
       </View>
     );
   }

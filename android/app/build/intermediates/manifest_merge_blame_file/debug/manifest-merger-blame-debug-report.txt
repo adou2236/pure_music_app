@@ -22,11 +22,11 @@
 14-->[com.facebook.flipper:flipper:0.54.0] /Users/yangrui/.gradle/caches/transforms-2/files-2.1/1c7787ec82631e0394972c76bdabe608/flipper-0.54.0/AndroidManifest.xml:16:22-73
 15
 16    <application
-16-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:7:5-26:19
+16-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:7:5-27:19
 17        android:name="com.pure_music_app.MainApplication"
 17-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:8:7-38
 18        android:allowBackup="false"
-18-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:12:7-34
+18-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:13:7-34
 19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 19-->[androidx.core:core:1.1.0] /Users/yangrui/.gradle/caches/transforms-2/files-2.1/639e914bfc1efa21e36199d3ff2c5eef/core-1.1.0/AndroidManifest.xml:24:18-86
 20        android:debuggable="true"
@@ -37,35 +37,35 @@
 23        android:roundIcon="@mipmap/ic_launcher_round"
 23-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:11:7-52
 24        android:theme="@style/AppTheme"
-24-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:13:7-38
+24-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:14:7-38
 25        android:usesCleartextTraffic="true" >
-25-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/debug/AndroidManifest.xml:7:18-53
+25-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:12:7-42
 26        <activity
-26-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:14:7-24:18
+26-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:15:7-25:18
 27            android:name="com.pure_music_app.MainActivity"
-27-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:15:9-37
+27-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:16:9-37
 28            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-28-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:17:9-86
+28-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:18:9-86
 29            android:label="@string/app_name"
-29-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:16:9-41
+29-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:17:9-41
 30            android:launchMode="singleTask"
-30-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:18:9-40
+30-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:19:9-40
 31            android:windowSoftInputMode="adjustResize" >
-31-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:19:9-51
+31-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:20:9-51
 32            <intent-filter>
-32-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:20:9-23:25
+32-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:21:9-24:25
 33                <action android:name="android.intent.action.MAIN" />
-33-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:21:13-65
-33-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:21:21-62
+33-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:22:13-65
+33-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:22:21-62
 34
 35                <category android:name="android.intent.category.LAUNCHER" />
-35-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:22:13-73
-35-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:22:23-70
+35-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:23:13-73
+35-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:23:23-70
 36            </intent-filter>
 37        </activity>
 38        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-38-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:25:7-84
-38-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:25:17-81
+38-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:26:7-84
+38-->/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/AndroidManifest.xml:26:17-81
 39
 40        <service
 40-->[:react-native-music-control] /Users/yangrui/myPoj/pureMusic/pure_music_app/node_modules/react-native-music-control/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-14:43

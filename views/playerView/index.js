@@ -23,11 +23,10 @@ import {VibrancyView, BlurView} from 'react-native-blur';
 import Video from 'react-native-video';
 import MusicList from '../MusicList';
 import {getRealUrl, throttle, debounce} from '../../unit/fn';
-import noCover from '../../public/image/noCover.jpg';
 import MusicControl, {Command} from 'react-native-music-control';
 import {addPlayTimes} from '../../http/api';
 import Toast from 'react-native-easy-toast';
-import SideMenu from 'react-native-side-menu';
+import noCover from '../../public/image/noCover.png';
 
 export default class playerView extends Component {
   constructor(props) {
@@ -228,7 +227,7 @@ export default class playerView extends Component {
     addPlayTimes(this.props.currentPlaying.element.music_id);
   };
   setTime = (v) => {
-    console.log("持续播放中",v)
+    console.log('持续播放中', v);
     this.setState({
       currentTime: parseInt(v.currentTime),
     });
@@ -417,7 +416,11 @@ export default class playerView extends Component {
           }}>
           <View style={playerStyle.miniCover}>
             <Image
-              source={{uri: currentPlaying.element.pic_url}}
+              source={
+                currentPlaying.element.pic_url.indexOf('http') > -1
+                  ? {uri: currentPlaying.element.pic_url}
+                  : noCover
+              }
               style={{position: 'absolute', height: '100%', width: '100%'}}
             />
             <IconButton
@@ -481,7 +484,11 @@ export default class playerView extends Component {
               this.backgroundImage = img;
             }}
             style={styles.bgContainer}
-            source={{uri: currentPlaying.element.pic_url}}
+            source={
+              currentPlaying.element.pic_url.indexOf('http') > -1
+                ? {uri: currentPlaying.element.pic_url}
+                : noCover
+            }
             resizeMode="cover"
             onLoadEnd={this.imageLoaded.bind(this)}
           />
@@ -558,7 +565,11 @@ export default class playerView extends Component {
                   },
                 ],
               }}
-              source={{uri: currentPlaying.element.pic_url}}
+              source={
+                currentPlaying.element.pic_url.indexOf('http') > -1
+                  ? {uri: currentPlaying.element.pic_url}
+                  : noCover
+              }
             />
             <View style={{flex: 1}}>
               <View

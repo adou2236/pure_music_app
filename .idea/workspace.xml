@@ -8,17 +8,34 @@
       <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/http/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style/style.js" beforeDir="false" afterPath="$PROJECT_DIR$/style/style.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/yangrui.xcuserdatad/xcschemes/React-Core-AccessibilityResources.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/yangrui.xcuserdatad/xcschemes/React-Core-AccessibilityResources.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/pure_music_app.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/pure_music_app.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/pure_music_app.xcodeproj/project.xcworkspace/xcuserdata/yangrui.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/ios/pure_music_app.xcodeproj/project.xcworkspace/xcuserdata/yangrui.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/pure_music_app.xcworkspace/xcuserdata/yangrui.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/ios/pure_music_app.xcworkspace/xcuserdata/yangrui.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/image/noCover.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unit/fn.js" beforeDir="false" afterPath="$PROJECT_DIR$/unit/fn.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Hot/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Hot/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/MusicList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/MusicList/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/MusicList/listObj.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/MusicList/listObj.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Search/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Search/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Setting/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Setting/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/playerView/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/playerView/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,15 +88,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/image" />
       <recent name="$PROJECT_DIR$/android/app/src/main/assets/fonts" />
       <recent name="$PROJECT_DIR$/node_modules" />
       <recent name="$PROJECT_DIR$/views/ArtistList" />
       <recent name="$PROJECT_DIR$/views/Hot" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="React Native.iOS">
@@ -154,7 +171,10 @@
       <workItem from="1606917636613" duration="77000" />
       <workItem from="1606958963438" duration="22566000" />
       <workItem from="1607004230341" duration="204000" />
-      <workItem from="1607045444625" duration="1193000" />
+      <workItem from="1607045444625" duration="12228000" />
+      <workItem from="1607089032559" duration="146000" />
+      <workItem from="1607181514954" duration="1754000" />
+      <workItem from="1607304667816" duration="595000" />
     </task>
     <servers />
   </component>
@@ -162,12 +182,12 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="678" y="407" key="#ESLint" timestamp="1606994716796">
+    <state x="678" y="407" key="#ESLint" timestamp="1607071844988">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="581" y="349" key="#ESLint/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604846593310" />
     <state x="581" y="349" key="#ESLint/0.0.1440.900@0.0.1440.900" timestamp="1606356611295" />
-    <state x="678" y="407" key="#ESLint/0.0.1680.1050@0.0.1680.1050" timestamp="1606994716796" />
+    <state x="678" y="407" key="#ESLint/0.0.1680.1050@0.0.1680.1050" timestamp="1607071844988" />
     <state x="507" y="235" key="#Web_Browsers" timestamp="1604633788892">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -180,53 +200,53 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604837835108" />
-    <state width="1659" height="253" key="GridCell.Tab.0.bottom" timestamp="1606999097250">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1659" height="253" key="GridCell.Tab.0.bottom" timestamp="1607188661619">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1419" height="212" key="GridCell.Tab.0.bottom/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606579036144" />
     <state width="1419" height="210" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1606793868421" />
-    <state width="1659" height="253" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1606994994132" />
+    <state width="1659" height="253" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1607188661619" />
     <state width="1419" height="212" key="GridCell.Tab.0.bottom/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606584246129" />
     <state width="1419" height="210" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1606733032362" />
-    <state width="1659" height="253" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1606999097250" />
-    <state width="1659" height="253" key="GridCell.Tab.0.center" timestamp="1606999097249">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1659" height="253" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1607077313567" />
+    <state width="1659" height="253" key="GridCell.Tab.0.center" timestamp="1607188661618">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1419" height="212" key="GridCell.Tab.0.center/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606579036142" />
     <state width="1419" height="210" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1606793868420" />
-    <state width="1659" height="253" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1606994994131" />
+    <state width="1659" height="253" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1607188661618" />
     <state width="1419" height="212" key="GridCell.Tab.0.center/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606584246126" />
     <state width="1419" height="210" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1606733032361" />
-    <state width="1659" height="253" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1606999097249" />
-    <state width="1659" height="253" key="GridCell.Tab.0.left" timestamp="1606999097249">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1659" height="253" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1607077313565" />
+    <state width="1659" height="253" key="GridCell.Tab.0.left" timestamp="1607188661618">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1419" height="212" key="GridCell.Tab.0.left/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606579036141" />
     <state width="1419" height="210" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1606793868419" />
-    <state width="1659" height="253" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1606994994130" />
+    <state width="1659" height="253" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1607188661618" />
     <state width="1419" height="212" key="GridCell.Tab.0.left/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606584246125" />
     <state width="1419" height="210" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1606733032361" />
-    <state width="1659" height="253" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1606999097249" />
-    <state width="1659" height="253" key="GridCell.Tab.0.right" timestamp="1606999097250">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1659" height="253" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1607077313565" />
+    <state width="1659" height="253" key="GridCell.Tab.0.right" timestamp="1607188661619">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1419" height="212" key="GridCell.Tab.0.right/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1606579036143" />
     <state width="1419" height="210" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1606793868420" />
-    <state width="1659" height="253" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1606994994131" />
+    <state width="1659" height="253" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1607188661619" />
     <state width="1419" height="212" key="GridCell.Tab.0.right/0.23.1440.877/-556.-1417.2560.1417@0.23.1440.877" timestamp="1606584246128" />
     <state width="1419" height="210" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1606733032361" />
-    <state width="1659" height="253" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1606999097250" />
+    <state width="1659" height="253" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1607077313566" />
     <state x="390" y="78" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1606993328136">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="334" y="67" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1440.900@0.0.1440.900" timestamp="1606707629157" />
     <state x="390" y="78" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1606993328136" />
-    <state x="562" y="238" width="947" height="605" key="find.popup" timestamp="1606993352080">
+    <state x="562" y="238" width="947" height="605" key="find.popup" timestamp="1607075518969">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="482" y="204" width="811" height="490" key="find.popup/0.0.1440.900/-556.-1440.2560.1440@0.0.1440.900" timestamp="1604939455024" />
     <state x="482" y="204" width="811" height="518" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1606726431737" />
-    <state x="562" y="238" width="947" height="605" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606993352080" />
+    <state x="562" y="238" width="947" height="605" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607075518969" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1606718198290">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

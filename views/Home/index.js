@@ -111,7 +111,7 @@ function MyTabBar(props) {
 
 export default class Home extends Component {
   constructor(props) {
-      super(props);
+    super(props);
     this.state = {
       isOpen: false,
       nightMode: false,
@@ -145,7 +145,14 @@ export default class Home extends Component {
 
   onBackButtonPressAndroid = () => {
     const nav = this.props.route;
-    if (
+    if (this.props.withBlur) {
+      this.props.backButton();
+      return true;
+    } else if (this.state.isOpen) {
+      this.setState({
+        isOpen: false,
+      });
+    } else if (
       nav === 'Home' &&
       this.lastBackPressed &&
       this.lastBackPressed + 2000 >= Date.now()
@@ -153,16 +160,9 @@ export default class Home extends Component {
       //最近2秒内按过back键，可以退出应用。
       BackHandler.exitApp();
       return;
-    }
-    if (!this.state.isOpen && !this.props.withBlur) {
+    } else {
       this.lastBackPressed = Date.now();
       this.refs.toast.show('再按一次退出应用', 300);
-      return true;
-    } else {
-      this.props.backButton();
-      this.setState({
-        isOpen: false,
-      });
       return true;
     }
   };
@@ -174,7 +174,6 @@ export default class Home extends Component {
 
   render() {
     const {active} = this.state;
-    console.log('AAAAAAAAAa', this.props);
     return (
       <SideMenu
         useNativeDriver={true}
@@ -212,12 +211,7 @@ export default class Home extends Component {
             />
           )}>
           <Tab.Screen name="排行">
-            {(props) => (
-              <Hot
-                {...props}
-                {...this.props}
-              />
-            )}
+            {(props) => <Hot {...props} {...this.props} />}
           </Tab.Screen>
           <Tab.Screen name="最新" component={ArtistList} />
         </Tab.Navigator>
