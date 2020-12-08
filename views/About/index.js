@@ -6,13 +6,13 @@ export default function () {
   return (
     <View>
       <Card>
-        <Card.Title title="python爬虫开发" subtitle="xiehui 128447307@qq.com" />
-      </Card>
-      <Card>
         <Card.Title
           title="rnApp开发、服务端开发"
-          subtitle="ghq 128447307@qq.com"
+          subtitle="ghq 609597441@qq.com"
         />
+      </Card>
+      <Card>
+        <Card.Title title="python爬虫开发" subtitle="xiehui 128447307@qq.com" />
       </Card>
     </View>
   );

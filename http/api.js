@@ -15,10 +15,11 @@ import xhr from './index';
  * 根据环境变量进行接口的区分
  */
 let BASE_URL = '';
+let NET_URL = 'http://music.eleuu.com/';
 let baseURLArr = [
   {
     type: 'development',
-    url: 'http://localhost:3000',
+    url: 'http://192.168.1.37:3000',
   },
   {
     type: 'test',
@@ -56,6 +57,18 @@ export function addPlayTimes(music_id) {
  *@Description:热门
  */
 export function getHotList(data) {
-  let url = BASE_URL + `/search/topList`;
+  let url = BASE_URL + '/search/topList';
   return xhr('POST', url, data);
+}
+
+/*
+ *@Description:获取热门搜索歌手
+ */
+export function getHotAuthor() {
+  let params = {
+    offset: 0,
+    limit: 20,
+  };
+  let url = NET_URL + 'top/artists';
+  return xhr('GET', url, params);
 }

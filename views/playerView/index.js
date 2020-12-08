@@ -192,7 +192,8 @@ export default class playerView extends Component {
       });
   };
 
-  pauseControl = (play = false) => {
+  //播放与暂停的切换，当参数为true时，只切换到播放
+  pauseControl = (play = false, callback) => {
     // this.spin();
     // console.log(this.props.playList[0].music_id)
     this.setState(
@@ -200,6 +201,7 @@ export default class playerView extends Component {
         isPause: !play && !this.state.isPause,
       },
       () => {
+        callback && callback();
         if (!this.state.isPause) {
           MusicControl.updatePlayback({
             state: MusicControl.STATE_PLAYING, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
@@ -234,9 +236,13 @@ export default class playerView extends Component {
     });
     addPlayTimes(this.props.currentPlaying.element.music_id);
   };
-  setTime = (v) => {
+  setTime = ({currentTime}) => {
+    //当repeat为true时安卓端不会触发onEnd需要手动执行一次
+    if (currentTime < this.state.currentTime) {
+      this.onEnd();
+    }
     this.setState({
-      currentTime: parseInt(v.currentTime),
+      currentTime: parseInt(currentTime),
     });
   };
 
@@ -258,9 +264,12 @@ export default class playerView extends Component {
     }
   };
   seekDone = () => {
-    this.setTime = (v) => {
+    this.setTime = ({currentTime}) => {
+      if (currentTime < this.state.currentTime) {
+        this.onEnd();
+      }
       this.setState({
-        currentTime: parseInt(v.currentTime),
+        currentTime: parseInt(currentTime),
       });
     };
   };
@@ -271,7 +280,6 @@ export default class playerView extends Component {
   onBuffer = () => {};
   //播放结束后的循环操作
   onEnd = () => {
-    console.log('执行onEnd');
     const {playMode} = this.state;
     const {currentPlaying} = this.props;
     switch (playMode) {
@@ -288,9 +296,8 @@ export default class playerView extends Component {
       case 'shuffle':
         this.nextSong(Math.floor(Math.random() * this.props.playList.size()));
         break;
-      case 'repeat-once':
-        this.player.seek(0);
-        break;
+      default:
+        return;
     }
   };
   LoadStart() {}
@@ -705,6 +712,7 @@ export default class playerView extends Component {
               volume={1.0}
               muted={false}
               paused={currentUrl !== '' && isPause}
+              repeat={true}
               playInBackground={true}
               ignoreSilentSwitch={'ignore'}
               playWhenInactive={true}

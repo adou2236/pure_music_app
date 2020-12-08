@@ -15,6 +15,7 @@ import {
   Platform,
   NativeModules,
   Animated,
+  BackHandler,
 } from 'react-native';
 import APPNavigator from './allRouter';
 const {StatusBarManager} = NativeModules;
@@ -55,43 +56,43 @@ class App extends Component {
     this._retrieveData();
   }
 
-  showModal = () => {
-    Animated.spring(this.state.scaleAnimate, {
-      toValue: 1,
-      velocity: 2, //初始速度
-      friction: 8, //摩擦力值
-      duration: 1500, //
-      useNativeDriver: true,
-    }).start(() => {
-      this.setState({
-        isClose: false,
-      });
-    });
-    this.setState({
-      withBlur: true,
-      isOpen: true,
-    });
-  };
-
-  hideModal = () => {
-    Animated.spring(this.state.scaleAnimate, {
-      toValue: 0,
-      velocity: 2, //初始速度
-      friction: 8, //摩擦力值
-      duration: 1500, //
-      useNativeDriver: true,
-    }).start(() => {
-      this.setState({
-        isOpen: false,
-      });
-      //延迟执行
-    });
-    //立即执行
-    this.setState({
-      withBlur: false,
-      isClose: true,
-    });
-  };
+  // showModal = () => {
+  //   Animated.spring(this.state.scaleAnimate, {
+  //     toValue: 1,
+  //     velocity: 2, //初始速度
+  //     friction: 8, //摩擦力值
+  //     duration: 1500, //
+  //     useNativeDriver: true,
+  //   }).start(() => {
+  //     this.setState({
+  //       isClose: false,
+  //     });
+  //   });
+  //   this.setState({
+  //     withBlur: true,
+  //     isOpen: true,
+  //   });
+  // };
+  //
+  // hideModal = () => {
+  //   Animated.spring(this.state.scaleAnimate, {
+  //     toValue: 0,
+  //     velocity: 2, //初始速度
+  //     friction: 8, //摩擦力值
+  //     duration: 1500, //
+  //     useNativeDriver: true,
+  //   }).start(() => {
+  //     this.setState({
+  //       isOpen: false,
+  //     });
+  //     //延迟执行
+  //   });
+  //   //立即执行
+  //   this.setState({
+  //     withBlur: false,
+  //     isClose: true,
+  //   });
+  // };
 
   //从存储中读取
   _retrieveData = async () => {
@@ -301,48 +302,6 @@ class App extends Component {
             }}
             destroyLinklist={() => this.destroyLinklist()}
           />
-          {/*此处为绝对定位*/}
-          {/*{playList.size() > 0 && currentPlaying ? (*/}
-          {/*  <PlayerView*/}
-          {/*    ref={(ref) => {*/}
-          {/*      this.player = ref;*/}
-          {/*    }}*/}
-          {/*    theme={theme}*/}
-          {/*    scaleAnimate={this.state.scaleAnimate}*/}
-          {/*    withBlur={withBlur}*/}
-          {/*    isOpen={isOpen}*/}
-          {/*    isClose={isClose}*/}
-          {/*    playList={playList}*/}
-          {/*    currentPlaying={currentPlaying}*/}
-          {/*    preSong={() => {*/}
-          {/*      this.setState(*/}
-          {/*        {*/}
-          {/*          currentPlaying: this.state.currentPlaying.prev,*/}
-          {/*        },*/}
-          {/*        () => {*/}
-          {/*          this._storeData();*/}
-          {/*        },*/}
-          {/*      );*/}
-          {/*    }}*/}
-          {/*    nextSong={(number = 1) => {*/}
-          {/*      while (number-- > 0) {*/}
-          {/*        this.state.currentPlaying = this.state.currentPlaying.next;*/}
-          {/*      }*/}
-          {/*      this.setState(*/}
-          {/*        {*/}
-          {/*          currentPlaying: this.state.currentPlaying,*/}
-          {/*        },*/}
-          {/*        () => {*/}
-          {/*          this._storeData();*/}
-          {/*        },*/}
-          {/*      );*/}
-          {/*    }}*/}
-          {/*    destroyLinklist={() => this.destroyLinklist()}*/}
-          {/*    listAction={(op, data) => this.listAction(op, data)}*/}
-          {/*    showModal={this.showModal}*/}
-          {/*    hideModal={this.hideModal}*/}
-          {/*  />*/}
-          {/*) : null}*/}
         </PaperProvider>
       </SafeAreaView>
     );

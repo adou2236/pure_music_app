@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, FlatList, Text, RefreshControl} from 'react-native';
+import {View, FlatList, Text} from 'react-native';
 import {ActivityIndicator, Button} from 'react-native-paper';
 
 import ListObj from './listObj';
@@ -7,7 +7,6 @@ import ListObj from './listObj';
 export default class MusicList extends Component {
   constructor(props) {
     super(props);
-    console.log('歌曲列表', props.musicList);
     this.state = {
       visible: false,
     };
@@ -51,6 +50,15 @@ export default class MusicList extends Component {
             loadAction ? this.props.endReach() : '';
           }}
           refreshing={refreshing === 'up'}
+          ListFooterComponent={() =>
+            mode === 'net' ? (
+              loadAction ? (
+                <Text style={{textAlign: 'center'}}>加载中</Text>
+              ) : (
+                <Text style={{textAlign: 'center'}}>加载完毕</Text>
+              )
+            ) : null
+          }
           renderItem={({item, index}) => (
             <ListObj
               isPlaying={
@@ -68,9 +76,6 @@ export default class MusicList extends Component {
             />
           )}
         />
-        {loadAction ? (
-          <ActivityIndicator animating={refreshing === 'bottom'} />
-        ) : null}
       </View>
     );
   }

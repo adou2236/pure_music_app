@@ -13,7 +13,6 @@ import SideMenu from 'react-native-side-menu';
 import CDrawer from 'react-native-drawer';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Colors, Drawer, Switch} from 'react-native-paper';
-import Toast from 'react-native-easy-toast';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -83,10 +82,11 @@ function MyTabBar(props) {
               style={
                 isFocused
                   ? {
+                      marginHorizontal: 8,
                       borderBottomWidth: 2,
                       borderColor: props.theme.colors.primary,
                     }
-                  : ''
+                  : {marginHorizontal: 8}
               }
               accessibilityState={isFocused ? {selected: true} : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -117,7 +117,6 @@ export default class Home extends Component {
       isOpen: false,
       nightMode: false,
       active: '',
-      position: 'bottom',
     };
   }
   openSide = () => {
@@ -130,42 +129,6 @@ export default class Home extends Component {
     this.setState({
       nightMode: v,
     });
-  };
-  componentDidMount() {
-    BackHandler.addEventListener(
-      'hardwareBackPress',
-      this.onBackButtonPressAndroid,
-    );
-  }
-  componentWillUnmount() {
-    BackHandler.removeEventListener(
-      'hardwareBackPress',
-      this.onBackButtonPressAndroid,
-    );
-  }
-
-  onBackButtonPressAndroid = () => {
-    const nav = this.props.route;
-    if (this.props.withBlur) {
-      this.props.backButton();
-      return true;
-    } else if (this.state.isOpen) {
-      this.setState({
-        isOpen: false,
-      });
-    } else if (
-      nav === 'Home' &&
-      this.lastBackPressed &&
-      this.lastBackPressed + 2000 >= Date.now()
-    ) {
-      //最近2秒内按过back键，可以退出应用。
-      BackHandler.exitApp();
-      return;
-    } else {
-      this.lastBackPressed = Date.now();
-      this.refs.toast.show('再按一次退出应用', 300);
-      return true;
-    }
   };
 
   sideMenuPush = (router) => {
@@ -220,6 +183,7 @@ export default class Home extends Component {
           </>
         }>
         <Tab.Navigator
+          lazy={true}
           tabBar={(props) => (
             <MyTabBar
               theme={this.props.theme}
@@ -230,9 +194,10 @@ export default class Home extends Component {
           <Tab.Screen name="排行">
             {(props) => <Hot {...props} {...this.props} />}
           </Tab.Screen>
-          <Tab.Screen name="最新" component={ArtistList} />
+          <Tab.Screen name="歌手">
+            {() => <ArtistList navigation={this.props.navigation} />}
+          </Tab.Screen>
         </Tab.Navigator>
-        <Toast ref="toast" position={this.state.position} />
       </CDrawer>
     );
   }
