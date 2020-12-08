@@ -16,6 +16,12 @@ export default class TopPage extends Component {
       refreshing: false,
     };
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.route.params !== prevProps.route.params) {
+      console.log(this.props.route.params);
+      this.refesh();
+    }
+  }
   componentDidMount() {
     this.getHotList();
   }
@@ -43,8 +49,9 @@ export default class TopPage extends Component {
               listData: this.state.listData.concat(res.data.content),
             });
             if (
+              this.props.route.params.id ||
               this.state.currentPage * this.state.pageSize >=
-              res.data.pageInfo.total
+                res.data.pageInfo.total
             ) {
               this.setState({
                 carryOnLoading: false,

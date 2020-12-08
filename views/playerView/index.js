@@ -174,6 +174,7 @@ export default class playerView extends Component {
   toTopPage = () => {
     this.props.hideModal();
     this.props.navigation.navigate('TopPage', {
+      id: undefined,
       name: this.props.currentPlaying.element.author,
       author: this.props.currentPlaying.element.author,
     });

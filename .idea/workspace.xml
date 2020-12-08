@@ -3,21 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b5968517-a06e-439a-b186-648914423d8e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/allRouter/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/allRouter/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/6.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/http/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/About/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/About/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/ArtistList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/ArtistList/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/MusicList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/MusicList/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/playerView/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/playerView/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/TopPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/TopPage/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +142,7 @@
       <workItem from="1607089032559" duration="146000" />
       <workItem from="1607181514954" duration="1754000" />
       <workItem from="1607304667816" duration="28565000" />
-      <workItem from="1607391228543" duration="20061000" />
+      <workItem from="1607391228543" duration="21654000" />
     </task>
     <servers />
   </component>
