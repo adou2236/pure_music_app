@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Animated,
   Platform,
+  AsyncStorage,
 } from 'react-native';
 import Slider from 'react-native-slider-t';
 import {playerStyle} from '../../style/style';
@@ -22,7 +23,7 @@ import {
 import {VibrancyView, BlurView} from 'react-native-blur';
 import Video from 'react-native-video';
 import MusicList from '../MusicList';
-import {getRealUrl, throttle, debounce} from '../../unit/fn';
+import {getRealUrl} from '../../unit/fn';
 import MusicControl, {Command} from 'react-native-music-control';
 import {addPlayTimes} from '../../http/api';
 import Toast from 'react-native-easy-toast';
@@ -31,7 +32,6 @@ import noCover from '../../public/image/noCover.png';
 export default class playerView extends Component {
   constructor(props) {
     super(props);
-    console.log('传入的参数', props);
     this.rotation = false;
     this.player = null;
     this.backgroundImage = noCover;
@@ -63,6 +63,7 @@ export default class playerView extends Component {
   componentDidMount() {
     // this.spin();
     // MusicControl.resetNowPlaying();
+    this._retrieveData();
     MusicControl.setNowPlaying({
       title: this.props.currentPlaying.element.song_name,
       artwork: this.props.currentPlaying.element.pic_url, // URL or RN's image require()
@@ -77,7 +78,7 @@ export default class playerView extends Component {
     MusicControl.enableControl('pause', true);
     MusicControl.enableControl('nextTrack', true);
     MusicControl.enableControl('previousTrack', true);
-    MusicControl.on('play', () => {
+    MusicControl.on(Command.play, () => {
       this.pauseControl();
     });
     MusicControl.on(Command.pause, () => {
@@ -112,16 +113,13 @@ export default class playerView extends Component {
         () => {
           getRealUrl(this.props.currentPlaying.element.music_id)
             .then((res) => {
+              //                viewRef: findNodeHandle(this.backgroundImage),
               this.setState({
-                viewRef: findNodeHandle(this.backgroundImage),
                 currentUrl: res,
               });
             })
             .catch((err) => {
               this.nextSong();
-              // this.setState({
-              //   currentUrl: '',
-              // });
               this.refs.toast.show('解析失败', 300);
             });
         },
@@ -162,6 +160,29 @@ export default class playerView extends Component {
       });
     }
   }
+
+  //从存储中读取
+  _retrieveData = async () => {
+    try {
+      const playMode = await AsyncStorage.getItem('playMode');
+      if (playMode !== null) {
+        this.setState({
+          playMode: playMode,
+        });
+      }
+    } catch (error) {
+      this.setState({
+        playMode: 'repeat',
+      });
+    }
+  };
+
+  //保存数据
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem('playMode', this.state.playMode.toString());
+    } catch (error) {}
+  };
 
   formatMediaTime(duration) {
     let min = Math.floor(duration / 60);
@@ -228,6 +249,7 @@ export default class playerView extends Component {
     );
   };
   imageLoaded = () => {
+    console.log('图片加载完毕');
     this.setState({viewRef: findNodeHandle(this.backgroundImage)});
   };
 
@@ -311,9 +333,12 @@ export default class playerView extends Component {
   playMode = (v) => {
     let index = this.state.playModeList.map((item) => item.id).indexOf(v);
     index = (index + 1) % 4;
-    this.setState({
-      playMode: this.state.playModeList[index].id,
-    });
+    this.setState(
+      {
+        playMode: this.state.playModeList[index].id,
+      },
+      () => this._storeData(),
+    );
     this.refs.toast.show(this.state.playModeList[index].name, 300);
   };
   hideSide = () => {

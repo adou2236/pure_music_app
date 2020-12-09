@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  BackHandler,
-} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import Hot from '../Hot';
 import ArtistList from '../ArtistList';
-import SideMenu from 'react-native-side-menu';
 import CDrawer from 'react-native-drawer';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {Colors, Drawer, Switch} from 'react-native-paper';
+import {Drawer} from 'react-native-paper';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -137,7 +130,6 @@ export default class Home extends Component {
   };
 
   render() {
-    const {active} = this.state;
     return (
       <CDrawer
         styles={{
@@ -147,10 +139,12 @@ export default class Home extends Component {
         }}
         type={'overlay'}
         tapToClose={true}
-        panOpenMask={0.2}
-        openDrawerOffset={0.2} // 20% gap on the right side of drawer
+        openDrawerOffset={100}
         panCloseMask={0.2}
-        closedDrawerOffset={0}
+        closedDrawerOffset={-3}
+        tweenHandler={(ratio) => ({
+          main: {opacity: (2 - ratio) / 2},
+        })}
         captureGestures={true}
         onOpen={() => {
           this.setState({
@@ -166,17 +160,15 @@ export default class Home extends Component {
         content={
           <>
             <Drawer.Section>
-              <Drawer.Item label="首页" active={active === 'Home'} />
+              <Drawer.Item label="首页" />
               <Drawer.Item
                 label="搜索"
-                active={active === 'Search'}
                 onPress={() => this.sideMenuPush('Search')}
               />
             </Drawer.Section>
             <Drawer.Section>
               <Drawer.Item
                 label="设置"
-                active={active === 'Setting'}
                 onPress={() => this.sideMenuPush('Setting')}
               />
             </Drawer.Section>

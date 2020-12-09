@@ -5,6 +5,7 @@ import MusicList from '../MusicList';
 import {getAllMusic} from '../../http/api';
 import {throttle} from '../../unit/fn';
 import {playerStyle} from '../../style/style';
+import {useFocusEffect} from '@react-navigation/native';
 
 export default class Search extends Component {
   constructor(props) {
@@ -199,6 +200,7 @@ export default class Search extends Component {
         </View>
       </View>
     );
+
 
     return (
       <View style={{height: '100%'}}>

@@ -7,47 +7,12 @@ import About from '../views/About';
 import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import PlayerView from '../views/playerView';
-import {Animated, BackHandler, Platform} from 'react-native';
+import {Animated, BackHandler} from 'react-native';
 import {Button} from 'react-native-paper';
 import ThemeSetting from '../views/Setting/ThemeSetting';
 import Toast from 'react-native-easy-toast';
-import CDrawer from 'react-native-drawer';
 
 const Stack = createStackNavigator();
-//const onBackPress = () => {
-//         if (myProps.withBlur) {
-//           console.log('先关闭窗口');
-//           return true;
-//         } else {
-//           return false;
-//         }
-//       };
-// BackHandler.addEventListener('hardwareBackPress', onBackPress());
-// BackHandler.removeEventListener('hardwareBackPress', onBackPress());
-//
-
-// function MyApp(myProps) {
-//   const PageListen = ({onUpdate}) => {
-//     useFocusEffect(
-//       React.useCallback(() => {
-//         onUpdate();
-//         return () => {
-//           // Do something when the screen is unfocused
-//         };
-//       }, [onUpdate]),
-//     );
-//
-//     return null;
-//   };
-//   useFocusEffect(
-//     React.useCallback(() => {
-//       console.log('获得聚焦');
-//       return () => console.log('失去焦点');
-//     }, []),
-//   );
-//   return (
-//   );
-// }
 
 export default class APPNavigator extends Component {
   constructor(props) {
@@ -81,7 +46,6 @@ export default class APPNavigator extends Component {
   };
 
   hideModal = () => {
-    console.log('隐藏主播放器');
     Animated.spring(this.state.scaleAnimate, {
       toValue: 0,
       velocity: 2, //初始速度
@@ -104,21 +68,42 @@ export default class APPNavigator extends Component {
   render() {
     const {playList, currentPlaying, theme} = this.props;
     const {scaleAnimate, withBlur, isOpen, isClose} = this.state;
-    const PageListen = ({onUpdate}) => {
+    const onBackPress = (data) => {
+      if (this.state.withBlur) {
+        this.hideModal();
+        return true;
+      } else if (data.route.name === 'Home') {
+        if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+          //最近2秒内按过back键，可以退出应用。
+          BackHandler.exitApp();
+          return;
+        }
+        this.lastBackPressed = Date.now();
+        this.refs.toast.show('再按一次退出', 300);
+        return true;
+      } else {
+        data.navigation.pop();
+        return true;
+      }
+    };
+    const PageListen = (data) => {
       useFocusEffect(
         React.useCallback(() => {
-          console.log('聚焦');
+          BackHandler.addEventListener('hardwareBackPress', () =>
+            onBackPress(data),
+          );
           return () => {
-            console.log('失去焦点');
+            BackHandler.removeEventListener('hardwareBackPress', () =>
+              onBackPress(data),
+            );
           };
-        }, []),
+        }, [data]),
       );
 
       return null;
     };
     return (
       <>
-        {/*<PageListen  withBlur={withBlur}/>*/}
         <NavigationContainer
           theme={theme}
           ref={(ref) => (this.navigation = ref)}>
@@ -129,7 +114,12 @@ export default class APPNavigator extends Component {
                 headerShown: false,
               }}
               name="Home">
-              {(props) => <Home {...props} {...this.props} />}
+              {(props) => (
+                <>
+                  <PageListen {...props} />
+                  <Home {...props} {...this.props} />
+                </>
+              )}
             </Stack.Screen>
             <Stack.Screen
               options={{
@@ -138,12 +128,15 @@ export default class APPNavigator extends Component {
               }}
               name="Search">
               {(props) => (
-                <Search
-                  {...props}
-                  theme={theme}
-                  currentPlaying={currentPlaying}
-                  listAction={this.props.listAction}
-                />
+                <>
+                  <PageListen {...props} />
+                  <Search
+                    {...props}
+                    theme={theme}
+                    currentPlaying={currentPlaying}
+                    listAction={this.props.listAction}
+                  />
+                </>
               )}
             </Stack.Screen>
             <Stack.Screen
@@ -157,7 +150,12 @@ export default class APPNavigator extends Component {
                 ),
               })}
               name="Setting">
-              {(props) => <Setting {...props} theme={theme} />}
+              {(props) => (
+                <>
+                  <PageListen {...props} />
+                  <Setting {...props} theme={theme} />
+                </>
+              )}
             </Stack.Screen>
             <Stack.Screen
               name="TopPage"
@@ -168,12 +166,15 @@ export default class APPNavigator extends Component {
                 },
               })}>
               {(props) => (
-                <TopPage
-                  {...props}
-                  theme={theme}
-                  currentPlaying={currentPlaying}
-                  listAction={this.props.listAction}
-                />
+                <>
+                  <PageListen {...props} />
+                  <TopPage
+                    {...props}
+                    theme={theme}
+                    currentPlaying={currentPlaying}
+                    listAction={this.props.listAction}
+                  />
+                </>
               )}
             </Stack.Screen>
             <Stack.Screen
@@ -184,7 +185,12 @@ export default class APPNavigator extends Component {
                 },
               })}
               name="About">
-              {(props) => <About {...props} theme={theme} />}
+              {(props) => (
+                <>
+                  <PageListen {...props} />
+                  <About {...props} theme={theme} />
+                </>
+              )}
             </Stack.Screen>
             <Stack.Screen
               options={() => ({
@@ -194,7 +200,13 @@ export default class APPNavigator extends Component {
                 },
               })}
               name="ThemeSetting">
-              {(props) => <ThemeSetting {...props} />}
+              {(props) => (
+                <>
+                  {' '}
+                  <PageListen {...props} />
+                  <ThemeSetting {...props} />
+                </>
+              )}
             </Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>
