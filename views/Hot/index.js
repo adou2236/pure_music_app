@@ -85,12 +85,19 @@ export default class Hot extends Component {
         <View style={playerStyle.typeList}>
           {typeList.map((item, index) => {
             return (
-              <TouchableOpacity
-                key={item.id}
-                style={playerStyle.typeBox}
-                onPress={() => this.toTopPage(item)}>
-                <Text>{item.name}</Text>
-              </TouchableOpacity>
+              <Surface key={item.id} style={playerStyle.typeBox}>
+                <TouchableOpacity
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  onPress={() => this.toTopPage(item)}>
+                  <Text>{item.name}</Text>
+                </TouchableOpacity>
+              </Surface>
             );
           })}
         </View>

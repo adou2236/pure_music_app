@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import Home from '../views/Home';
 import Search from '../views/Search';
-import Setting from '../views/Setting';
 import TopPage from '../views/TopPage';
 import About from '../views/About';
 import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import PlayerView from '../views/playerView';
 import {Animated, BackHandler} from 'react-native';
-import {Button} from 'react-native-paper';
 import ThemeSetting from '../views/Setting/ThemeSetting';
 import Toast from 'react-native-easy-toast';
 
@@ -140,24 +138,6 @@ export default class APPNavigator extends Component {
               )}
             </Stack.Screen>
             <Stack.Screen
-              options={({navigation, route}) => ({
-                title: '设置',
-                headerStyle: {
-                  backgroundColor: theme.colors.surface,
-                },
-                headerRight: () => (
-                  <Button onPress={() => navigation.push('About')}>关于</Button>
-                ),
-              })}
-              name="Setting">
-              {(props) => (
-                <>
-                  <PageListen {...props} />
-                  <Setting {...props} theme={theme} />
-                </>
-              )}
-            </Stack.Screen>
-            <Stack.Screen
               name="TopPage"
               options={({navigation, route}) => ({
                 title: route.params.name,
@@ -194,7 +174,7 @@ export default class APPNavigator extends Component {
             </Stack.Screen>
             <Stack.Screen
               options={() => ({
-                title: '主体',
+                title: '主题设置',
                 headerStyle: {
                   backgroundColor: theme.colors.surface,
                 },
@@ -202,9 +182,8 @@ export default class APPNavigator extends Component {
               name="ThemeSetting">
               {(props) => (
                 <>
-                  {' '}
                   <PageListen {...props} />
-                  <ThemeSetting {...props} />
+                  <ThemeSetting {...props} theme={theme} />
                 </>
               )}
             </Stack.Screen>
@@ -214,6 +193,7 @@ export default class APPNavigator extends Component {
         {/*props中包含theme={theme}playList={playList}currentPlaying={currentPlaying}*/}
         {playList.size() > 0 && currentPlaying ? (
           <PlayerView
+            theme={theme}
             ref={(ref) => {
               this.player = ref;
             }}

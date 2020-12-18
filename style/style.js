@@ -46,14 +46,10 @@ const playerStyle = StyleSheet.create({
     paddingVertical: 10,
   },
   typeBox: {
-    backgroundColor: '#FFF',
     width: '30%',
     height: 80,
     elevation: 4,
     marginBottom: 10,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   headLine:{
     display: 'flex',

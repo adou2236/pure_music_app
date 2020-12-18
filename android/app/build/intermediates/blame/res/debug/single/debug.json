@@ -1404,6 +1404,10 @@
         "source": "/Users/yangrui/.gradle/caches/transforms-2/files-2.1/1cb9b9ea592aa2ea85233be252327dcf/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png"
     },
     {
+        "merged": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/build/intermediates/res/merged/debug/mipmap-ldpi_ic_launcher.png.flat",
+        "source": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/res/mipmap-ldpi/ic_launcher.png"
+    },
+    {
         "merged": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
         "source": "/Users/yangrui/.gradle/caches/transforms-2/files-2.1/1cb9b9ea592aa2ea85233be252327dcf/appcompat-1.1.0/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_015.png"
     },
@@ -2308,6 +2312,10 @@
         "source": "/Users/yangrui/myPoj/pureMusic/pure_music_app/node_modules/react-native-music-control/android/build/intermediates/packaged_res/debug/drawable-xxhdpi-v4/skip_forward_10.png"
     },
     {
+        "merged": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/build/intermediates/res/merged/debug/xml_pushy_file_paths.xml.flat",
+        "source": "/Users/yangrui/myPoj/pureMusic/pure_music_app/node_modules/react-native-update/android/build/intermediates/packaged_res/debug/xml/pushy_file_paths.xml"
+    },
+    {
         "merged": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/build/intermediates/res/merged/debug/color_abc_hint_foreground_material_light.xml.flat",
         "source": "/Users/yangrui/.gradle/caches/transforms-2/files-2.1/1cb9b9ea592aa2ea85233be252327dcf/appcompat-1.1.0/res/color/abc_hint_foreground_material_light.xml"
     },
@@ -2442,6 +2450,10 @@
     {
         "merged": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/build/intermediates/res/merged/debug/color_mtrl_btn_text_btn_ripple_color.xml.flat",
         "source": "/Users/yangrui/.gradle/caches/transforms-2/files-2.1/863e0c3c6716935cd3657ad638fd992d/material-1.1.0/res/color/mtrl_btn_text_btn_ripple_color.xml"
+    },
+    {
+        "merged": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/build/intermediates/res/merged/debug/mipmap-ldpi_ic_launcher_round.png.flat",
+        "source": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/src/main/res/mipmap-ldpi/ic_launcher_round.png"
     },
     {
         "merged": "/Users/yangrui/myPoj/pureMusic/pure_music_app/android/app/build/intermediates/res/merged/debug/drawable_ic_menu_arrow_down_black_24dp.xml.flat",

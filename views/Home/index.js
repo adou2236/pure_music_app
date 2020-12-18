@@ -166,12 +166,14 @@ export default class Home extends Component {
                 onPress={() => this.sideMenuPush('Search')}
               />
             </Drawer.Section>
-            <Drawer.Section>
-              <Drawer.Item
-                label="设置"
-                onPress={() => this.sideMenuPush('Setting')}
-              />
-            </Drawer.Section>
+            <Drawer.Item
+              label="主题设置"
+              onPress={() => this.sideMenuPush('ThemeSetting')}
+            />
+            <Drawer.Item
+              label="关于"
+              onPress={() => this.sideMenuPush('About')}
+            />
           </>
         }>
         <Tab.Navigator

@@ -14,21 +14,14 @@ import {
   StatusBar,
   Platform,
   NativeModules,
-  Animated,
-  BackHandler,
+  DeviceEventEmitter,
 } from 'react-native';
 import APPNavigator from './allRouter';
 const {StatusBarManager} = NativeModules;
-import {
-  Button,
-  Colors,
-  DarkTheme,
-  DefaultTheme,
-  Provider as PaperProvider,
-} from 'react-native-paper';
-import PlayerView from './views/playerView';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import {AsyncStorage} from 'react-native';
-import {DoublyCircularLinkedList} from './unit/fn'; //本地存储模块
+import {DoublyCircularLinkedList} from './unit/fn';
+import AllThemeColor from './views/Setting/AllTheme'; //本地存储模块
 
 let statusBarHeight;
 if (Platform.OS === 'ios') {
@@ -39,6 +32,10 @@ if (Platform.OS === 'ios') {
   statusBarHeight = StatusBar.currentHeight;
 }
 
+const defalutTheme = {
+  ...DefaultTheme,
+  colors: {...DefaultTheme.colors, primary: AllThemeColor[0]},
+};
 class App extends Component {
   constructor(props) {
     super(props);
@@ -49,56 +46,25 @@ class App extends Component {
       isOpen: false,
       isClose: true,
       withBlur: false,
+      theme: defalutTheme,
     };
   }
   componentDidMount() {
     //歌曲列表，循环双链表结构，存在本地只能以字符串形式，存与去需要进行格式化
     this._retrieveData();
+    DeviceEventEmitter.addListener('theme_change', (params) => {
+      this.setState({
+        theme: params,
+      });
+    });
   }
-
-  // showModal = () => {
-  //   Animated.spring(this.state.scaleAnimate, {
-  //     toValue: 1,
-  //     velocity: 2, //初始速度
-  //     friction: 8, //摩擦力值
-  //     duration: 1500, //
-  //     useNativeDriver: true,
-  //   }).start(() => {
-  //     this.setState({
-  //       isClose: false,
-  //     });
-  //   });
-  //   this.setState({
-  //     withBlur: true,
-  //     isOpen: true,
-  //   });
-  // };
-  //
-  // hideModal = () => {
-  //   Animated.spring(this.state.scaleAnimate, {
-  //     toValue: 0,
-  //     velocity: 2, //初始速度
-  //     friction: 8, //摩擦力值
-  //     duration: 1500, //
-  //     useNativeDriver: true,
-  //   }).start(() => {
-  //     this.setState({
-  //       isOpen: false,
-  //     });
-  //     //延迟执行
-  //   });
-  //   //立即执行
-  //   this.setState({
-  //     withBlur: false,
-  //     isClose: true,
-  //   });
-  // };
 
   //从存储中读取
   _retrieveData = async () => {
     try {
       const playList = await AsyncStorage.getItem('playList');
       const currentPlaying = await AsyncStorage.getItem('currentPlaying');
+      const theme = await AsyncStorage.getItem('theme');
       if (playList !== null) {
         JSON.parse(playList).forEach((item) => {
           this.state.playList.append(item);
@@ -113,10 +79,22 @@ class App extends Component {
           currentPlaying: temp === -1 ? this.state.playList.getHead() : temp,
         });
       }
+      if (theme !== null) {
+        this.setState({
+          theme: JSON.parse(theme),
+        });
+      } else {
+        this.setState({
+          playList: new DoublyCircularLinkedList(),
+          currentPlaying: null,
+          theme: defalutTheme,
+        });
+      }
     } catch (error) {
       this.setState({
         playList: new DoublyCircularLinkedList(),
         currentPlaying: null,
+        theme: defalutTheme,
       });
       // Error retrieving data
     }
@@ -133,10 +111,6 @@ class App extends Component {
     } catch (error) {
       // Error saving data
     }
-  };
-
-  text = () => {
-    this._retrieveData();
   };
 
   destroyLinklist = () => {
@@ -237,7 +211,8 @@ class App extends Component {
     }
   };
   render() {
-    const {playList, currentPlaying} = this.state;
+    const {playList, currentPlaying, theme} = this.state;
+    console.log('主题', theme);
     const styles = StyleSheet.create({
       container: {
         width: '100%',
@@ -251,14 +226,6 @@ class App extends Component {
         height: 53,
       },
     });
-    const theme = {
-      ...DefaultTheme,
-      roundness: 2,
-      colors: {
-        ...DefaultTheme.colors,
-        primary: '#ff00a1',
-      },
-    };
 
     return (
       <SafeAreaView

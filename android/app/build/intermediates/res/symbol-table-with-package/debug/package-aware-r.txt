@@ -1985,6 +1985,7 @@ string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
 string progressbar_description
+string pushy_build_time
 string radiogroup_description
 string rn_tab_description
 string scrollbar_description
@@ -2793,6 +2794,7 @@ styleable ViewBackgroundHelper android_background backgroundTint backgroundTintM
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable scaleStyle scalableType
+xml pushy_file_paths
 xml rn_dev_preferences
 xml standalone_badge
 xml standalone_badge_gravity_bottom_end

@@ -5753,18 +5753,19 @@ public final class R {
     public static final int public_image_4=0x7f070096;
     public static final int public_image_5=0x7f070097;
     public static final int public_image_6=0x7f070098;
-    public static final int public_image_nocover=0x7f070099;
-    public static final int redbox_top_border_background=0x7f07009a;
-    public static final int skip_backward_10=0x7f07009b;
-    public static final int skip_backward_30=0x7f07009c;
-    public static final int skip_backward_5=0x7f07009d;
-    public static final int skip_forward_10=0x7f07009e;
-    public static final int skip_forward_30=0x7f07009f;
-    public static final int skip_forward_5=0x7f0700a0;
-    public static final int stop=0x7f0700a1;
-    public static final int test_custom_background=0x7f0700a2;
-    public static final int tooltip_frame_dark=0x7f0700a3;
-    public static final int tooltip_frame_light=0x7f0700a4;
+    public static final int public_image_logo=0x7f070099;
+    public static final int public_image_nocover=0x7f07009a;
+    public static final int redbox_top_border_background=0x7f07009b;
+    public static final int skip_backward_10=0x7f07009c;
+    public static final int skip_backward_30=0x7f07009d;
+    public static final int skip_backward_5=0x7f07009e;
+    public static final int skip_forward_10=0x7f07009f;
+    public static final int skip_forward_30=0x7f0700a0;
+    public static final int skip_forward_5=0x7f0700a1;
+    public static final int stop=0x7f0700a2;
+    public static final int test_custom_background=0x7f0700a3;
+    public static final int tooltip_frame_dark=0x7f0700a4;
+    public static final int tooltip_frame_light=0x7f0700a5;
   }
   public static final class id {
     public static final int ALT=0x7f080000;
@@ -6265,7 +6266,9 @@ public final class R {
     public static final int node_modules_entities_maps_entities=0x7f0e0004;
     public static final int node_modules_entities_maps_legacy=0x7f0e0005;
     public static final int node_modules_entities_maps_xml=0x7f0e0006;
-    public static final int node_modules_reactnativevectoricons_glyphmaps_materialcommunityicons=0x7f0e0007;
+    public static final int node_modules_reactnativeupdate_package=0x7f0e0007;
+    public static final int node_modules_reactnativevectoricons_glyphmaps_materialcommunityicons=0x7f0e0008;
+    public static final int update=0x7f0e0009;
   }
   public static final class string {
     public static final int abc_action_bar_home_description=0x7f0f0000;
@@ -6387,23 +6390,24 @@ public final class R {
     public static final int path_password_eye_mask_visible=0x7f0f0074;
     public static final int path_password_strike_through=0x7f0f0075;
     public static final int progressbar_description=0x7f0f0076;
-    public static final int radiogroup_description=0x7f0f0077;
-    public static final int rn_tab_description=0x7f0f0078;
-    public static final int scrollbar_description=0x7f0f0079;
-    public static final int search_description=0x7f0f007a;
-    public static final int search_menu_title=0x7f0f007b;
-    public static final int spinbutton_description=0x7f0f007c;
-    public static final int state_busy_description=0x7f0f007d;
-    public static final int state_collapsed_description=0x7f0f007e;
-    public static final int state_expanded_description=0x7f0f007f;
-    public static final int state_mixed_description=0x7f0f0080;
-    public static final int state_off_description=0x7f0f0081;
-    public static final int state_on_description=0x7f0f0082;
-    public static final int status_bar_notification_info_overflow=0x7f0f0083;
-    public static final int summary_description=0x7f0f0084;
-    public static final int tablist_description=0x7f0f0085;
-    public static final int timer_description=0x7f0f0086;
-    public static final int toolbar_description=0x7f0f0087;
+    public static final int pushy_build_time=0x7f0f0077;
+    public static final int radiogroup_description=0x7f0f0078;
+    public static final int rn_tab_description=0x7f0f0079;
+    public static final int scrollbar_description=0x7f0f007a;
+    public static final int search_description=0x7f0f007b;
+    public static final int search_menu_title=0x7f0f007c;
+    public static final int spinbutton_description=0x7f0f007d;
+    public static final int state_busy_description=0x7f0f007e;
+    public static final int state_collapsed_description=0x7f0f007f;
+    public static final int state_expanded_description=0x7f0f0080;
+    public static final int state_mixed_description=0x7f0f0081;
+    public static final int state_off_description=0x7f0f0082;
+    public static final int state_on_description=0x7f0f0083;
+    public static final int status_bar_notification_info_overflow=0x7f0f0084;
+    public static final int summary_description=0x7f0f0085;
+    public static final int tablist_description=0x7f0f0086;
+    public static final int timer_description=0x7f0f0087;
+    public static final int toolbar_description=0x7f0f0088;
   }
   public static final class style {
     public static final int AlertDialog_AppCompat=0x7f100000;
@@ -21185,10 +21189,11 @@ public final class R {
     public static final int scaleStyle_scalableType=0;
   }
   public static final class xml {
-    public static final int rn_dev_preferences=0x7f120000;
-    public static final int standalone_badge=0x7f120001;
-    public static final int standalone_badge_gravity_bottom_end=0x7f120002;
-    public static final int standalone_badge_gravity_bottom_start=0x7f120003;
-    public static final int standalone_badge_gravity_top_start=0x7f120004;
+    public static final int pushy_file_paths=0x7f120000;
+    public static final int rn_dev_preferences=0x7f120001;
+    public static final int standalone_badge=0x7f120002;
+    public static final int standalone_badge_gravity_bottom_end=0x7f120003;
+    public static final int standalone_badge_gravity_bottom_start=0x7f120004;
+    public static final int standalone_badge_gravity_top_start=0x7f120005;
   }
 }

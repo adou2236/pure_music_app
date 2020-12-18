@@ -1824,8 +1824,8 @@ public final class R {
         public static final int path_password_eye_mask_strike_through = 0x7f0e0073;
         public static final int path_password_eye_mask_visible = 0x7f0e0074;
         public static final int path_password_strike_through = 0x7f0e0075;
-        public static final int search_menu_title = 0x7f0e007b;
-        public static final int status_bar_notification_info_overflow = 0x7f0e0083;
+        public static final int search_menu_title = 0x7f0e007c;
+        public static final int status_bar_notification_info_overflow = 0x7f0e0084;
     }
     public static final class style {
         private style() {}
@@ -3391,9 +3391,9 @@ public final class R {
     public static final class xml {
         private xml() {}
 
-        public static final int standalone_badge = 0x7f110001;
-        public static final int standalone_badge_gravity_bottom_end = 0x7f110002;
-        public static final int standalone_badge_gravity_bottom_start = 0x7f110003;
-        public static final int standalone_badge_gravity_top_start = 0x7f110004;
+        public static final int standalone_badge = 0x7f110002;
+        public static final int standalone_badge_gravity_bottom_end = 0x7f110003;
+        public static final int standalone_badge_gravity_bottom_start = 0x7f110004;
+        public static final int standalone_badge_gravity_top_start = 0x7f110005;
     }
 }

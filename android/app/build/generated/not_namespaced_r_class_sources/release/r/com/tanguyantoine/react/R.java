@@ -85,13 +85,13 @@ public final class R {
         public static final int pause = 0x7f070090;
         public static final int play = 0x7f070091;
         public static final int previous = 0x7f070092;
-        public static final int skip_backward_10 = 0x7f07009b;
-        public static final int skip_backward_30 = 0x7f07009c;
-        public static final int skip_backward_5 = 0x7f07009d;
-        public static final int skip_forward_10 = 0x7f07009e;
-        public static final int skip_forward_30 = 0x7f07009f;
-        public static final int skip_forward_5 = 0x7f0700a0;
-        public static final int stop = 0x7f0700a1;
+        public static final int skip_backward_10 = 0x7f07009c;
+        public static final int skip_backward_30 = 0x7f07009d;
+        public static final int skip_backward_5 = 0x7f07009e;
+        public static final int skip_forward_10 = 0x7f07009f;
+        public static final int skip_forward_30 = 0x7f0700a0;
+        public static final int skip_forward_5 = 0x7f0700a1;
+        public static final int stop = 0x7f0700a2;
     }
     public static final class id {
         private id() {}
@@ -158,7 +158,7 @@ public final class R {
     public static final class string {
         private string() {}
 
-        public static final int status_bar_notification_info_overflow = 0x7f0f0083;
+        public static final int status_bar_notification_info_overflow = 0x7f0f0084;
     }
     public static final class style {
         private style() {}

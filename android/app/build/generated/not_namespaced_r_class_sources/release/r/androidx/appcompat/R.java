@@ -644,8 +644,8 @@ public final class R {
         public static final int notification_template_icon_low_bg = 0x7f07008d;
         public static final int notification_tile_bg = 0x7f07008e;
         public static final int notify_panel_notification_icon_bg = 0x7f07008f;
-        public static final int tooltip_frame_dark = 0x7f0700a3;
-        public static final int tooltip_frame_light = 0x7f0700a4;
+        public static final int tooltip_frame_dark = 0x7f0700a4;
+        public static final int tooltip_frame_light = 0x7f0700a5;
     }
     public static final class id {
         private id() {}
@@ -886,8 +886,8 @@ public final class R {
         public static final int abc_shareactionprovider_share_with = 0x7f0f0018;
         public static final int abc_shareactionprovider_share_with_application = 0x7f0f0019;
         public static final int abc_toolbar_collapse_description = 0x7f0f001a;
-        public static final int search_menu_title = 0x7f0f007b;
-        public static final int status_bar_notification_info_overflow = 0x7f0f0083;
+        public static final int search_menu_title = 0x7f0f007c;
+        public static final int status_bar_notification_info_overflow = 0x7f0f0084;
     }
     public static final class style {
         private style() {}

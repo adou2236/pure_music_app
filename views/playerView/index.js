@@ -450,7 +450,14 @@ export default class playerView extends Component {
       musicSide,
       currentUrl,
     } = this.state;
-    let {playList, currentPlaying, isOpen, isClose, withBlur} = this.props;
+    let {
+      playList,
+      currentPlaying,
+      isOpen,
+      isClose,
+      withBlur,
+      theme,
+    } = this.props;
     const miniPlayer = (
       <View style={playerStyle.miniPlayer}>
         <View
@@ -761,7 +768,7 @@ export default class playerView extends Component {
             visible={musicSide}
             onDismiss={this.hideSide}
             contentContainerStyle={{
-              backgroundColor: 'white',
+              backgroundColor: theme.colors.surface,
               position: 'absolute',
               bottom: 0,
               left: 0,

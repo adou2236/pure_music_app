@@ -963,23 +963,23 @@ public final class R {
         public static final int menubar_description = 0x7f0e004d;
         public static final int menuitem_description = 0x7f0e004e;
         public static final int progressbar_description = 0x7f0e0076;
-        public static final int radiogroup_description = 0x7f0e0077;
-        public static final int rn_tab_description = 0x7f0e0078;
-        public static final int scrollbar_description = 0x7f0e0079;
-        public static final int search_description = 0x7f0e007a;
-        public static final int search_menu_title = 0x7f0e007b;
-        public static final int spinbutton_description = 0x7f0e007c;
-        public static final int state_busy_description = 0x7f0e007d;
-        public static final int state_collapsed_description = 0x7f0e007e;
-        public static final int state_expanded_description = 0x7f0e007f;
-        public static final int state_mixed_description = 0x7f0e0080;
-        public static final int state_off_description = 0x7f0e0081;
-        public static final int state_on_description = 0x7f0e0082;
-        public static final int status_bar_notification_info_overflow = 0x7f0e0083;
-        public static final int summary_description = 0x7f0e0084;
-        public static final int tablist_description = 0x7f0e0085;
-        public static final int timer_description = 0x7f0e0086;
-        public static final int toolbar_description = 0x7f0e0087;
+        public static final int radiogroup_description = 0x7f0e0078;
+        public static final int rn_tab_description = 0x7f0e0079;
+        public static final int scrollbar_description = 0x7f0e007a;
+        public static final int search_description = 0x7f0e007b;
+        public static final int search_menu_title = 0x7f0e007c;
+        public static final int spinbutton_description = 0x7f0e007d;
+        public static final int state_busy_description = 0x7f0e007e;
+        public static final int state_collapsed_description = 0x7f0e007f;
+        public static final int state_expanded_description = 0x7f0e0080;
+        public static final int state_mixed_description = 0x7f0e0081;
+        public static final int state_off_description = 0x7f0e0082;
+        public static final int state_on_description = 0x7f0e0083;
+        public static final int status_bar_notification_info_overflow = 0x7f0e0084;
+        public static final int summary_description = 0x7f0e0085;
+        public static final int tablist_description = 0x7f0e0086;
+        public static final int timer_description = 0x7f0e0087;
+        public static final int toolbar_description = 0x7f0e0088;
     }
     public static final class style {
         private style() {}
@@ -1902,6 +1902,6 @@ public final class R {
     public static final class xml {
         private xml() {}
 
-        public static final int rn_dev_preferences = 0x7f110000;
+        public static final int rn_dev_preferences = 0x7f110001;
     }
 }

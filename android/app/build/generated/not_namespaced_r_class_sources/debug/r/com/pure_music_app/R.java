@@ -7182,23 +7182,24 @@ public final class R {
     public static final int path_password_eye_mask_visible=0x7f0e0074;
     public static final int path_password_strike_through=0x7f0e0075;
     public static final int progressbar_description=0x7f0e0076;
-    public static final int radiogroup_description=0x7f0e0077;
-    public static final int rn_tab_description=0x7f0e0078;
-    public static final int scrollbar_description=0x7f0e0079;
-    public static final int search_description=0x7f0e007a;
-    public static final int search_menu_title=0x7f0e007b;
-    public static final int spinbutton_description=0x7f0e007c;
-    public static final int state_busy_description=0x7f0e007d;
-    public static final int state_collapsed_description=0x7f0e007e;
-    public static final int state_expanded_description=0x7f0e007f;
-    public static final int state_mixed_description=0x7f0e0080;
-    public static final int state_off_description=0x7f0e0081;
-    public static final int state_on_description=0x7f0e0082;
-    public static final int status_bar_notification_info_overflow=0x7f0e0083;
-    public static final int summary_description=0x7f0e0084;
-    public static final int tablist_description=0x7f0e0085;
-    public static final int timer_description=0x7f0e0086;
-    public static final int toolbar_description=0x7f0e0087;
+    public static final int pushy_build_time=0x7f0e0077;
+    public static final int radiogroup_description=0x7f0e0078;
+    public static final int rn_tab_description=0x7f0e0079;
+    public static final int scrollbar_description=0x7f0e007a;
+    public static final int search_description=0x7f0e007b;
+    public static final int search_menu_title=0x7f0e007c;
+    public static final int spinbutton_description=0x7f0e007d;
+    public static final int state_busy_description=0x7f0e007e;
+    public static final int state_collapsed_description=0x7f0e007f;
+    public static final int state_expanded_description=0x7f0e0080;
+    public static final int state_mixed_description=0x7f0e0081;
+    public static final int state_off_description=0x7f0e0082;
+    public static final int state_on_description=0x7f0e0083;
+    public static final int status_bar_notification_info_overflow=0x7f0e0084;
+    public static final int summary_description=0x7f0e0085;
+    public static final int tablist_description=0x7f0e0086;
+    public static final int timer_description=0x7f0e0087;
+    public static final int toolbar_description=0x7f0e0088;
   }
   public static final class style {
     public static final int AlertDialog_AppCompat=0x7f0f0000;
@@ -23213,10 +23214,11 @@ public final class R {
     public static final int scaleStyle_scalableType=0;
   }
   public static final class xml {
-    public static final int rn_dev_preferences=0x7f110000;
-    public static final int standalone_badge=0x7f110001;
-    public static final int standalone_badge_gravity_bottom_end=0x7f110002;
-    public static final int standalone_badge_gravity_bottom_start=0x7f110003;
-    public static final int standalone_badge_gravity_top_start=0x7f110004;
+    public static final int pushy_file_paths=0x7f110000;
+    public static final int rn_dev_preferences=0x7f110001;
+    public static final int standalone_badge=0x7f110002;
+    public static final int standalone_badge_gravity_bottom_end=0x7f110003;
+    public static final int standalone_badge_gravity_bottom_start=0x7f110004;
+    public static final int standalone_badge_gravity_top_start=0x7f110005;
   }
 }
