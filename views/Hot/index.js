@@ -5,12 +5,6 @@ import {debounce} from '../../unit/fn';
 import {playerStyle} from '../../style/style';
 import {getHotList} from '../../http/api';
 import MusicList from '../MusicList';
-import huayu from '../../public/image/1.png';
-import rihan from '../../public/image/2.png';
-import omei from '../../public/image/3.png';
-import remix from '../../public/image/4.png';
-import chunyingyue from '../../public/image/5.png';
-import erciyuan from '../../public/image/6.png';
 
 export default class Hot extends Component {
   constructor(props) {
@@ -22,12 +16,12 @@ export default class Hot extends Component {
       buttonContent: {0: '总榜', 1: '最新'},
       fsuc: 'absolute',
       typeList: [
-        {id: 1, name: '华语', png: huayu},
-        {id: 15, name: '日韩', png: rihan},
-        {id: 10, name: '欧美', png: omei},
-        {id: 11, name: 'Remix', png: remix},
-        {id: 12, name: '纯音乐', png: chunyingyue},
-        {id: 13, name: '二次元', png: erciyuan},
+        {id: 1, name: '华语'},
+        {id: 15, name: '日韩'},
+        {id: 10, name: '欧美'},
+        {id: 11, name: 'Remix'},
+        {id: 12, name: '纯音乐'},
+        {id: 13, name: '二次元'},
       ],
       listData: [],
     };

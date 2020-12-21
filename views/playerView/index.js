@@ -261,7 +261,7 @@ export default class playerView extends Component {
   };
   setTime = ({currentTime}) => {
     //当repeat为true时安卓端不会触发onEnd需要手动执行一次
-    if (currentTime < this.state.currentTime) {
+    if (currentTime >= this.state.duration) {
       this.onEnd();
     }
     this.setState({
@@ -288,7 +288,7 @@ export default class playerView extends Component {
   };
   seekDone = () => {
     this.setTime = ({currentTime}) => {
-      if (currentTime < this.state.currentTime) {
+      if (currentTime >= this.state.duration) {
         this.onEnd();
       }
       this.setState({
@@ -297,7 +297,8 @@ export default class playerView extends Component {
     };
   };
   videoError = () => {
-    alert('资源错误');
+    this.refs.toast.show('资源错误', 300);
+    this.nextSong();
   };
   onTimedMetadata = () => {};
   onBuffer = () => {};
